@@ -1,0 +1,73 @@
+# Entity: content_collection
+
+main: kit: entity: content_collection: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "glossary"
+      req: false
+      type: "`$ARRAY`"
+    }
+  ]
+
+  name: "content_collection"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                example: "glossary"
+                kind: "param"
+                name: "content_type"
+                orig: "content_type"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "callback"
+                orig: "callback"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/api/{content-type}.json"
+          parts: [
+            "api"
+            "{content-type}.json"
+          ]
+          select: {
+            exist: [
+              "callback"
+              "content_type"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "api"
+      ]
+    ]
+  }
+
+
+
+}

@@ -1,0 +1,28 @@
+{
+  "existing": {
+    "content_collection": {
+      "CONTENT_COLLECTION00": {
+        "glossary": [],
+        "content_type": "CONTENT_TYPE01",
+        "id": "CONTENT_COLLECTION00"
+      },
+      "CONTENT_COLLECTION01": {
+        "glossary": [],
+        "content_type": "CONTENT_TYPE01",
+        "id": "CONTENT_COLLECTION01"
+      },
+      "CONTENT_COLLECTION02": {
+        "glossary": [],
+        "content_type": "CONTENT_TYPE01",
+        "id": "CONTENT_COLLECTION02"
+      }
+    }
+  },
+  "new": {
+    "content_collection": {
+      "content_collection_ref01": {
+        "glossary": []
+      }
+    }
+  }
+}

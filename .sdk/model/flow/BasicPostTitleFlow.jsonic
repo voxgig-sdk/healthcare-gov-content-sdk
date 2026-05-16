@@ -1,0 +1,26 @@
+# BasicPostTitleFlow
+
+main: kit: flow: BasicPostTitleFlow:
+{
+  entity: "post_title",
+  kind: "basic",
+  name: "BasicPostTitleFlow",
+  step: [
+    {
+      match: {
+        post_title: "post_title01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "post_title_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicPostTitleFlow"
+}

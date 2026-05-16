@@ -1,0 +1,32 @@
+# BasicContentCollectionFlow
+
+main: kit: flow: BasicContentCollectionFlow:
+{
+  entity: "content_collection",
+  kind: "basic",
+  name: "BasicContentCollectionFlow",
+  step: [
+    {
+      input: {
+        ref: "content_collection_ref01",
+        srcdatavar: "content_collection_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        content_type: "content_type01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-content_collection_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicContentCollectionFlow"
+}

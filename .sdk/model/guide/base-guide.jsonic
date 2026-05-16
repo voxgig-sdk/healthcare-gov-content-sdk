@@ -1,0 +1,26 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 3
+  metrics: count: path: 3
+  metrics: count: method: 3
+
+  entity: content_collection: {
+    path: "/api/{content-type}.json": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: index: {
+    path: "/api/index.json": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: post_title: {
+    path: "/{post-title}.json": {
+      op: list: method: *GET
+    }
+  }
+
+}

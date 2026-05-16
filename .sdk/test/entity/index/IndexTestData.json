@@ -1,0 +1,54 @@
+{
+  "existing": {
+    "index": {
+      "INDEX00": {
+        "bite": "s5a",
+        "category": [],
+        "es_bite": "s5c",
+        "es_title": "s5d",
+        "state": [],
+        "tag": [],
+        "title": "s60",
+        "topic": [],
+        "url": "s62"
+      },
+      "INDEX01": {
+        "bite": "sb4",
+        "category": [],
+        "es_bite": "sb6",
+        "es_title": "sb7",
+        "state": [],
+        "tag": [],
+        "title": "sba",
+        "topic": [],
+        "url": "sbc"
+      },
+      "INDEX02": {
+        "bite": "s10e",
+        "category": [],
+        "es_bite": "s110",
+        "es_title": "s111",
+        "state": [],
+        "tag": [],
+        "title": "s114",
+        "topic": [],
+        "url": "s116"
+      }
+    }
+  },
+  "new": {
+    "index": {
+      "index_ref01": {
+        "bite": "s168",
+        "category": [],
+        "es_bite": "s16a",
+        "es_title": "s16b",
+        "state": [],
+        "tag": [],
+        "title": "s16e",
+        "topic": [],
+        "url": "s170"
+      }
+    }
+  }
+}

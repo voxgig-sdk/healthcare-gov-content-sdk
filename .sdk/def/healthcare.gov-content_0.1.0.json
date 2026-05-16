@@ -1,0 +1,435 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "HealthCare.gov Content API",
+    "description": "The HealthCare.gov Content API provides developers with access to educational content and resources related to the Health Insurance Marketplace in JSON format. This allows applications and websites to integrate and display up-to-date information directly from HealthCare.gov, supporting open data and accessibility for all users.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "HealthCare.gov",
+      "url": "https://www.healthcare.gov/developers/"
+    },
+    "termsOfService": "https://www.healthcare.gov/using-this-site"
+  },
+  "servers": [
+    {
+      "url": "https://www.healthcare.gov",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/{post-title}.json": {
+      "get": {
+        "summary": "Get content object by post title",
+        "description": "Returns a JSON object containing the body content and metadata for a specific post. Replace the trailing slash on the end of a post's URL with the extension .json.",
+        "operationId": "getContentObject",
+        "tags": [
+          "Content Objects"
+        ],
+        "parameters": [
+          {
+            "name": "post-title",
+            "in": "path",
+            "required": true,
+            "description": "The title/slug of the post to retrieve",
+            "schema": {
+              "type": "string"
+            },
+            "example": "accessibility"
+          },
+          {
+            "name": "callback",
+            "in": "query",
+            "required": false,
+            "description": "JSONP callback function name for cross-domain requests",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with content object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentObject"
+                },
+                "example": {
+                  "url": "/accessibility/",
+                  "title": "Accessibility",
+                  "content": "<p>Content about accessibility...</p>",
+                  "author": "HealthCare.gov",
+                  "date": "2023-01-01",
+                  "lang": "en",
+                  "categories": [
+                    "article",
+                    "en"
+                  ],
+                  "tags": [
+                    "promote"
+                  ],
+                  "topics": [
+                    "getting-coverage"
+                  ],
+                  "layout": "basic",
+                  "order": 0
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Content not found"
+          }
+        }
+      }
+    },
+    "/api/{content-type}.json": {
+      "get": {
+        "summary": "Get content collection by type",
+        "description": "Returns a list of post objects by content type. Available content types: articles, blog, questions, glossary, states, and topics.",
+        "operationId": "getContentCollection",
+        "tags": [
+          "Content Collections"
+        ],
+        "parameters": [
+          {
+            "name": "content-type",
+            "in": "path",
+            "required": true,
+            "description": "The type of content to retrieve",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "articles",
+                "blog",
+                "questions",
+                "glossary",
+                "states",
+                "topics"
+              ]
+            },
+            "example": "glossary"
+          },
+          {
+            "name": "callback",
+            "in": "query",
+            "required": false,
+            "description": "JSONP callback function name for cross-domain requests",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with content collection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentCollection"
+                },
+                "examples": {
+                  "glossary": {
+                    "summary": "Glossary collection example",
+                    "value": {
+                      "glossary": [
+                        {
+                          "url": "/glossary/childrens-health-insurance-program-chip/",
+                          "title": "Children's Health Insurance Program (CHIP)",
+                          "content": "<p>Definition content...</p>",
+                          "lang": "en",
+                          "categories": [
+                            "glossary",
+                            "en"
+                          ],
+                          "tags": [],
+                          "topics": [],
+                          "layout": "glossary",
+                          "order": 0
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Content type not found"
+          }
+        }
+      }
+    },
+    "/api/index.json": {
+      "get": {
+        "summary": "Get content index",
+        "description": "Returns a site-wide index containing abridged metadata for all posts on the website. Use it to get an aggregate view of content and to generate additional queries of post objects.",
+        "operationId": "getContentIndex",
+        "tags": [
+          "Content Index"
+        ],
+        "parameters": [
+          {
+            "name": "callback",
+            "in": "query",
+            "required": false,
+            "description": "JSONP callback function name for cross-domain requests",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with content index",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IndexItem"
+                  }
+                },
+                "example": [
+                  {
+                    "tags": [
+                      "promote"
+                    ],
+                    "categories": [
+                      "article",
+                      "en"
+                    ],
+                    "topics": [
+                      "getting-coverage"
+                    ],
+                    "title": "How to apply for coverage",
+                    "es-title": "Cómo solicitar cobertura",
+                    "url": "/how-to-apply/",
+                    "bite": "Learn how to apply for health insurance coverage",
+                    "es-bite": "Aprenda cómo solicitar cobertura de seguro médico",
+                    "state": []
+                  },
+                  {
+                    "tags": [],
+                    "categories": [
+                      "glossary",
+                      "en"
+                    ],
+                    "topics": [],
+                    "title": "Premium",
+                    "es-title": "Prima",
+                    "url": "/glossary/premium/",
+                    "bite": "The amount you pay for your health insurance every month",
+                    "es-bite": "La cantidad que paga por su seguro médico cada mes",
+                    "state": []
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ContentObject": {
+        "type": "object",
+        "description": "A complete content post with body content and metadata",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "The URL path to the content post",
+            "example": "/accessibility/"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the content post",
+            "example": "Accessibility"
+          },
+          "content": {
+            "type": "string",
+            "description": "The HTML body content of the post",
+            "example": "<p>Content about accessibility...</p>"
+          },
+          "author": {
+            "type": "string",
+            "description": "The author of the content post",
+            "example": "HealthCare.gov"
+          },
+          "date": {
+            "type": "string",
+            "description": "The publication or last modified date",
+            "example": "2023-01-01"
+          },
+          "lang": {
+            "type": "string",
+            "description": "Language code: 'en' for English, 'es' for Spanish",
+            "enum": [
+              "en",
+              "es"
+            ],
+            "example": "en"
+          },
+          "categories": {
+            "type": "array",
+            "description": "Content types and language code",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "article",
+              "en"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "description": "An array of content tags, such as 'promote'",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "promote"
+            ]
+          },
+          "topics": {
+            "type": "array",
+            "description": "Associated topics (for articles)",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "getting-coverage"
+            ]
+          },
+          "layout": {
+            "type": "string",
+            "description": "The layout used to display the content",
+            "example": "basic"
+          },
+          "order": {
+            "type": "integer",
+            "description": "Contextual position of the content",
+            "example": 0
+          }
+        }
+      },
+      "ContentCollection": {
+        "type": "object",
+        "description": "A collection of content posts by content type",
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ContentObject"
+          }
+        },
+        "example": {
+          "glossary": [
+            {
+              "url": "/glossary/premium/",
+              "title": "Premium",
+              "content": "<p>The amount you pay...</p>",
+              "lang": "en",
+              "categories": [
+                "glossary",
+                "en"
+              ],
+              "tags": [],
+              "topics": [],
+              "layout": "glossary",
+              "order": 0
+            }
+          ]
+        }
+      },
+      "IndexItem": {
+        "type": "object",
+        "description": "Abridged metadata for a content post in the site-wide index",
+        "properties": {
+          "tags": {
+            "type": "array",
+            "description": "An array of content tags, such as 'promote'",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "promote"
+            ]
+          },
+          "categories": {
+            "type": "array",
+            "description": "Content types and language code",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "article",
+              "en"
+            ]
+          },
+          "topics": {
+            "type": "array",
+            "description": "Associated topics (for articles)",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "getting-coverage"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "description": "The post's title",
+            "example": "How to apply for coverage"
+          },
+          "es-title": {
+            "type": "string",
+            "description": "Spanish translation of the post's title",
+            "example": "Cómo solicitar cobertura"
+          },
+          "url": {
+            "type": "string",
+            "description": "URL to the HTML version of the post (add .json for post object)",
+            "example": "/how-to-apply/"
+          },
+          "bite": {
+            "type": "string",
+            "description": "A short summary of the post",
+            "example": "Learn how to apply for health insurance coverage"
+          },
+          "es-bite": {
+            "type": "string",
+            "description": "The post summary in Spanish",
+            "example": "Aprenda cómo solicitar cobertura de seguro médico"
+          },
+          "state": {
+            "type": "array",
+            "description": "Associated states for the post",
+            "items": {
+              "type": "string"
+            },
+            "example": []
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Content Objects",
+      "description": "Access individual content posts with complete body content and metadata"
+    },
+    {
+      "name": "Content Collections",
+      "description": "Access collections of posts grouped by content type"
+    },
+    {
+      "name": "Content Index",
+      "description": "Access the site-wide index of all posts with abridged metadata"
+    }
+  ],
+  "externalDocs": {
+    "description": "Official HealthCare.gov Developer Documentation",
+    "url": "https://www.healthcare.gov/developers/"
+  }
+}
