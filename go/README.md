@@ -5,14 +5,14 @@ The Golang SDK for the HealthcareGovContent API. Provides an entity-oriented int
 
 ## Install
 ```bash
-go get github.com/voxgig-sdk/healthcare-gov-content-sdk
+go get github.com/voxgig-sdk/healthcare-gov-content-sdk/go
 ```
 
 If the module is not yet published to a registry, use a `replace` directive
 in your `go.mod` to point to a local checkout:
 
 ```bash
-go mod edit -replace github.com/voxgig-sdk/healthcare-gov-content-sdk=../path/to/github.com/voxgig-sdk/healthcare-gov-content-sdk
+go mod edit -replace github.com/voxgig-sdk/healthcare-gov-content-sdk/go=../path/to/github.com/voxgig-sdk/healthcare-gov-content-sdk/go
 ```
 
 
@@ -30,8 +30,8 @@ import (
     "fmt"
     "os"
 
-    sdk "github.com/voxgig-sdk/healthcare-gov-content-sdk"
-    "github.com/voxgig-sdk/healthcare-gov-content-sdk/core"
+    sdk "github.com/voxgig-sdk/healthcare-gov-content-sdk/go"
+    "github.com/voxgig-sdk/healthcare-gov-content-sdk/go/core"
 )
 
 func main() {
@@ -412,7 +412,7 @@ Use `core.ToMapAny()` to safely cast results and nested data.
 ### Package structure
 
 ```
-github.com/voxgig-sdk/healthcare-gov-content-sdk/
+github.com/voxgig-sdk/healthcare-gov-content-sdk/go/
 ├── healthcare-gov-content.go        # Root package — type aliases and constructors
 ├── core/               # SDK core — client, types, pipeline
 ├── entity/             # Entity implementations
@@ -421,7 +421,7 @@ github.com/voxgig-sdk/healthcare-gov-content-sdk/
 └── test/               # Test suites
 ```
 
-The root package (`github.com/voxgig-sdk/healthcare-gov-content-sdk`) re-exports everything needed
+The root package (`github.com/voxgig-sdk/healthcare-gov-content-sdk/go`) re-exports everything needed
 for normal use. Import sub-packages only when you need specific types
 like `core.ToMapAny`.
 

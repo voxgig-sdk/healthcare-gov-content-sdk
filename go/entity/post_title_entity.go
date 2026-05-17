@@ -1,9 +1,9 @@
 package entity
 
 import (
-	"github.com/voxgig-sdk/healthcare-gov-content-sdk/core"
+	"github.com/voxgig-sdk/healthcare-gov-content-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/healthcare-gov-content-sdk/go/utility/struct"
 )
 
 type PostTitleEntity struct {

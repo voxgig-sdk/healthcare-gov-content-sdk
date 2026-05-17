@@ -1,10 +1,10 @@
 package voxgighealthcaregovcontentsdk
 
 import (
-	"github.com/voxgig-sdk/healthcare-gov-content-sdk/core"
-	"github.com/voxgig-sdk/healthcare-gov-content-sdk/entity"
-	"github.com/voxgig-sdk/healthcare-gov-content-sdk/feature"
-	_ "github.com/voxgig-sdk/healthcare-gov-content-sdk/utility"
+	"github.com/voxgig-sdk/healthcare-gov-content-sdk/go/core"
+	"github.com/voxgig-sdk/healthcare-gov-content-sdk/go/entity"
+	"github.com/voxgig-sdk/healthcare-gov-content-sdk/go/feature"
+	_ "github.com/voxgig-sdk/healthcare-gov-content-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

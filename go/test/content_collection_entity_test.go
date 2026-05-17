@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/healthcare-gov-content-sdk"
-	"github.com/voxgig-sdk/healthcare-gov-content-sdk/core"
+	sdk "github.com/voxgig-sdk/healthcare-gov-content-sdk/go"
+	"github.com/voxgig-sdk/healthcare-gov-content-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/healthcare-gov-content-sdk/go/utility/struct"
 )
 
 func TestContentCollectionEntity(t *testing.T) {

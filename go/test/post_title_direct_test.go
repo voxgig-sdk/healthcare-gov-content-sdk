@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/healthcare-gov-content-sdk"
-	"github.com/voxgig-sdk/healthcare-gov-content-sdk/core"
+	sdk "github.com/voxgig-sdk/healthcare-gov-content-sdk/go"
+	"github.com/voxgig-sdk/healthcare-gov-content-sdk/go/core"
 )
 
 func TestPostTitleDirect(t *testing.T) {
