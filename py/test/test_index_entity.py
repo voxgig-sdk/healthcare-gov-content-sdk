@@ -92,7 +92,6 @@ def _index_basic_setup(extra):
         "HEALTHCAREGOVCONTENT_TEST_INDEX_ENTID": idmap,
         "HEALTHCAREGOVCONTENT_TEST_LIVE": "FALSE",
         "HEALTHCAREGOVCONTENT_TEST_EXPLAIN": "FALSE",
-        "HEALTHCAREGOVCONTENT_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +102,6 @@ def _index_basic_setup(extra):
     if env.get("HEALTHCAREGOVCONTENT_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("HEALTHCAREGOVCONTENT_APIKEY"),
             },
             extra or {},
         ])

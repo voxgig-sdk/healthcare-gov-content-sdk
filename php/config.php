@@ -20,9 +20,6 @@ class HealthcareGovContentConfig
             ],
             "options" => [
                 "base" => "https://www.healthcare.gov",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],

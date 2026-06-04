@@ -18,8 +18,30 @@ main: {
       termsOfService: "https://www.healthcare.gov/using-this-site"
       title: "HealthCare.gov Content API"
       version: "1.0.0"
+      tagline: "Read educational content, articles, and glossary entries from the US Health Insurance Marketplace as JSON"
+      homepage: "https://www.healthcare.gov"
+      docs_url: "https://www.healthcare.gov/developers/"
+      license_short: "US federal government work; HealthCare.gov content is generally in the public domain (see site terms for exceptions)."
+      license_md: `- HealthCare.gov is operated by the US Centers for Medicare & Medicaid Services (CMS); most content produced by the federal government is in the public domain in the United States.
+- Third-party material, logos, and brand marks on HealthCare.gov may be subject to separate rights; check the site's policies before reuse.
+- No formal SDK licence is published with the OpenAPI definition; consult the HealthCare.gov terms of use and the CMS developer pages for authoritative guidance.`
+      about_md: `The [HealthCare.gov](https://www.healthcare.gov) Content API exposes the educational articles, blog posts, glossary entries, and topic indexes that drive the public-facing Health Insurance Marketplace site. It is published by the US Centers for Medicare & Medicaid Services and is the same content store that powers the consumer pages at healthcare.gov.
+
+This SDK is generated from that API and lets you fetch structured content rather than scrape rendered HTML.
+
+What you typically get from the API:
+
+- Collections of content items (articles, blog posts, glossary terms) as JSON
+- Index documents listing posts by section, topic, or category
+- Individual content records keyed by title or slug, with body text and metadata
+
+The service is read-only and does not require authentication for the public content endpoints. Endpoints, paths, and any usage caps are defined by HealthCare.gov; consult the developer page for current details.`
+      entity_desc: {
+        content_collection: "A grouping of related content items (for example articles or blog posts) served as a JSON collection from the HealthCare.gov content store."
+        index: "An index document that lists content items by section, topic, or category, used for navigation and discovery."
+        post_title: "An individual content entry (article, blog post, or glossary item) identified by its title or slug and returned with body text and metadata."
+      }
+      auth: false
     }
   }
-}
-
 }

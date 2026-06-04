@@ -79,14 +79,12 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'HEALTHCAREGOVCONTENT_TEST_INDEX_ENTID': {},
     'HEALTHCAREGOVCONTENT_TEST_LIVE': 'FALSE',
-    'HEALTHCAREGOVCONTENT_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.HEALTHCAREGOVCONTENT_TEST_LIVE
 
   if (live) {
     const client = new HealthcareGovContentSDK({
-      apikey: env.HEALTHCAREGOVCONTENT_APIKEY,
     })
 
     let idmap: any = env['HEALTHCAREGOVCONTENT_TEST_INDEX_ENTID']

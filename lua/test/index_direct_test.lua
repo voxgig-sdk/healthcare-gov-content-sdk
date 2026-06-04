@@ -63,14 +63,12 @@ function index_direct_setup(mockres)
   local env = runner.env_override({
     ["HEALTHCAREGOVCONTENT_TEST_INDEX_ENTID"] = {},
     ["HEALTHCAREGOVCONTENT_TEST_LIVE"] = "FALSE",
-    ["HEALTHCAREGOVCONTENT_APIKEY"] = "NONE",
   })
 
   local live = env["HEALTHCAREGOVCONTENT_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
-      apikey = env["HEALTHCAREGOVCONTENT_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

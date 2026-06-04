@@ -119,7 +119,6 @@ func indexBasicSetup(extra map[string]any) *entityTestSetup {
 		"HEALTHCAREGOVCONTENT_TEST_INDEX_ENTID": idmap,
 		"HEALTHCAREGOVCONTENT_TEST_LIVE":      "FALSE",
 		"HEALTHCAREGOVCONTENT_TEST_EXPLAIN":   "FALSE",
-		"HEALTHCAREGOVCONTENT_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["HEALTHCAREGOVCONTENT_TEST_INDEX_ENTID"])
@@ -130,7 +129,6 @@ func indexBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["HEALTHCAREGOVCONTENT_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["HEALTHCAREGOVCONTENT_APIKEY"],
 			},
 			extra,
 		})
