@@ -61,12 +61,14 @@ def content_collection_direct_setup(mockres)
   env = Runner.env_override({
     "HEALTHCAREGOVCONTENT_TEST_CONTENT_COLLECTION_ENTID" => {},
     "HEALTHCAREGOVCONTENT_TEST_LIVE" => "FALSE",
+    "HEALTHCAREGOVCONTENT_APIKEY" => "NONE",
   })
 
   live = env["HEALTHCAREGOVCONTENT_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
+      "apikey" => env["HEALTHCAREGOVCONTENT_APIKEY"],
     }
     client = HealthcareGovContentSDK.new(merged_opts)
     return {

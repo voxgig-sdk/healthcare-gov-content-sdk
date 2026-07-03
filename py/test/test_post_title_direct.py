@@ -73,12 +73,14 @@ def _post_title_direct_setup(mockres):
     env = runner.env_override({
         "HEALTHCAREGOVCONTENT_TEST_POST_TITLE_ENTID": {},
         "HEALTHCAREGOVCONTENT_TEST_LIVE": "FALSE",
+        "HEALTHCAREGOVCONTENT_APIKEY": "NONE",
     })
 
     live = env.get("HEALTHCAREGOVCONTENT_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
+            "apikey": env.get("HEALTHCAREGOVCONTENT_APIKEY"),
         }
         client = HealthcareGovContentSDK(merged_opts)
         return {

@@ -91,6 +91,7 @@ function content_collection_basic_setup(extra)
     ["HEALTHCAREGOVCONTENT_TEST_CONTENT_COLLECTION_ENTID"] = idmap,
     ["HEALTHCAREGOVCONTENT_TEST_LIVE"] = "FALSE",
     ["HEALTHCAREGOVCONTENT_TEST_EXPLAIN"] = "FALSE",
+    ["HEALTHCAREGOVCONTENT_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -102,6 +103,7 @@ function content_collection_basic_setup(extra)
   if env["HEALTHCAREGOVCONTENT_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
+        apikey = env["HEALTHCAREGOVCONTENT_APIKEY"],
       },
       extra or {},
     })

@@ -15,6 +15,9 @@ module HealthcareGovContentConfig
       },
       "options" => {
         "base" => "https://www.healthcare.gov",
+        "auth" => {
+          "prefix" => "Bearer",
+        },
         "headers" => {
           "content-type" => "application/json",
         },
@@ -28,39 +31,41 @@ module HealthcareGovContentConfig
         "content_collection" => {
           "fields" => [
             {
+              "active" => true,
               "name" => "glossary",
               "req" => false,
               "type" => "`$ARRAY`",
-              "active" => true,
               "index$" => 0,
             },
           ],
           "name" => "content_collection",
           "op" => {
             "load" => {
+              "input" => "data",
               "name" => "load",
               "points" => [
                 {
+                  "active" => true,
                   "args" => {
                     "params" => [
                       {
+                        "active" => true,
                         "example" => "glossary",
                         "kind" => "param",
                         "name" => "content_type",
                         "orig" => "content_type",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                     ],
                     "query" => [
                       {
+                        "active" => true,
                         "kind" => "query",
                         "name" => "callback",
                         "orig" => "callback",
                         "reqd" => false,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                     ],
                   },
@@ -80,11 +85,9 @@ module HealthcareGovContentConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "active" => true,
                   "index$" => 0,
                 },
               ],
-              "input" => "data",
               "key$" => "load",
             },
           },
@@ -99,84 +102,86 @@ module HealthcareGovContentConfig
         "index" => {
           "fields" => [
             {
+              "active" => true,
               "name" => "bite",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 0,
             },
             {
+              "active" => true,
               "name" => "category",
               "req" => false,
               "type" => "`$ARRAY`",
-              "active" => true,
               "index$" => 1,
             },
             {
+              "active" => true,
               "name" => "es_bite",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 2,
             },
             {
+              "active" => true,
               "name" => "es_title",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 3,
             },
             {
+              "active" => true,
               "name" => "state",
               "req" => false,
               "type" => "`$ARRAY`",
-              "active" => true,
               "index$" => 4,
             },
             {
+              "active" => true,
               "name" => "tag",
               "req" => false,
               "type" => "`$ARRAY`",
-              "active" => true,
               "index$" => 5,
             },
             {
+              "active" => true,
               "name" => "title",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 6,
             },
             {
+              "active" => true,
               "name" => "topic",
               "req" => false,
               "type" => "`$ARRAY`",
-              "active" => true,
               "index$" => 7,
             },
             {
+              "active" => true,
               "name" => "url",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 8,
             },
           ],
           "name" => "index",
           "op" => {
             "list" => {
+              "input" => "data",
               "name" => "list",
               "points" => [
                 {
+                  "active" => true,
                   "args" => {
                     "query" => [
                       {
+                        "active" => true,
                         "kind" => "query",
                         "name" => "callback",
                         "orig" => "callback",
                         "reqd" => false,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                     ],
                   },
@@ -195,11 +200,9 @@ module HealthcareGovContentConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "active" => true,
                   "index$" => 0,
                 },
               ],
-              "input" => "data",
               "key$" => "list",
             },
           },
@@ -210,109 +213,111 @@ module HealthcareGovContentConfig
         "post_title" => {
           "fields" => [
             {
+              "active" => true,
               "name" => "author",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 0,
             },
             {
+              "active" => true,
               "name" => "category",
               "req" => false,
               "type" => "`$ARRAY`",
-              "active" => true,
               "index$" => 1,
             },
             {
+              "active" => true,
               "name" => "content",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 2,
             },
             {
+              "active" => true,
               "name" => "date",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 3,
             },
             {
+              "active" => true,
               "name" => "lang",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 4,
             },
             {
+              "active" => true,
               "name" => "layout",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 5,
             },
             {
+              "active" => true,
               "name" => "order",
               "req" => false,
               "type" => "`$INTEGER`",
-              "active" => true,
               "index$" => 6,
             },
             {
+              "active" => true,
               "name" => "tag",
               "req" => false,
               "type" => "`$ARRAY`",
-              "active" => true,
               "index$" => 7,
             },
             {
+              "active" => true,
               "name" => "title",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 8,
             },
             {
+              "active" => true,
               "name" => "topic",
               "req" => false,
               "type" => "`$ARRAY`",
-              "active" => true,
               "index$" => 9,
             },
             {
+              "active" => true,
               "name" => "url",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 10,
             },
           ],
           "name" => "post_title",
           "op" => {
             "list" => {
+              "input" => "data",
               "name" => "list",
               "points" => [
                 {
+                  "active" => true,
                   "args" => {
                     "params" => [
                       {
+                        "active" => true,
                         "example" => "accessibility",
                         "kind" => "param",
                         "name" => "post_title",
                         "orig" => "post_title",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                     ],
                     "query" => [
                       {
+                        "active" => true,
                         "kind" => "query",
                         "name" => "callback",
                         "orig" => "callback",
                         "reqd" => false,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                     ],
                   },
@@ -331,11 +336,9 @@ module HealthcareGovContentConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "active" => true,
                   "index$" => 0,
                 },
               ],
-              "input" => "data",
               "key$" => "list",
             },
           },

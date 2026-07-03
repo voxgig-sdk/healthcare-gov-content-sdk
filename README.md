@@ -1,22 +1,8 @@
 # HealthcareGovContent SDK
 
-Read educational content, articles, and glossary entries from the US Health Insurance Marketplace as JSON
+HealthCare.gov Content API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About HealthCare.gov Content API
-
-The [HealthCare.gov](https://www.healthcare.gov) Content API exposes the educational articles, blog posts, glossary entries, and topic indexes that drive the public-facing Health Insurance Marketplace site. It is published by the US Centers for Medicare & Medicaid Services and is the same content store that powers the consumer pages at healthcare.gov.
-
-This SDK is generated from that API and lets you fetch structured content rather than scrape rendered HTML.
-
-What you typically get from the API:
-
-- Collections of content items (articles, blog posts, glossary terms) as JSON
-- Index documents listing posts by section, topic, or category
-- Individual content records keyed by title or slug, with body text and metadata
-
-The service is read-only and does not require authentication for the public content endpoints. Endpoints, paths, and any usage caps are defined by HealthCare.gov; consult the developer page for current details.
 
 ## Try it
 
@@ -50,27 +36,31 @@ gem install healthcare-gov-content-sdk
 luarocks install healthcare-gov-content-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { HealthcareGovContentSDK } from 'healthcare-gov-content'
 
-const client = new HealthcareGovContentSDK({})
+const client = new HealthcareGovContentSDK({
+  apikey: process.env.HEALTHCARE-GOV-CONTENT_APIKEY,
+})
 
+// Load contentcollection data
+const contentcollection = await client.ContentCollection().load({})
+console.log(contentcollection.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -100,9 +90,9 @@ The API exposes 3 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **ContentCollection** | A grouping of related content items (for example articles or blog posts) served as a JSON collection from the HealthCare.gov content store. | `/api/{content-type}.json` |
-| **Index** | An index document that lists content items by section, topic, or category, used for navigation and discovery. | `/api/index.json` |
-| **PostTitle** | An individual content entry (article, blog post, or glossary item) identified by its title or slug and returned with body text and metadata. | `/{post-title}.json` |
+| **ContentCollection** |  | `/api/{content-type}.json` |
+| **Index** |  | `/api/index.json` |
+| **PostTitle** |  | `/{post-title}.json` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -112,15 +102,17 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from healthcaregovcontent_sdk import HealthcareGovContentSDK
 
-client = HealthcareGovContentSDK({})
+client = HealthcareGovContentSDK({
+    "apikey": os.environ.get("HEALTHCARE-GOV-CONTENT_APIKEY"),
+})
 
 
 # Load a specific contentcollection
-contentcollection, err = client.ContentCollection(None).load(
-    {"id": "example_id"}, None
-)
+contentcollection, err = client.ContentCollection().load({"id": "example_id"})
+print(contentcollection)
 ```
 
 ### PHP
@@ -129,13 +121,14 @@ contentcollection, err = client.ContentCollection(None).load(
 <?php
 require_once 'healthcaregovcontent_sdk.php';
 
-$client = new HealthcareGovContentSDK([]);
+$client = new HealthcareGovContentSDK([
+    "apikey" => getenv("HEALTHCARE-GOV-CONTENT_APIKEY"),
+]);
 
 
 // Load a specific contentcollection
-[$contentcollection, $err] = $client->ContentCollection(null)->load(
-    ["id" => "example_id"], null
-);
+[$contentcollection, $err] = $client->ContentCollection()->load(["id" => "example_id"]);
+print_r($contentcollection);
 ```
 
 ### Golang
@@ -143,8 +136,13 @@ $client = new HealthcareGovContentSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/healthcare-gov-content-sdk/go"
 
-client := sdk.NewHealthcareGovContentSDK(map[string]any{})
+client := sdk.NewHealthcareGovContentSDK(map[string]any{
+    "apikey": os.Getenv("HEALTHCARE-GOV-CONTENT_APIKEY"),
+})
 
+// Load contentcollection data
+contentcollection, err := client.ContentCollection(nil).Load(map[string]any{}, nil)
+fmt.Println(contentcollection)
 ```
 
 ### Ruby
@@ -152,13 +150,14 @@ client := sdk.NewHealthcareGovContentSDK(map[string]any{})
 ```ruby
 require_relative "HealthcareGovContent_sdk"
 
-client = HealthcareGovContentSDK.new({})
+client = HealthcareGovContentSDK.new({
+  "apikey" => ENV["HEALTHCARE-GOV-CONTENT_APIKEY"],
+})
 
 
 # Load a specific contentcollection
-contentcollection, err = client.ContentCollection(nil).load(
-  { "id" => "example_id" }, nil
-)
+contentcollection, err = client.ContentCollection().load({ "id" => "example_id" })
+puts contentcollection
 ```
 
 ### Lua
@@ -166,13 +165,14 @@ contentcollection, err = client.ContentCollection(nil).load(
 ```lua
 local sdk = require("healthcare-gov-content_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("HEALTHCARE-GOV-CONTENT_APIKEY"),
+})
 
 
 -- Load a specific contentcollection
-local contentcollection, err = client:ContentCollection(nil):load(
-  { id = "example_id" }, nil
-)
+local contentcollection, err = client:ContentCollection():load({ id = "example_id" })
+print(contentcollection)
 ```
 
 ## Unit testing in offline mode
@@ -191,25 +191,21 @@ const result = await client.ContentCollection().load({ id: 'test01' })
 ### Python
 
 ```python
-client = HealthcareGovContentSDK.test(None, None)
-result, err = client.ContentCollection(None).load(
-    {"id": "test01"}, None
-)
+client = HealthcareGovContentSDK.test()
+result, err = client.ContentCollection().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = HealthcareGovContentSDK::test(null, null);
-[$result, $err] = $client->ContentCollection(null)->load(
-    ["id" => "test01"], null
-);
+$client = HealthcareGovContentSDK::test();
+[$result, $err] = $client->ContentCollection()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.ContentCollection(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -218,19 +214,15 @@ result, err := client.ContentCollection(nil).Load(
 ### Ruby
 
 ```ruby
-client = HealthcareGovContentSDK.test(nil, nil)
-result, err = client.ContentCollection(nil).load(
-  { "id" => "test01" }, nil
-)
+client = HealthcareGovContentSDK.test
+result, err = client.ContentCollection().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:ContentCollection(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:ContentCollection():load({ id = "test01" })
 ```
 
 ## How it works
@@ -334,15 +326,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the HealthCare.gov Content API
-
-- Upstream: [https://www.healthcare.gov](https://www.healthcare.gov)
-- API docs: [https://www.healthcare.gov/developers/](https://www.healthcare.gov/developers/)
-
-- HealthCare.gov is operated by the US Centers for Medicare & Medicaid Services (CMS); most content produced by the federal government is in the public domain in the United States.
-- Third-party material, logos, and brand marks on HealthCare.gov may be subject to separate rights; check the site's policies before reuse.
-- No formal SDK licence is published with the OpenAPI definition; consult the HealthCare.gov terms of use and the CMS developer pages for authoritative guidance.
 
 ---
 

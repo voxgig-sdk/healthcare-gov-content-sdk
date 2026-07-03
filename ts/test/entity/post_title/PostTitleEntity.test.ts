@@ -114,6 +114,7 @@ function basicSetup(extra?: any) {
     'HEALTHCARE_GOV_CONTENT_TEST_POST_TITLE_ENTID': idmap,
     'HEALTHCARE_GOV_CONTENT_TEST_LIVE': 'FALSE',
     'HEALTHCARE_GOV_CONTENT_TEST_EXPLAIN': 'FALSE',
+    'HEALTHCARE_GOV_CONTENT_APIKEY': 'NONE',
   })
 
   idmap = env['HEALTHCARE_GOV_CONTENT_TEST_POST_TITLE_ENTID']
@@ -123,6 +124,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new HealthcareGovContentSDK(merge([
       {
+        apikey: env.HEALTHCARE_GOV_CONTENT_APIKEY,
       },
       extra
     ]))

@@ -86,6 +86,7 @@ function index_basic_setup($extra)
         "HEALTHCAREGOVCONTENT_TEST_INDEX_ENTID" => $idmap,
         "HEALTHCAREGOVCONTENT_TEST_LIVE" => "FALSE",
         "HEALTHCAREGOVCONTENT_TEST_EXPLAIN" => "FALSE",
+        "HEALTHCAREGOVCONTENT_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -97,6 +98,7 @@ function index_basic_setup($extra)
     if ($env["HEALTHCAREGOVCONTENT_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
+                "apikey" => $env["HEALTHCAREGOVCONTENT_APIKEY"],
             ],
             $extra ?? [],
         ]);

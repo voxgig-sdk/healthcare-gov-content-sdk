@@ -99,12 +99,14 @@ func content_collectionDirectSetup(mockres any) *content_collectionDirectSetupRe
 	env := envOverride(map[string]any{
 		"HEALTHCAREGOVCONTENT_TEST_CONTENT_COLLECTION_ENTID": map[string]any{},
 		"HEALTHCAREGOVCONTENT_TEST_LIVE":    "FALSE",
+		"HEALTHCAREGOVCONTENT_APIKEY":       "NONE",
 	})
 
 	live := env["HEALTHCAREGOVCONTENT_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["HEALTHCAREGOVCONTENT_APIKEY"],
 		}
 		client := sdk.NewHealthcareGovContentSDK(mergedOpts)
 

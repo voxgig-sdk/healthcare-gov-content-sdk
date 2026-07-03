@@ -15,6 +15,9 @@ def make_config():
         },
         "options": {
             "base": "https://www.healthcare.gov",
+            "auth": {
+                "prefix": "Bearer",
+            },
             "headers": {
         "content-type": "application/json",
       },
@@ -28,39 +31,41 @@ def make_config():
       "content_collection": {
         "fields": [
           {
+            "active": True,
             "name": "glossary",
             "req": False,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 0,
           },
         ],
         "name": "content_collection",
         "op": {
           "load": {
+            "input": "data",
             "name": "load",
             "points": [
               {
+                "active": True,
                 "args": {
                   "params": [
                     {
+                      "active": True,
                       "example": "glossary",
                       "kind": "param",
                       "name": "content_type",
                       "orig": "content_type",
                       "reqd": True,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                   "query": [
                     {
+                      "active": True,
                       "kind": "query",
                       "name": "callback",
                       "orig": "callback",
                       "reqd": False,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                 },
@@ -80,11 +85,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "load",
           },
         },
@@ -99,84 +102,86 @@ def make_config():
       "index": {
         "fields": [
           {
+            "active": True,
             "name": "bite",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 0,
           },
           {
+            "active": True,
             "name": "category",
             "req": False,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 1,
           },
           {
+            "active": True,
             "name": "es_bite",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 2,
           },
           {
+            "active": True,
             "name": "es_title",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 3,
           },
           {
+            "active": True,
             "name": "state",
             "req": False,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 4,
           },
           {
+            "active": True,
             "name": "tag",
             "req": False,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 5,
           },
           {
+            "active": True,
             "name": "title",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 6,
           },
           {
+            "active": True,
             "name": "topic",
             "req": False,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 7,
           },
           {
+            "active": True,
             "name": "url",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 8,
           },
         ],
         "name": "index",
         "op": {
           "list": {
+            "input": "data",
             "name": "list",
             "points": [
               {
+                "active": True,
                 "args": {
                   "query": [
                     {
+                      "active": True,
                       "kind": "query",
                       "name": "callback",
                       "orig": "callback",
                       "reqd": False,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                 },
@@ -195,11 +200,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "list",
           },
         },
@@ -210,109 +213,111 @@ def make_config():
       "post_title": {
         "fields": [
           {
+            "active": True,
             "name": "author",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 0,
           },
           {
+            "active": True,
             "name": "category",
             "req": False,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 1,
           },
           {
+            "active": True,
             "name": "content",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 2,
           },
           {
+            "active": True,
             "name": "date",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 3,
           },
           {
+            "active": True,
             "name": "lang",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 4,
           },
           {
+            "active": True,
             "name": "layout",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 5,
           },
           {
+            "active": True,
             "name": "order",
             "req": False,
             "type": "`$INTEGER`",
-            "active": True,
             "index$": 6,
           },
           {
+            "active": True,
             "name": "tag",
             "req": False,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 7,
           },
           {
+            "active": True,
             "name": "title",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 8,
           },
           {
+            "active": True,
             "name": "topic",
             "req": False,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 9,
           },
           {
+            "active": True,
             "name": "url",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 10,
           },
         ],
         "name": "post_title",
         "op": {
           "list": {
+            "input": "data",
             "name": "list",
             "points": [
               {
+                "active": True,
                 "args": {
                   "params": [
                     {
+                      "active": True,
                       "example": "accessibility",
                       "kind": "param",
                       "name": "post_title",
                       "orig": "post_title",
                       "reqd": True,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                   "query": [
                     {
+                      "active": True,
                       "kind": "query",
                       "name": "callback",
                       "orig": "callback",
                       "reqd": False,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                 },
@@ -331,11 +336,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "list",
           },
         },
