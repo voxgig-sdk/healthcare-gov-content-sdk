@@ -10,7 +10,7 @@ The Lua SDK for the HealthcareGovContent API — an entity-oriented client using
 
 ## Install
 ```bash
-luarocks install healthcare-gov-content-sdk
+luarocks install voxgig-sdk-healthcare-gov-content
 ```
 
 If the module is not yet published, add the source directory to

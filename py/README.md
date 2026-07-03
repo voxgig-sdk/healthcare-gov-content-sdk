@@ -10,7 +10,7 @@ The Python SDK for the HealthcareGovContent API — an entity-oriented client fo
 
 ## Install
 ```bash
-pip install healthcare-gov-content-sdk
+pip install voxgig-sdk-healthcare-gov-content
 ```
 
 Or install from source:

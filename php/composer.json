@@ -1,8 +1,17 @@
 {
   "name": "voxgig-sdk/healthcare-gov-content",
-  "description": "HealthcareGovContent SDK for PHP",
+  "description": "Unofficial generated PHP SDK for the HealthCare.gov Content public API. Not affiliated with or endorsed by the upstream API provider.",
   "type": "library",
+  "keywords": ["voxgig", "sdk", "generated-sdk", "openapi", "api-client", "healthcare-gov-content"],
+  "homepage": "https://github.com/voxgig-sdk/healthcare-gov-content-sdk",
   "license": "MIT",
+  "authors": [
+    { "name": "Voxgig", "homepage": "https://voxgig.com" }
+  ],
+  "support": {
+    "issues": "https://github.com/voxgig-sdk/healthcare-gov-content-sdk/issues",
+    "source": "https://github.com/voxgig-sdk/healthcare-gov-content-sdk"
+  },
   "minimum-stability": "stable",
   "require": {
     "php": ">=8.2"

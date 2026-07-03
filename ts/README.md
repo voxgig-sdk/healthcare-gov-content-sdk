@@ -10,7 +10,7 @@ The TypeScript SDK for the HealthcareGovContent API — a type-safe, entity-orie
 
 ## Install
 ```bash
-npm install healthcare-gov-content
+npm install @voxgig-sdk/healthcare-gov-content
 ```
 ## Tutorial: your first API call
 

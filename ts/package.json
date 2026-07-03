@@ -1,7 +1,23 @@
 {
   "name": "@voxgig-sdk/healthcare-gov-content",
   "version": "0.0.1",
-  "description": "DESCRIPTION",
+  "description": "Unofficial generated TypeScript SDK for the HealthCare.gov Content public API. Not affiliated with or endorsed by the upstream API provider.",
+  "keywords": [
+    "voxgig",
+    "sdk",
+    "generated-sdk",
+    "openapi",
+    "api-client",
+    "healthcare-gov-content"
+  ],
+  "homepage": "https://github.com/voxgig-sdk/healthcare-gov-content-sdk#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/voxgig-sdk/healthcare-gov-content-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/voxgig-sdk/healthcare-gov-content-sdk/issues"
+  },
   "main": "dist/HealthcareGovContentSDK.js",
   "type": "commonjs",
   "types": "dist/HealthcareGovContentSDK.d.ts",
@@ -14,7 +30,10 @@
     "clean": "rm -rf node_modules yarn.lock package-lock.json",
     "reset": "npm run clean && npm i && npm run build && npm test"
   },
-  "author": "HealthcareGovContent",
+  "author": {
+    "name": "Voxgig",
+    "url": "https://voxgig.com"
+  },
   "license": "MIT",
   "dependencies": {},
   "peerDependencies": {},

@@ -10,7 +10,7 @@ The PHP SDK for the HealthcareGovContent API — an entity-oriented client using
 
 ## Install
 ```bash
-composer require voxgig/healthcare-gov-content-sdk
+composer require voxgig-sdk/healthcare-gov-content
 ```
 
 

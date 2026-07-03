@@ -10,13 +10,13 @@ The Ruby SDK for the HealthcareGovContent API — an entity-oriented client usin
 
 ## Install
 ```bash
-gem install healthcare-gov-content-sdk
+gem install voxgig-sdk-healthcare-gov-content
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "healthcare-gov-content-sdk"
+gem "voxgig-sdk-healthcare-gov-content"
 ```
 
 Then run:
