@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'https://www.healthcare.gov',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },
@@ -89,7 +85,8 @@ class Config {
                     "name": "content_type",
                     "orig": "content_type",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ],
                 "query": [
@@ -341,7 +338,8 @@ class Config {
                     "name": "post_title",
                     "orig": "post_title",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ],
                 "query": [

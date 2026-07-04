@@ -1,7 +1,13 @@
 # HealthcareGovContent SDK Index entity
 
+from __future__ import annotations
+
 from utility.voxgig_struct import voxgig_struct as vs
 from core import helpers
+from healthcaregovcontent_types import (
+    Index,
+    IndexListMatch,
+)
 
 
 class IndexEntity:
@@ -44,7 +50,7 @@ class IndexEntity:
             self._data = helpers.to_map(vs.clone(args)) or {}
             self._utility.feature_hook(self._entctx, "SetData")
 
-    def data_get(self):
+    def data_get(self) -> Index:
         self._utility.feature_hook(self._entctx, "GetData")
         return vs.clone(self._data)
 
@@ -53,14 +59,14 @@ class IndexEntity:
             self._match = helpers.to_map(vs.clone(args)) or {}
             self._utility.feature_hook(self._entctx, "SetMatch")
 
-    def match_get(self):
+    def match_get(self) -> Index:
         self._utility.feature_hook(self._entctx, "GetMatch")
         return vs.clone(self._match)
 
     
 
     
-    def list(self, reqmatch, ctrl=None):
+    def list(self, reqmatch: IndexListMatch, ctrl=None) -> list[Index]:
         utility = self._utility
         ctx = utility.make_context({
             "opname": "list",

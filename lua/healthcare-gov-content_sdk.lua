@@ -244,18 +244,57 @@ end
 
 
 
+-- Idiomatic facade: client:content_collection():list() / client:content_collection():load({ id = ... })
+function HealthcareGovContentSDK:content_collection(data)
+  local EntityMod = require("entity.content_collection_entity")
+  if data == nil then
+    if self._content_collection == nil then
+      self._content_collection = EntityMod.new(self, nil)
+    end
+    return self._content_collection
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:content_collection() instead.
 function HealthcareGovContentSDK:ContentCollection(data)
   local EntityMod = require("entity.content_collection_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:index():list() / client:index():load({ id = ... })
+function HealthcareGovContentSDK:index(data)
+  local EntityMod = require("entity.index_entity")
+  if data == nil then
+    if self._index == nil then
+      self._index = EntityMod.new(self, nil)
+    end
+    return self._index
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:index() instead.
 function HealthcareGovContentSDK:Index(data)
   local EntityMod = require("entity.index_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:post_title():list() / client:post_title():load({ id = ... })
+function HealthcareGovContentSDK:post_title(data)
+  local EntityMod = require("entity.post_title_entity")
+  if data == nil then
+    if self._post_title == nil then
+      self._post_title = EntityMod.new(self, nil)
+    end
+    return self._post_title
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:post_title() instead.
 function HealthcareGovContentSDK:PostTitle(data)
   local EntityMod = require("entity.post_title_entity")
   return EntityMod.new(self, data)

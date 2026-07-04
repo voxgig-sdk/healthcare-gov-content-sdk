@@ -9,12 +9,9 @@ The Lua SDK for the HealthcareGovContent API — an entity-oriented client using
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-healthcare-gov-content
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -31,15 +28,13 @@ loading a specific record.
 ```lua
 local sdk = require("healthcare-gov-content_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("HEALTHCARE-GOV-CONTENT_APIKEY"),
-})
+local client = sdk.new()
 ```
 
 ### 3. Load a contentcollection
 
 ```lua
-local result, err = client:ContentCollection():load({ id = "example_id" })
+local result, err = client:contentcollection():load({ id = "example_id" })
 if err then error(err) end
 print(result)
 ```
@@ -87,7 +82,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:HealthcareGovContent():load({ id = "test01" })
+local result, err = client:contentcollection():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -120,8 +115,7 @@ local client = sdk.new({
 Create a `.env.local` file at the project root:
 
 ```
-HEALTHCARE-GOV-CONTENT_TEST_LIVE=TRUE
-HEALTHCARE-GOV-CONTENT_APIKEY=<your-key>
+HEALTHCARE_GOV_CONTENT_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -144,7 +138,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -261,7 +254,7 @@ API path: `/{post-title}.json`
 
 ### ContentCollection
 
-Create an instance: `const content_collection = client.ContentCollection()`
+Create an instance: `const content_collection = client.content_collection`
 
 #### Operations
 
@@ -278,13 +271,13 @@ Create an instance: `const content_collection = client.ContentCollection()`
 #### Example: Load
 
 ```ts
-const content_collection = await client.ContentCollection().load({ id: 'content_collection_id' })
+const content_collection = await client.content_collection.load({ id: 'content_collection_id' })
 ```
 
 
 ### Index
 
-Create an instance: `const index = client.Index()`
+Create an instance: `const index = client.index`
 
 #### Operations
 
@@ -309,13 +302,13 @@ Create an instance: `const index = client.Index()`
 #### Example: List
 
 ```ts
-const indexs = await client.Index().list()
+const indexs = await client.index.list()
 ```
 
 
 ### PostTitle
 
-Create an instance: `const post_title = client.PostTitle()`
+Create an instance: `const post_title = client.post_title`
 
 #### Operations
 
@@ -342,7 +335,7 @@ Create an instance: `const post_title = client.PostTitle()`
 #### Example: List
 
 ```ts
-const post_titles = await client.PostTitle().list()
+const post_titles = await client.post_title.list()
 ```
 
 
@@ -417,11 +410,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local contentcollection = client:contentcollection()
+contentcollection:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- contentcollection:data_get() now returns the loaded contentcollection data
+-- contentcollection:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

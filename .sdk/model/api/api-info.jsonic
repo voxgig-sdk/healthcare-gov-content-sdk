@@ -4,6 +4,7 @@
 main: {
   kit: {
     info: {
+      auth: false
       contact: {
         name: "HealthCare.gov"
         url: "https://www.healthcare.gov/developers/"

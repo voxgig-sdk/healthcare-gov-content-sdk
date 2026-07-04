@@ -42,8 +42,7 @@ class ContentCollectionEntityTest < Minitest::Test
     # LOAD
     content_collection_ref01_ent = client.ContentCollection(nil)
     content_collection_ref01_match_dt0 = {}
-    content_collection_ref01_data_dt0_loaded, err = content_collection_ref01_ent.load(content_collection_ref01_match_dt0, nil)
-    assert_nil err
+    content_collection_ref01_data_dt0_loaded = content_collection_ref01_ent.load(content_collection_ref01_match_dt0, nil)
     assert !content_collection_ref01_data_dt0_loaded.nil?
 
   end
@@ -82,7 +81,6 @@ def content_collection_basic_setup(extra)
     "HEALTHCAREGOVCONTENT_TEST_CONTENT_COLLECTION_ENTID" => idmap,
     "HEALTHCAREGOVCONTENT_TEST_LIVE" => "FALSE",
     "HEALTHCAREGOVCONTENT_TEST_EXPLAIN" => "FALSE",
-    "HEALTHCAREGOVCONTENT_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -94,7 +92,6 @@ def content_collection_basic_setup(extra)
   if env["HEALTHCAREGOVCONTENT_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["HEALTHCAREGOVCONTENT_APIKEY"],
       },
       extra || {},
     ])

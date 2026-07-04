@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  PostTitle,
+  PostTitleListMatch,
+} from '../HealthcareGovContentTypes'
 
 // TODO: needs Entity superclass
-class PostTitleEntity extends HealthcareGovContentEntityBase {
+class PostTitleEntity extends HealthcareGovContentEntityBase<PostTitle> {
 
   constructor(client: HealthcareGovContentSDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +37,7 @@ class PostTitleEntity extends HealthcareGovContentEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: PostTitleListMatch, ctrl?: Control): Promise<PostTitle[]> {
 
     const utility = this._utility
 
@@ -133,7 +137,9 @@ class PostTitleEntity extends HealthcareGovContentEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<PostTitle[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -134,7 +133,7 @@ Alias for `HealthcareGovContentSDK.test()`.
 ## ContentCollectionEntity
 
 ```ts
-const content_collection = client.ContentCollection()
+const content_collection = client.content_collection
 ```
 
 ### Fields
@@ -150,7 +149,7 @@ const content_collection = client.ContentCollection()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.ContentCollection().load({ id: 'content_collection_id' })
+const result = await client.content_collection.load({ id: 'content_collection_id' })
 ```
 
 ### Common Methods
@@ -184,7 +183,7 @@ Return a copy of the entity options.
 ## IndexEntity
 
 ```ts
-const index = client.Index()
+const index = client.index
 ```
 
 ### Fields
@@ -208,7 +207,7 @@ const index = client.Index()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Index().list()
+const results = await client.index.list()
 ```
 
 ### Common Methods
@@ -242,7 +241,7 @@ Return a copy of the entity options.
 ## PostTitleEntity
 
 ```ts
-const post_title = client.PostTitle()
+const post_title = client.post_title
 ```
 
 ### Fields
@@ -268,7 +267,7 @@ const post_title = client.PostTitle()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.PostTitle().list()
+const results = await client.post_title.list()
 ```
 
 ### Common Methods

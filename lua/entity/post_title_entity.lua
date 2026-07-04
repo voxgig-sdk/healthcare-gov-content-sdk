@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch PostTitleListMatch
+---@param ctrl? table
+---@return PostTitle[]
+---@return string? err
 function PostTitleEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

@@ -9,21 +9,10 @@ The Ruby SDK for the HealthcareGovContent API — an entity-oriented client usin
 
 
 ## Install
-```bash
-gem install voxgig-sdk-healthcare-gov-content
-```
+This package is not yet published to RubyGems. Install it from the
+GitHub release tag (`rb/vX.Y.Z`):
 
-Or add to your `Gemfile`:
-
-```ruby
-gem "voxgig-sdk-healthcare-gov-content"
-```
-
-Then run:
-
-```bash
-bundle install
-```
+- Releases: [https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -36,17 +25,18 @@ loading a specific record.
 ```ruby
 require_relative "HealthcareGovContent_sdk"
 
-client = HealthcareGovContentSDK.new({
-  "apikey" => ENV["HEALTHCARE-GOV-CONTENT_APIKEY"],
-})
+client = HealthcareGovContentSDK.new
 ```
 
 ### 3. Load a contentcollection
 
 ```ruby
-result, err = client.ContentCollection().load({ "id" => "example_id" })
-raise err if err
-puts result
+begin
+  result = client.contentcollection.load({ "id" => "example_id" })
+  puts result
+rescue => err
+  warn "load failed: #{err}"
+end
 ```
 
 
@@ -57,32 +47,35 @@ puts result
 For endpoints not covered by entity methods:
 
 ```ruby
-result, err = client.direct({
+result = client.direct({
   "path" => "/api/resource/{id}",
   "method" => "GET",
   "params" => { "id" => "example" },
 })
-raise err if err
 
 if result["ok"]
   puts result["status"]  # 200
   puts result["data"]    # response body
+else
+  warn result["err"]
 end
 ```
 
 ### Prepare a request without sending it
 
 ```ruby
-fetchdef, err = client.prepare({
-  "path" => "/api/resource/{id}",
-  "method" => "DELETE",
-  "params" => { "id" => "example" },
-})
-raise err if err
-
-puts fetchdef["url"]
-puts fetchdef["method"]
-puts fetchdef["headers"]
+begin
+  fetchdef = client.prepare({
+    "path" => "/api/resource/{id}",
+    "method" => "DELETE",
+    "params" => { "id" => "example" },
+  })
+  puts fetchdef["url"]
+  puts fetchdef["method"]
+  puts fetchdef["headers"]
+rescue => err
+  warn "prepare failed: #{err}"
+end
 ```
 
 ### Use test mode
@@ -92,7 +85,7 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = HealthcareGovContentSDK.test
 
-result, err = client.HealthcareGovContent().load({ "id" => "test01" })
+result = client.contentcollection.load({ "id" => "test01" })
 # result contains mock response data
 ```
 
@@ -123,8 +116,7 @@ client = HealthcareGovContentSDK.new({
 Create a `.env.local` file at the project root:
 
 ```
-HEALTHCARE-GOV-CONTENT_TEST_LIVE=TRUE
-HEALTHCARE-GOV-CONTENT_APIKEY=<your-key>
+HEALTHCARE_GOV_CONTENT_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -147,7 +139,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `String` | API key for authentication. |
 | `base` | `String` | Base URL of the API server. |
 | `prefix` | `String` | URL path prefix prepended to all requests. |
 | `suffix` | `String` | URL path suffix appended to all requests. |
@@ -169,8 +160,8 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | --- | --- | --- |
 | `options_map` | `() -> Hash` | Deep copy of current SDK options. |
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
-| `prepare` | `(fetchargs) -> [Hash, err]` | Build an HTTP request definition without sending. |
-| `direct` | `(fetchargs) -> [Hash, err]` | Build and send an HTTP request. |
+| `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
+| `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
 | `ContentCollection` | `(data) -> ContentCollectionEntity` | Create a ContentCollection entity instance. |
 | `Index` | `(data) -> IndexEntity` | Create a Index entity instance. |
 | `PostTitle` | `(data) -> PostTitleEntity` | Create a PostTitle entity instance. |
@@ -181,11 +172,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> [any, err]` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> [any, err]` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> [any, err]` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> [any, err]` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> [any, err]` | Remove an entity. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> Array` | List entities matching the criteria. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
+| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
+| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -195,8 +186,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `[any, err]`. The first value is a
-`Hash` with these keys:
+Entity operations return the result data directly. On failure they
+raise a `HealthcareGovContentError` (a `StandardError` subclass), so wrap
+calls in `begin`/`rescue` where you need to handle errors.
+
+The `direct` escape hatch is the exception: it never raises and instead
+returns a result `Hash` with these keys:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -204,8 +199,7 @@ Entity operations return `[any, err]`. The first value is a
 | `status` | `Integer` | HTTP status code. |
 | `headers` | `Hash` | Response headers. |
 | `data` | `any` | Parsed JSON response body. |
-
-On error, `ok` is `false` and `err` contains the error value.
+| `err` | `Error` | Present when `ok` is `false`. |
 
 ### Entities
 
@@ -264,7 +258,7 @@ API path: `/{post-title}.json`
 
 ### ContentCollection
 
-Create an instance: `const content_collection = client.ContentCollection()`
+Create an instance: `const content_collection = client.content_collection`
 
 #### Operations
 
@@ -281,13 +275,13 @@ Create an instance: `const content_collection = client.ContentCollection()`
 #### Example: Load
 
 ```ts
-const content_collection = await client.ContentCollection().load({ id: 'content_collection_id' })
+const content_collection = await client.content_collection.load({ id: 'content_collection_id' })
 ```
 
 
 ### Index
 
-Create an instance: `const index = client.Index()`
+Create an instance: `const index = client.index`
 
 #### Operations
 
@@ -312,13 +306,13 @@ Create an instance: `const index = client.Index()`
 #### Example: List
 
 ```ts
-const indexs = await client.Index().list()
+const indexs = await client.index.list()
 ```
 
 
 ### PostTitle
 
-Create an instance: `const post_title = client.PostTitle()`
+Create an instance: `const post_title = client.post_title`
 
 #### Operations
 
@@ -345,7 +339,7 @@ Create an instance: `const post_title = client.PostTitle()`
 #### Example: List
 
 ```ts
-const post_titles = await client.PostTitle().list()
+const post_titles = await client.post_title.list()
 ```
 
 
@@ -420,11 +414,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-moon = client.Moon
-moon.load({ "planet_id" => "earth", "id" => "luna" })
+contentcollection = client.contentcollection
+contentcollection.load({ "id" => "example_id" })
 
-# moon.data_get now returns the loaded moon data
-# moon.match_get returns the last match criteria
+# contentcollection.data_get now returns the loaded contentcollection data
+# contentcollection.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

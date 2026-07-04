@@ -45,6 +45,7 @@ class PostTitleEntity
     end
   end
 
+  # @return [PostTitle, Hash] the current PostTitle data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class PostTitleEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of PostTitle fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class PostTitleEntity
   
 
   
+  # List PostTitle items matching the given filter.
+  #
+  # @param reqmatch [PostTitleListMatch, Hash, nil] match filter (any subset of PostTitle fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<PostTitle>, Array] the matching PostTitle items; raises HealthcareGovContentError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

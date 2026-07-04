@@ -10,26 +10,24 @@ This is an unofficial SDK for the HealthCare.gov Content public API, generated b
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/healthcare-gov-content` | `npm install @voxgig-sdk/healthcare-gov-content` |
-| Python | `voxgig-sdk-healthcare-gov-content` | `pip install voxgig-sdk-healthcare-gov-content` |
-| PHP | `voxgig-sdk/healthcare-gov-content` | `composer require voxgig-sdk/healthcare-gov-content` |
-| Golang | `github.com/voxgig-sdk/healthcare-gov-content-sdk/go` | `go get github.com/voxgig-sdk/healthcare-gov-content-sdk/go` |
-| Ruby | `voxgig-sdk-healthcare-gov-content` | `gem install voxgig-sdk-healthcare-gov-content` |
-| Lua | `voxgig-sdk-healthcare-gov-content` | `luarocks install voxgig-sdk-healthcare-gov-content` |
+| TypeScript | `@voxgig-sdk/healthcare-gov-content` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases) |
+| Python | `voxgig-sdk-healthcare-gov-content` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases) |
+| PHP | `voxgig-sdk/healthcare-gov-content` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases) |
+| Golang | `github.com/voxgig-sdk/healthcare-gov-content-sdk/go` | `go get github.com/voxgig-sdk/healthcare-gov-content-sdk/go@latest` |
+| Ruby | `voxgig-sdk-healthcare-gov-content` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases) |
+| Lua | `voxgig-sdk-healthcare-gov-content` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases) |
 
 ## Quickstart
 
 ### TypeScript
 
 ```ts
-import { HealthcareGovContentSDK } from 'healthcare-gov-content'
+import { HealthcareGovContentSDK } from '@voxgig-sdk/healthcare-gov-content'
 
-const client = new HealthcareGovContentSDK({
-  apikey: process.env.HEALTHCARE-GOV-CONTENT_APIKEY,
-})
+const client = new HealthcareGovContentSDK()
 
 // Load contentcollection data
-const contentcollection = await client.ContentCollection().load({})
+const contentcollection = await client.contentcollection.load({})
 console.log(contentcollection.data)
 ```
 
@@ -71,9 +69,9 @@ The API exposes 3 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **ContentCollection** |  | `/api/{content-type}.json` |
-| **Index** |  | `/api/index.json` |
-| **PostTitle** |  | `/{post-title}.json` |
+| **ContentCollection** | The ContentCollection entity (load). | `/api/{content-type}.json` |
+| **Index** | The Index entity (list). | `/api/index.json` |
+| **PostTitle** | The PostTitle entity (list). | `/{post-title}.json` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -83,16 +81,13 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
-import os
 from healthcaregovcontent_sdk import HealthcareGovContentSDK
 
-client = HealthcareGovContentSDK({
-    "apikey": os.environ.get("HEALTHCARE-GOV-CONTENT_APIKEY"),
-})
+client = HealthcareGovContentSDK()
 
 
 # Load a specific contentcollection
-contentcollection, err = client.ContentCollection().load({"id": "example_id"})
+contentcollection = client.contentcollection.load({"id": "example_id"})
 print(contentcollection)
 ```
 
@@ -102,13 +97,11 @@ print(contentcollection)
 <?php
 require_once 'healthcaregovcontent_sdk.php';
 
-$client = new HealthcareGovContentSDK([
-    "apikey" => getenv("HEALTHCARE-GOV-CONTENT_APIKEY"),
-]);
+$client = new HealthcareGovContentSDK();
 
 
 // Load a specific contentcollection
-[$contentcollection, $err] = $client->ContentCollection()->load(["id" => "example_id"]);
+$contentcollection = $client->contentcollection()->load(["id" => "example_id"]);
 print_r($contentcollection);
 ```
 
@@ -117,9 +110,7 @@ print_r($contentcollection);
 ```go
 import sdk "github.com/voxgig-sdk/healthcare-gov-content-sdk/go"
 
-client := sdk.NewHealthcareGovContentSDK(map[string]any{
-    "apikey": os.Getenv("HEALTHCARE-GOV-CONTENT_APIKEY"),
-})
+client := sdk.New()
 
 // Load contentcollection data
 contentcollection, err := client.ContentCollection(nil).Load(map[string]any{}, nil)
@@ -131,13 +122,11 @@ fmt.Println(contentcollection)
 ```ruby
 require_relative "HealthcareGovContent_sdk"
 
-client = HealthcareGovContentSDK.new({
-  "apikey" => ENV["HEALTHCARE-GOV-CONTENT_APIKEY"],
-})
+client = HealthcareGovContentSDK.new
 
 
 # Load a specific contentcollection
-contentcollection, err = client.ContentCollection().load({ "id" => "example_id" })
+contentcollection = client.contentcollection.load({ "id" => "example_id" })
 puts contentcollection
 ```
 
@@ -146,13 +135,11 @@ puts contentcollection
 ```lua
 local sdk = require("healthcare-gov-content_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("HEALTHCARE-GOV-CONTENT_APIKEY"),
-})
+local client = sdk.new()
 
 
 -- Load a specific contentcollection
-local contentcollection, err = client:ContentCollection():load({ id = "example_id" })
+local contentcollection, err = client:contentcollection():load({ id = "example_id" })
 print(contentcollection)
 ```
 
@@ -165,7 +152,7 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = HealthcareGovContentSDK.test()
-const result = await client.ContentCollection().load({ id: 'test01' })
+const result = await client.contentcollection.load({ id: 'test01' })
 // result.ok === true, result.data contains mock data
 ```
 
@@ -173,14 +160,14 @@ const result = await client.ContentCollection().load({ id: 'test01' })
 
 ```python
 client = HealthcareGovContentSDK.test()
-result, err = client.ContentCollection().load({"id": "test01"})
+result = client.contentcollection.load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
 $client = HealthcareGovContentSDK::test();
-[$result, $err] = $client->ContentCollection()->load(["id" => "test01"]);
+$result = $client->contentcollection()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -196,14 +183,14 @@ result, err := client.ContentCollection(nil).Load(
 
 ```ruby
 client = HealthcareGovContentSDK.test
-result, err = client.ContentCollection().load({ "id" => "test01" })
+result = client.contentcollection.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:ContentCollection():load({ id = "test01" })
+local result, err = client:contentcollection():load({ id = "test01" })
 ```
 
 ## How it works
@@ -256,7 +243,7 @@ console.log(result.data)
 
 **Python:**
 ```python
-result, err = client.direct({
+result = client.direct({
     "path": "/api/resource/{id}",
     "method": "GET",
     "params": {"id": "example"},
@@ -265,7 +252,7 @@ result, err = client.direct({
 
 **PHP:**
 ```php
-[$result, $err] = $client->direct([
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
@@ -283,7 +270,7 @@ result, err := client.Direct(map[string]any{
 
 **Ruby:**
 ```ruby
-result, err = client.direct({
+result = client.direct({
   "path" => "/api/resource/{id}",
   "method" => "GET",
   "params" => { "id" => "example" },

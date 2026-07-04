@@ -9,9 +9,10 @@ The PHP SDK for the HealthcareGovContent API — an entity-oriented client using
 
 
 ## Install
-```bash
-composer require voxgig-sdk/healthcare-gov-content
-```
+This package is not yet published to Packagist. Install it from the
+GitHub release tag (`php/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -25,17 +26,18 @@ loading a specific record.
 <?php
 require_once 'healthcaregovcontent_sdk.php';
 
-$client = new HealthcareGovContentSDK([
-    "apikey" => getenv("HEALTHCARE-GOV-CONTENT_APIKEY"),
-]);
+$client = new HealthcareGovContentSDK();
 ```
 
 ### 3. Load a contentcollection
 
 ```php
-[$result, $err] = $client->ContentCollection()->load(["id" => "example_id"]);
-if ($err) { throw new \Exception($err); }
-print_r($result);
+try {
+    $result = $client->contentcollection()->load(["id" => "example_id"]);
+    print_r($result);
+} catch (\Exception $err) {
+    echo "Error: " . $err->getMessage();
+}
 ```
 
 
@@ -46,28 +48,31 @@ print_r($result);
 For endpoints not covered by entity methods:
 
 ```php
-[$result, $err] = $client->direct([
+// direct() is the raw-HTTP escape hatch: it returns a result array
+// (it does not throw). Branch on $result["ok"].
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
+} else {
+    echo "Error: " . $result["err"]->getMessage();
 }
 ```
 
 ### Prepare a request without sending it
 
 ```php
-[$fetchdef, $err] = $client->prepare([
+// prepare() throws on error and returns the fetch definition.
+$fetchdef = $client->prepare([
     "path" => "/api/resource/{id}",
     "method" => "DELETE",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 echo $fetchdef["url"];
 echo $fetchdef["method"];
@@ -81,7 +86,7 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = HealthcareGovContentSDK::test();
 
-[$result, $err] = $client->HealthcareGovContent()->load(["id" => "test01"]);
+$result = $client->contentcollection()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -115,8 +120,7 @@ $client = new HealthcareGovContentSDK([
 Create a `.env.local` file at the project root:
 
 ```
-HEALTHCARE-GOV-CONTENT_TEST_LIVE=TRUE
-HEALTHCARE-GOV-CONTENT_APIKEY=<your-key>
+HEALTHCARE_GOV_CONTENT_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -139,7 +143,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -187,8 +190,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `[$result, $err]`. The first value is an
-`array` with these keys:
+Entity operations return the bare result data (an `array` for single-entity
+ops, a `list` for `list`) and throw on error. Wrap calls in
+`try`/`catch` to handle failures.
+
+The `direct()` escape hatch never throws — it returns a result `array`
+you branch on via `$result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -256,7 +263,7 @@ API path: `/{post-title}.json`
 
 ### ContentCollection
 
-Create an instance: `const content_collection = client.ContentCollection()`
+Create an instance: `const content_collection = client.content_collection`
 
 #### Operations
 
@@ -273,13 +280,13 @@ Create an instance: `const content_collection = client.ContentCollection()`
 #### Example: Load
 
 ```ts
-const content_collection = await client.ContentCollection().load({ id: 'content_collection_id' })
+const content_collection = await client.content_collection.load({ id: 'content_collection_id' })
 ```
 
 
 ### Index
 
-Create an instance: `const index = client.Index()`
+Create an instance: `const index = client.index`
 
 #### Operations
 
@@ -304,13 +311,13 @@ Create an instance: `const index = client.Index()`
 #### Example: List
 
 ```ts
-const indexs = await client.Index().list()
+const indexs = await client.index.list()
 ```
 
 
 ### PostTitle
 
-Create an instance: `const post_title = client.PostTitle()`
+Create an instance: `const post_title = client.post_title`
 
 #### Operations
 
@@ -337,7 +344,7 @@ Create an instance: `const post_title = client.PostTitle()`
 #### Example: List
 
 ```ts
-const post_titles = await client.PostTitle().list()
+const post_titles = await client.post_title.list()
 ```
 
 
@@ -412,11 +419,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$moon = $client->Moon();
-[$result, $err] = $moon->load(["planet_id" => "earth", "id" => "luna"]);
+$contentcollection = $client->contentcollection();
+$contentcollection->load(["id" => "example_id"]);
 
-// $moon->dataGet() now returns the loaded moon data
-// $moon->matchGet() returns the last match criteria
+// $contentcollection->dataGet() now returns the loaded contentcollection data
+// $contentcollection->matchGet() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

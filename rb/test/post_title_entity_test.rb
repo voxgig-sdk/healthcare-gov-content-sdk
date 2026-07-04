@@ -45,8 +45,7 @@ class PostTitleEntityTest < Minitest::Test
       "post_title" => setup[:idmap]["post_title01"],
     }
 
-    post_title_ref01_list_result, err = post_title_ref01_ent.list(post_title_ref01_match, nil)
-    assert_nil err
+    post_title_ref01_list_result = post_title_ref01_ent.list(post_title_ref01_match, nil)
     assert post_title_ref01_list_result.is_a?(Array)
 
   end
@@ -85,7 +84,6 @@ def post_title_basic_setup(extra)
     "HEALTHCAREGOVCONTENT_TEST_POST_TITLE_ENTID" => idmap,
     "HEALTHCAREGOVCONTENT_TEST_LIVE" => "FALSE",
     "HEALTHCAREGOVCONTENT_TEST_EXPLAIN" => "FALSE",
-    "HEALTHCAREGOVCONTENT_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -97,7 +95,6 @@ def post_title_basic_setup(extra)
   if env["HEALTHCAREGOVCONTENT_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["HEALTHCAREGOVCONTENT_APIKEY"],
       },
       extra || {},
     ])

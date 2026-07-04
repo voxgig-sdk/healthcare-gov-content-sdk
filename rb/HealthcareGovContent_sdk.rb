@@ -13,6 +13,9 @@ require_relative 'config'
 require_relative 'feature/base_feature'
 require_relative 'features'
 
+# Load typed models (Struct value objects).
+require_relative 'HealthcareGovContent_types'
+
 
 class HealthcareGovContentSDK
   attr_accessor :mode, :features, :options
@@ -131,7 +134,7 @@ class HealthcareGovContentSDK
     end
 
     _, err = utility.prepare_auth.call(ctx)
-    return nil, err if err
+    raise err if err
 
     utility.make_fetch_def.call(ctx)
   end
@@ -139,8 +142,14 @@ class HealthcareGovContentSDK
   def direct(fetchargs = {})
     utility = @_utility
 
-    fetchdef, err = prepare(fetchargs)
-    return { "ok" => false, "err" => err }, nil if err
+    # direct() is the raw-HTTP escape hatch: it always returns a result hash
+    # ({ "ok" => ..., ... }) and never raises. prepare() raises on error, so
+    # trap that and surface it in the hash.
+    begin
+      fetchdef = prepare(fetchargs)
+    rescue HealthcareGovContentError => err
+      return { "ok" => false, "err" => err }
+    end
 
     fetchargs ||= {}
     ctrl = HealthcareGovContentHelpers.to_map(VoxgigStruct.getprop(fetchargs, "ctrl")) || {}
@@ -153,13 +162,13 @@ class HealthcareGovContentSDK
     url = fetchdef["url"] || ""
     fetched, fetch_err = utility.fetcher.call(ctx, url, fetchdef)
 
-    return { "ok" => false, "err" => fetch_err }, nil if fetch_err
+    return { "ok" => false, "err" => fetch_err } if fetch_err
 
     if fetched.nil?
       return {
         "ok" => false,
         "err" => ctx.make_error("direct_no_response", "response: undefined"),
-      }, nil
+      }
     end
 
     if fetched.is_a?(Hash)
@@ -189,28 +198,49 @@ class HealthcareGovContentSDK
         "status" => status,
         "headers" => headers,
         "data" => json_data,
-      }, nil
+      }
     end
 
     return {
       "ok" => false,
       "err" => ctx.make_error("direct_invalid", "invalid response type"),
-    }, nil
+    }
   end
 
 
+  # Idiomatic facade: client.content_collection.list / client.content_collection.load({ "id" => ... })
+  def content_collection
+    require_relative 'entity/content_collection_entity'
+    @content_collection ||= ContentCollectionEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.content_collection instead.
   def ContentCollection(data = nil)
     require_relative 'entity/content_collection_entity'
     ContentCollectionEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.index.list / client.index.load({ "id" => ... })
+  def index
+    require_relative 'entity/index_entity'
+    @index ||= IndexEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.index instead.
   def Index(data = nil)
     require_relative 'entity/index_entity'
     IndexEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.post_title.list / client.post_title.load({ "id" => ... })
+  def post_title
+    require_relative 'entity/post_title_entity'
+    @post_title ||= PostTitleEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.post_title instead.
   def PostTitle(data = nil)
     require_relative 'entity/post_title_entity'
     PostTitleEntity.new(self, data)

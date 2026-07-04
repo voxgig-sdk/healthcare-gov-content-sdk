@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch IndexListMatch
+---@param ctrl? table
+---@return Index[]
+---@return string? err
 function IndexEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

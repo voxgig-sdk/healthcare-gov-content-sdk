@@ -50,8 +50,7 @@ class IndexEntityTest extends TestCase
         $index_ref01_ent = $client->Index(null);
         $index_ref01_match = [];
 
-        [$index_ref01_list_result, $err] = $index_ref01_ent->list($index_ref01_match, null);
-        $this->assertNull($err);
+        $index_ref01_list_result = $index_ref01_ent->list($index_ref01_match, null);
         $this->assertIsArray($index_ref01_list_result);
 
     }
@@ -86,7 +85,6 @@ function index_basic_setup($extra)
         "HEALTHCAREGOVCONTENT_TEST_INDEX_ENTID" => $idmap,
         "HEALTHCAREGOVCONTENT_TEST_LIVE" => "FALSE",
         "HEALTHCAREGOVCONTENT_TEST_EXPLAIN" => "FALSE",
-        "HEALTHCAREGOVCONTENT_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -98,7 +96,6 @@ function index_basic_setup($extra)
     if ($env["HEALTHCAREGOVCONTENT_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["HEALTHCAREGOVCONTENT_APIKEY"],
             ],
             $extra ?? [],
         ]);

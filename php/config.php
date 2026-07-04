@@ -20,9 +20,6 @@ class HealthcareGovContentConfig
             ],
             "options" => [
                 "base" => "https://www.healthcare.gov",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],
@@ -61,6 +58,7 @@ class HealthcareGovContentConfig
                         'orig' => 'content_type',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                     ],
                     'query' => [
@@ -313,6 +311,7 @@ class HealthcareGovContentConfig
                         'orig' => 'post_title',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                     ],
                     'query' => [

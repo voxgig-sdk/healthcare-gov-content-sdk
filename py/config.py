@@ -15,9 +15,6 @@ def make_config():
         },
         "options": {
             "base": "https://www.healthcare.gov",
-            "auth": {
-                "prefix": "Bearer",
-            },
             "headers": {
         "content-type": "application/json",
       },
@@ -56,6 +53,7 @@ def make_config():
                       "orig": "content_type",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                   "query": [
@@ -308,6 +306,7 @@ def make_config():
                       "orig": "post_title",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                   "query": [

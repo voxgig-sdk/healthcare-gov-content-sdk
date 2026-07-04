@@ -15,9 +15,6 @@ module HealthcareGovContentConfig
       },
       "options" => {
         "base" => "https://www.healthcare.gov",
-        "auth" => {
-          "prefix" => "Bearer",
-        },
         "headers" => {
           "content-type" => "application/json",
         },
@@ -56,6 +53,7 @@ module HealthcareGovContentConfig
                         "orig" => "content_type",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                     "query" => [
@@ -308,6 +306,7 @@ module HealthcareGovContentConfig
                         "orig" => "post_title",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                     "query" => [

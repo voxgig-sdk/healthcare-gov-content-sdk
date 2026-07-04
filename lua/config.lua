@@ -14,9 +14,6 @@ local function make_config()
     },
     options = {
       base = "https://www.healthcare.gov",
-      auth = {
-        prefix = "Bearer",
-      },
       headers = {
         ["content-type"] = "application/json",
       },
@@ -55,6 +52,7 @@ local function make_config()
                       ["orig"] = "content_type",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
+                      ["index$"] = 0,
                     },
                   },
                   ["query"] = {
@@ -307,6 +305,7 @@ local function make_config()
                       ["orig"] = "post_title",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
+                      ["index$"] = 0,
                     },
                   },
                   ["query"] = {

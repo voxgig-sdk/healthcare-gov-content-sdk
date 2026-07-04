@@ -245,16 +245,25 @@ func (sdk *HealthcareGovContentSDK) Direct(fetchargs map[string]any) (map[string
 }
 
 
+// ContentCollection returns a ContentCollection entity bound to this client.
+// Idiomatic usage: client.ContentCollection(nil).List(nil, nil) or
+// client.ContentCollection(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *HealthcareGovContentSDK) ContentCollection(data map[string]any) HealthcareGovContentEntity {
 	return NewContentCollectionEntityFunc(sdk, data)
 }
 
 
+// Index returns a Index entity bound to this client.
+// Idiomatic usage: client.Index(nil).List(nil, nil) or
+// client.Index(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *HealthcareGovContentSDK) Index(data map[string]any) HealthcareGovContentEntity {
 	return NewIndexEntityFunc(sdk, data)
 }
 
 
+// PostTitle returns a PostTitle entity bound to this client.
+// Idiomatic usage: client.PostTitle(nil).List(nil, nil) or
+// client.PostTitle(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *HealthcareGovContentSDK) PostTitle(data map[string]any) HealthcareGovContentEntity {
 	return NewPostTitleEntityFunc(sdk, data)
 }

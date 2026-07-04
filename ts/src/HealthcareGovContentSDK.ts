@@ -4,6 +4,8 @@ import { ContentCollectionEntity } from './entity/ContentCollectionEntity'
 import { IndexEntity } from './entity/IndexEntity'
 import { PostTitleEntity } from './entity/PostTitleEntity'
 
+export type * from './HealthcareGovContentTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -204,18 +206,42 @@ class HealthcareGovContentSDK {
 
 
 
+  _content_collection?: ContentCollectionEntity
+
+  // Idiomatic facade: `client.content_collection.list()` / `client.content_collection.load({ id })`.
+  get content_collection(): ContentCollectionEntity {
+    return (this._content_collection ??= new ContentCollectionEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.content_collection` instead. */
   ContentCollection(data?: any) {
     const self = this
     return new ContentCollectionEntity(self,data)
   }
 
 
+  _index?: IndexEntity
+
+  // Idiomatic facade: `client.index.list()` / `client.index.load({ id })`.
+  get index(): IndexEntity {
+    return (this._index ??= new IndexEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.index` instead. */
   Index(data?: any) {
     const self = this
     return new IndexEntity(self,data)
   }
 
 
+  _post_title?: PostTitleEntity
+
+  // Idiomatic facade: `client.post_title.list()` / `client.post_title.load({ id })`.
+  get post_title(): PostTitleEntity {
+    return (this._post_title ??= new PostTitleEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.post_title` instead. */
   PostTitle(data?: any) {
     const self = this
     return new PostTitleEntity(self,data)

@@ -49,8 +49,7 @@ class TestContentCollectionEntity:
         # LOAD
         content_collection_ref01_ent = client.ContentCollection(None)
         content_collection_ref01_match_dt0 = {}
-        content_collection_ref01_data_dt0_loaded, err = content_collection_ref01_ent.load(content_collection_ref01_match_dt0, None)
-        assert err is None
+        content_collection_ref01_data_dt0_loaded = content_collection_ref01_ent.load(content_collection_ref01_match_dt0, None)
         assert content_collection_ref01_data_dt0_loaded is not None
 
 
@@ -91,7 +90,6 @@ def _content_collection_basic_setup(extra):
         "HEALTHCAREGOVCONTENT_TEST_CONTENT_COLLECTION_ENTID": idmap,
         "HEALTHCAREGOVCONTENT_TEST_LIVE": "FALSE",
         "HEALTHCAREGOVCONTENT_TEST_EXPLAIN": "FALSE",
-        "HEALTHCAREGOVCONTENT_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -102,7 +100,6 @@ def _content_collection_basic_setup(extra):
     if env.get("HEALTHCAREGOVCONTENT_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("HEALTHCAREGOVCONTENT_APIKEY"),
             },
             extra or {},
         ])

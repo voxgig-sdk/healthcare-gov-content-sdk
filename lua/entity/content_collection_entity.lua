@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch ContentCollectionLoadMatch
+---@param ctrl? table
+---@return ContentCollection
+---@return string? err
 function ContentCollectionEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

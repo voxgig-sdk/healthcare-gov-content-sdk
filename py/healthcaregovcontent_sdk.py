@@ -144,16 +144,23 @@ class HealthcareGovContentSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class HealthcareGovContentSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,25 +212,58 @@ class HealthcareGovContentSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def content_collection(self):
+        """Idiomatic facade: client.content_collection.list() / client.content_collection.load({"id": ...})."""
+        from entity.content_collection_entity import ContentCollectionEntity
+        cached = getattr(self, "_content_collection", None)
+        if cached is None:
+            cached = ContentCollectionEntity(self, None)
+            self._content_collection = cached
+        return cached
 
     def ContentCollection(self, data=None):
+        # Deprecated: use client.content_collection instead.
         from entity.content_collection_entity import ContentCollectionEntity
         return ContentCollectionEntity(self, data)
 
 
+    @property
+    def index(self):
+        """Idiomatic facade: client.index.list() / client.index.load({"id": ...})."""
+        from entity.index_entity import IndexEntity
+        cached = getattr(self, "_index", None)
+        if cached is None:
+            cached = IndexEntity(self, None)
+            self._index = cached
+        return cached
+
     def Index(self, data=None):
+        # Deprecated: use client.index instead.
         from entity.index_entity import IndexEntity
         return IndexEntity(self, data)
 
 
+    @property
+    def post_title(self):
+        """Idiomatic facade: client.post_title.list() / client.post_title.load({"id": ...})."""
+        from entity.post_title_entity import PostTitleEntity
+        cached = getattr(self, "_post_title", None)
+        if cached is None:
+            cached = PostTitleEntity(self, None)
+            self._post_title = cached
+        return cached
+
     def PostTitle(self, data=None):
+        # Deprecated: use client.post_title instead.
         from entity.post_title_entity import PostTitleEntity
         return PostTitleEntity(self, data)
 

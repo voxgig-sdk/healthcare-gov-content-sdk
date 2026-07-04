@@ -9,9 +9,12 @@ The TypeScript SDK for the HealthcareGovContent API — a type-safe, entity-orie
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/healthcare-gov-content
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,15 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { HealthcareGovContentSDK } from 'healthcare-gov-content'
+import { HealthcareGovContentSDK } from '@voxgig-sdk/healthcare-gov-content'
 
-const client = new HealthcareGovContentSDK({
-  apikey: process.env.HEALTHCARE-GOV-CONTENT_APIKEY,
-})
+const client = new HealthcareGovContentSDK()
 ```
 
 ### 3. Load a contentcollection
 
 ```ts
-const result = await client.ContentCollection().load({ id: 'example_id' })
+const result = await client.contentcollection.load({ id: 'example_id' })
 
 if (result.ok) {
   console.log(result.data)
@@ -79,7 +80,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = HealthcareGovContentSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.contentcollection.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -87,7 +88,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new HealthcareGovContentSDK({ apikey: '...' })
+const client = new HealthcareGovContentSDK()
 const testClient = client.tester()
 ```
 
@@ -96,7 +97,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.contentcollection
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -123,7 +124,6 @@ const logger = {
 }
 
 const client = new HealthcareGovContentSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -133,8 +133,7 @@ const client = new HealthcareGovContentSDK({
 Create a `.env.local` file at the project root:
 
 ```
-HEALTHCARE-GOV-CONTENT_TEST_LIVE=TRUE
-HEALTHCARE-GOV-CONTENT_APIKEY=<your-key>
+HEALTHCARE_GOV_CONTENT_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -152,7 +151,6 @@ cd ts && npm test
 
 ```ts
 new HealthcareGovContentSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -163,7 +161,6 @@ new HealthcareGovContentSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -306,7 +303,7 @@ API path: `/{post-title}.json`
 
 ### ContentCollection
 
-Create an instance: `const content_collection = client.ContentCollection()`
+Create an instance: `const content_collection = client.content_collection`
 
 #### Operations
 
@@ -323,13 +320,13 @@ Create an instance: `const content_collection = client.ContentCollection()`
 #### Example: Load
 
 ```ts
-const content_collection = await client.ContentCollection().load({ id: 'content_collection_id' })
+const content_collection = await client.content_collection.load({ id: 'content_collection_id' })
 ```
 
 
 ### Index
 
-Create an instance: `const index = client.Index()`
+Create an instance: `const index = client.index`
 
 #### Operations
 
@@ -354,13 +351,13 @@ Create an instance: `const index = client.Index()`
 #### Example: List
 
 ```ts
-const indexs = await client.Index().list()
+const indexs = await client.index.list()
 ```
 
 
 ### PostTitle
 
-Create an instance: `const post_title = client.PostTitle()`
+Create an instance: `const post_title = client.post_title`
 
 #### Operations
 
@@ -387,7 +384,7 @@ Create an instance: `const post_title = client.PostTitle()`
 #### Example: List
 
 ```ts
-const post_titles = await client.PostTitle().list()
+const post_titles = await client.post_title.list()
 ```
 
 
@@ -448,7 +445,7 @@ healthcare-gov-content/
 Import the SDK from the package root:
 
 ```ts
-import { HealthcareGovContentSDK } from 'healthcare-gov-content'
+import { HealthcareGovContentSDK } from '@voxgig-sdk/healthcare-gov-content'
 ```
 
 ### Entity state
@@ -458,11 +455,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const contentcollection = client.contentcollection
+await contentcollection.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// contentcollection.data() now returns the loaded contentcollection data
+// contentcollection.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

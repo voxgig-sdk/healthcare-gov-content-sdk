@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  ContentCollection,
+  ContentCollectionLoadMatch,
+} from '../HealthcareGovContentTypes'
 
 // TODO: needs Entity superclass
-class ContentCollectionEntity extends HealthcareGovContentEntityBase {
+class ContentCollectionEntity extends HealthcareGovContentEntityBase<ContentCollection> {
 
   constructor(client: HealthcareGovContentSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class ContentCollectionEntity extends HealthcareGovContentEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: ContentCollectionLoadMatch, ctrl?: Control): Promise<ContentCollection> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class ContentCollectionEntity extends HealthcareGovContentEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<ContentCollection> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

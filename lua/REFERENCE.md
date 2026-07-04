@@ -19,7 +19,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `table` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -92,7 +91,7 @@ same parameters as `direct()`.
 ## ContentCollectionEntity
 
 ```lua
-local content_collection = client:ContentCollection(nil)
+local content_collection = client:content_collection(nil)
 ```
 
 ### Fields
@@ -108,7 +107,7 @@ local content_collection = client:ContentCollection(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:ContentCollection():load({ id = "content_collection_id" })
+local result, err = client:content_collection():load({ id = "content_collection_id" })
 ```
 
 ### Common Methods
@@ -144,7 +143,7 @@ Return the entity name.
 ## IndexEntity
 
 ```lua
-local index = client:Index(nil)
+local index = client:index(nil)
 ```
 
 ### Fields
@@ -168,7 +167,7 @@ local index = client:Index(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Index():list()
+local results, err = client:index():list()
 ```
 
 ### Common Methods
@@ -204,7 +203,7 @@ Return the entity name.
 ## PostTitleEntity
 
 ```lua
-local post_title = client:PostTitle(nil)
+local post_title = client:post_title(nil)
 ```
 
 ### Fields
@@ -230,7 +229,7 @@ local post_title = client:PostTitle(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:PostTitle():list()
+local results, err = client:post_title():list()
 ```
 
 ### Common Methods

@@ -43,8 +43,7 @@ class IndexEntityTest < Minitest::Test
     index_ref01_ent = client.Index(nil)
     index_ref01_match = {}
 
-    index_ref01_list_result, err = index_ref01_ent.list(index_ref01_match, nil)
-    assert_nil err
+    index_ref01_list_result = index_ref01_ent.list(index_ref01_match, nil)
     assert index_ref01_list_result.is_a?(Array)
 
   end
@@ -83,7 +82,6 @@ def index_basic_setup(extra)
     "HEALTHCAREGOVCONTENT_TEST_INDEX_ENTID" => idmap,
     "HEALTHCAREGOVCONTENT_TEST_LIVE" => "FALSE",
     "HEALTHCAREGOVCONTENT_TEST_EXPLAIN" => "FALSE",
-    "HEALTHCAREGOVCONTENT_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -95,7 +93,6 @@ def index_basic_setup(extra)
   if env["HEALTHCAREGOVCONTENT_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["HEALTHCAREGOVCONTENT_APIKEY"],
       },
       extra || {},
     ])
