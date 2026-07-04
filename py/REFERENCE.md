@@ -88,7 +88,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## ContentCollectionEntity
 
 ```python
-content_collection = client.content_collection
+content_collection = client.ContentCollection()
 ```
 
 ### Fields
@@ -104,7 +104,7 @@ content_collection = client.content_collection
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.content_collection.load({"id": "content_collection_id"})
+result = client.ContentCollection().load({"id": "content_collection_id"})
 ```
 
 ### Common Methods
@@ -139,7 +139,7 @@ Return the entity name.
 ## IndexEntity
 
 ```python
-index = client.index
+index = client.Index()
 ```
 
 ### Fields
@@ -163,7 +163,9 @@ index = client.index
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.index.list({})
+results = client.Index().list({})
+for index in results:
+    print(index)
 ```
 
 ### Common Methods
@@ -198,7 +200,7 @@ Return the entity name.
 ## PostTitleEntity
 
 ```python
-post_title = client.post_title
+post_title = client.PostTitle()
 ```
 
 ### Fields
@@ -224,7 +226,9 @@ post_title = client.post_title
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.post_title.list({})
+results = client.PostTitle().list({})
+for post_title in results:
+    print(post_title)
 ```
 
 ### Common Methods

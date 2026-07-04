@@ -208,39 +208,21 @@ class HealthcareGovContentSDK
   end
 
 
-  # Idiomatic facade: client.content_collection.list / client.content_collection.load({ "id" => ... })
-  def content_collection
-    require_relative 'entity/content_collection_entity'
-    @content_collection ||= ContentCollectionEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.content_collection instead.
+  # Canonical facade: client.ContentCollection.list / client.ContentCollection.load({ "id" => ... })
   def ContentCollection(data = nil)
     require_relative 'entity/content_collection_entity'
     ContentCollectionEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.index.list / client.index.load({ "id" => ... })
-  def index
-    require_relative 'entity/index_entity'
-    @index ||= IndexEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.index instead.
+  # Canonical facade: client.Index.list / client.Index.load({ "id" => ... })
   def Index(data = nil)
     require_relative 'entity/index_entity'
     IndexEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.post_title.list / client.post_title.load({ "id" => ... })
-  def post_title
-    require_relative 'entity/post_title_entity'
-    @post_title ||= PostTitleEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.post_title instead.
+  # Canonical facade: client.PostTitle.list / client.PostTitle.load({ "id" => ... })
   def PostTitle(data = nil)
     require_relative 'entity/post_title_entity'
     PostTitleEntity.new(self, data)

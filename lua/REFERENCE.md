@@ -91,7 +91,7 @@ same parameters as `direct()`.
 ## ContentCollectionEntity
 
 ```lua
-local content_collection = client:content_collection(nil)
+local content_collection = client:ContentCollection(nil)
 ```
 
 ### Fields
@@ -107,7 +107,7 @@ local content_collection = client:content_collection(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:content_collection():load({ id = "content_collection_id" })
+local result, err = client:ContentCollection():load({ id = "content_collection_id" })
 ```
 
 ### Common Methods
@@ -143,7 +143,7 @@ Return the entity name.
 ## IndexEntity
 
 ```lua
-local index = client:index(nil)
+local index = client:Index(nil)
 ```
 
 ### Fields
@@ -167,7 +167,7 @@ local index = client:index(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:index():list()
+local results, err = client:Index():list()
 ```
 
 ### Common Methods
@@ -203,7 +203,7 @@ Return the entity name.
 ## PostTitleEntity
 
 ```lua
-local post_title = client:post_title(nil)
+local post_title = client:PostTitle(nil)
 ```
 
 ### Fields
@@ -229,7 +229,7 @@ local post_title = client:post_title(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:post_title():list()
+local results, err = client:PostTitle():list()
 ```
 
 ### Common Methods

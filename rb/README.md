@@ -32,8 +32,9 @@ client = HealthcareGovContentSDK.new
 
 ```ruby
 begin
-  result = client.contentcollection.load({ "id" => "example_id" })
-  puts result
+  # load returns the bare ContentCollection record (raises on error).
+  contentcollection = client.ContentCollection.load({ "id" => "example_id" })
+  puts contentcollection
 rescue => err
   warn "load failed: #{err}"
 end
@@ -80,13 +81,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = HealthcareGovContentSDK.test
+client = HealthcareGovContentSDK.test({
+  "entity" => { "contentcollection" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.contentcollection.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+contentcollection = client.ContentCollection.load({ "id" => "test01" })
+puts contentcollection
 ```
 
 ### Use a custom fetch function
@@ -163,7 +168,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
 | `ContentCollection` | `(data) -> ContentCollectionEntity` | Create a ContentCollection entity instance. |
-| `Index` | `(data) -> IndexEntity` | Create a Index entity instance. |
+| `Index` | `(data) -> IndexEntity` | Create an Index entity instance. |
 | `PostTitle` | `(data) -> PostTitleEntity` | Create a PostTitle entity instance. |
 
 ### Entity interface
@@ -258,7 +263,7 @@ API path: `/{post-title}.json`
 
 ### ContentCollection
 
-Create an instance: `const content_collection = client.content_collection`
+Create an instance: `content_collection = client.ContentCollection`
 
 #### Operations
 
@@ -274,14 +279,15 @@ Create an instance: `const content_collection = client.content_collection`
 
 #### Example: Load
 
-```ts
-const content_collection = await client.content_collection.load({ id: 'content_collection_id' })
+```ruby
+# load returns the bare ContentCollection record (raises on error).
+content_collection = client.ContentCollection.load({ "id" => "content_collection_id" })
 ```
 
 
 ### Index
 
-Create an instance: `const index = client.index`
+Create an instance: `index = client.Index`
 
 #### Operations
 
@@ -305,14 +311,15 @@ Create an instance: `const index = client.index`
 
 #### Example: List
 
-```ts
-const indexs = await client.index.list()
+```ruby
+# list returns an Array of Index records (raises on error).
+indexs = client.Index.list
 ```
 
 
 ### PostTitle
 
-Create an instance: `const post_title = client.post_title`
+Create an instance: `post_title = client.PostTitle`
 
 #### Operations
 
@@ -338,8 +345,9 @@ Create an instance: `const post_title = client.post_title`
 
 #### Example: List
 
-```ts
-const post_titles = await client.post_title.list()
+```ruby
+# list returns an Array of PostTitle records (raises on error).
+post_titles = client.PostTitle.list
 ```
 
 
@@ -414,7 +422,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-contentcollection = client.contentcollection
+contentcollection = client.ContentCollection
 contentcollection.load({ "id" => "example_id" })
 
 # contentcollection.data_get now returns the loaded contentcollection data

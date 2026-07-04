@@ -26,9 +26,9 @@ import { HealthcareGovContentSDK } from '@voxgig-sdk/healthcare-gov-content'
 
 const client = new HealthcareGovContentSDK()
 
-// Load contentcollection data
-const contentcollection = await client.contentcollection.load({})
-console.log(contentcollection.data)
+// Load contentcollection data (returns a ContentCollection)
+const contentcollection = await client.ContentCollection().load()
+console.log(contentcollection)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -86,8 +86,8 @@ from healthcaregovcontent_sdk import HealthcareGovContentSDK
 client = HealthcareGovContentSDK()
 
 
-# Load a specific contentcollection
-contentcollection = client.contentcollection.load({"id": "example_id"})
+# Load a specific contentcollection (returns the record, raises on error)
+contentcollection = client.ContentCollection().load({"id": "example_id"})
 print(contentcollection)
 ```
 
@@ -100,8 +100,8 @@ require_once 'healthcaregovcontent_sdk.php';
 $client = new HealthcareGovContentSDK();
 
 
-// Load a specific contentcollection
-$contentcollection = $client->contentcollection()->load(["id" => "example_id"]);
+// Load a specific contentcollection (returns the bare record; throws on error)
+$contentcollection = $client->ContentCollection()->load(["id" => "example_id"]);
 print_r($contentcollection);
 ```
 
@@ -125,8 +125,8 @@ require_relative "HealthcareGovContent_sdk"
 client = HealthcareGovContentSDK.new
 
 
-# Load a specific contentcollection
-contentcollection = client.contentcollection.load({ "id" => "example_id" })
+# Load a specific contentcollection (returns the bare record; raises on error)
+contentcollection = client.ContentCollection.load({ "id" => "example_id" })
 puts contentcollection
 ```
 
@@ -139,7 +139,7 @@ local client = sdk.new()
 
 
 -- Load a specific contentcollection
-local contentcollection, err = client:contentcollection():load({ id = "example_id" })
+local contentcollection, err = client:ContentCollection():load({ id = "example_id" })
 print(contentcollection)
 ```
 
@@ -152,22 +152,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = HealthcareGovContentSDK.test()
-const result = await client.contentcollection.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const contentcollection = await client.ContentCollection().load({ id: 'test01' })
+// contentcollection is a bare ContentCollection populated with mock data
+console.log(contentcollection)
 ```
 
 ### Python
 
 ```python
 client = HealthcareGovContentSDK.test()
-result = client.contentcollection.load({"id": "test01"})
+contentcollection = client.ContentCollection().load({"id": "test01"})
+print(contentcollection)
 ```
 
 ### PHP
 
 ```php
-$client = HealthcareGovContentSDK::test();
-$result = $client->contentcollection()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = HealthcareGovContentSDK::test([
+    "entity" => ["contentcollection" => ["test01" => ["id" => "test01"]]],
+]);
+$contentcollection = $client->ContentCollection()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -182,15 +187,18 @@ result, err := client.ContentCollection(nil).Load(
 ### Ruby
 
 ```ruby
-client = HealthcareGovContentSDK.test
-result = client.contentcollection.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = HealthcareGovContentSDK.test({
+  "entity" => { "contentcollection" => { "test01" => { "id" => "test01" } } },
+})
+contentcollection = client.ContentCollection.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:contentcollection():load({ id = "test01" })
+local result, err = client:ContentCollection():load({ id = "test01" })
 ```
 
 ## How it works
@@ -238,6 +246,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

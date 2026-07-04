@@ -133,7 +133,7 @@ Alias for `HealthcareGovContentSDK.test()`.
 ## ContentCollectionEntity
 
 ```ts
-const content_collection = client.content_collection
+const content_collection = client.ContentCollection()
 ```
 
 ### Fields
@@ -149,7 +149,7 @@ const content_collection = client.content_collection
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.content_collection.load({ id: 'content_collection_id' })
+const result = await client.ContentCollection().load({ id: 'content_collection_id' })
 ```
 
 ### Common Methods
@@ -183,7 +183,7 @@ Return a copy of the entity options.
 ## IndexEntity
 
 ```ts
-const index = client.index
+const index = client.Index()
 ```
 
 ### Fields
@@ -207,7 +207,7 @@ const index = client.index
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.index.list()
+const results = await client.Index().list()
 ```
 
 ### Common Methods
@@ -241,7 +241,7 @@ Return a copy of the entity options.
 ## PostTitleEntity
 
 ```ts
-const post_title = client.post_title
+const post_title = client.PostTitle()
 ```
 
 ### Fields
@@ -267,7 +267,7 @@ const post_title = client.post_title
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.post_title.list()
+const results = await client.PostTitle().list()
 ```
 
 ### Common Methods

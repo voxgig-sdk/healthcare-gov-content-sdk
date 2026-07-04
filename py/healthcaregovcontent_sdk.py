@@ -220,57 +220,27 @@ class HealthcareGovContentSDK:
         }
 
 
-    @property
-    def content_collection(self):
-        """Idiomatic facade: client.content_collection.list() / client.content_collection.load({"id": ...})."""
-        from entity.content_collection_entity import ContentCollectionEntity
-        cached = getattr(self, "_content_collection", None)
-        if cached is None:
-            cached = ContentCollectionEntity(self, None)
-            self._content_collection = cached
-        return cached
-
-    def ContentCollection(self, data=None):
-        # Deprecated: use client.content_collection instead.
+    def ContentCollection(self, data=None) -> "ContentCollectionEntity":
+        """Entity factory: client.ContentCollection().list({}) / client.ContentCollection().load({"id": ...})."""
         from entity.content_collection_entity import ContentCollectionEntity
         return ContentCollectionEntity(self, data)
 
 
-    @property
-    def index(self):
-        """Idiomatic facade: client.index.list() / client.index.load({"id": ...})."""
-        from entity.index_entity import IndexEntity
-        cached = getattr(self, "_index", None)
-        if cached is None:
-            cached = IndexEntity(self, None)
-            self._index = cached
-        return cached
-
-    def Index(self, data=None):
-        # Deprecated: use client.index instead.
+    def Index(self, data=None) -> "IndexEntity":
+        """Entity factory: client.Index().list({}) / client.Index().load({"id": ...})."""
         from entity.index_entity import IndexEntity
         return IndexEntity(self, data)
 
 
-    @property
-    def post_title(self):
-        """Idiomatic facade: client.post_title.list() / client.post_title.load({"id": ...})."""
-        from entity.post_title_entity import PostTitleEntity
-        cached = getattr(self, "_post_title", None)
-        if cached is None:
-            cached = PostTitleEntity(self, None)
-            self._post_title = cached
-        return cached
-
-    def PostTitle(self, data=None):
-        # Deprecated: use client.post_title instead.
+    def PostTitle(self, data=None) -> "PostTitleEntity":
+        """Entity factory: client.PostTitle().list({}) / client.PostTitle().load({"id": ...})."""
         from entity.post_title_entity import PostTitleEntity
         return PostTitleEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "HealthcareGovContentSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -290,3 +260,11 @@ class HealthcareGovContentSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.content_collection_entity import ContentCollectionEntity
+    from entity.index_entity import IndexEntity
+    from entity.post_title_entity import PostTitleEntity

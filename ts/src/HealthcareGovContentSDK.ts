@@ -206,42 +206,21 @@ class HealthcareGovContentSDK {
 
 
 
-  _content_collection?: ContentCollectionEntity
-
-  // Idiomatic facade: `client.content_collection.list()` / `client.content_collection.load({ id })`.
-  get content_collection(): ContentCollectionEntity {
-    return (this._content_collection ??= new ContentCollectionEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.content_collection` instead. */
+  // Entity access: `client.ContentCollection().list()` / `client.ContentCollection().load({ id })`.
   ContentCollection(data?: any) {
     const self = this
     return new ContentCollectionEntity(self,data)
   }
 
 
-  _index?: IndexEntity
-
-  // Idiomatic facade: `client.index.list()` / `client.index.load({ id })`.
-  get index(): IndexEntity {
-    return (this._index ??= new IndexEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.index` instead. */
+  // Entity access: `client.Index().list()` / `client.Index().load({ id })`.
   Index(data?: any) {
     const self = this
     return new IndexEntity(self,data)
   }
 
 
-  _post_title?: PostTitleEntity
-
-  // Idiomatic facade: `client.post_title.list()` / `client.post_title.load({ id })`.
-  get post_title(): PostTitleEntity {
-    return (this._post_title ??= new PostTitleEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.post_title` instead. */
+  // Entity access: `client.PostTitle().list()` / `client.PostTitle().load({ id })`.
   PostTitle(data?: any) {
     const self = this
     return new PostTitleEntity(self,data)

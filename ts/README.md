@@ -30,11 +30,14 @@ const client = new HealthcareGovContentSDK()
 
 ### 3. Load a contentcollection
 
-```ts
-const result = await client.contentcollection.load({ id: 'example_id' })
+`load()` returns the entity directly and throws on failure:
 
-if (result.ok) {
-  console.log(result.data)
+```ts
+try {
+  const contentcollection = await client.ContentCollection().load({ id: 'example_id' })
+  console.log(contentcollection)
+} catch (err) {
+  console.error('load failed:', err)
 }
 ```
 
@@ -52,6 +55,9 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
+if (result instanceof Error) {
+  throw result
+}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -80,9 +86,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = HealthcareGovContentSDK.test()
 
-const result = await client.contentcollection.load({ id: 'test01' })
-// result.ok === true
-// result.data contains mock response data
+const contentcollection = await client.ContentCollection().load({ id: 'test01' })
+// contentcollection is a bare entity populated with mock response data
+console.log(contentcollection)
 ```
 
 You can also use the instance method:
@@ -97,7 +103,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.contentcollection
+const entity = client.ContentCollection()
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -176,7 +182,7 @@ new HealthcareGovContentSDK(options?: {
 | `prepare(fetchargs?)` | `Promise<FetchDef>` | Build an HTTP request definition without sending it. |
 | `direct(fetchargs?)` | `Promise<DirectResult>` | Build and send an HTTP request. |
 | `ContentCollection(data?)` | `ContentCollectionEntity` | Create a ContentCollection entity instance. |
-| `Index(data?)` | `IndexEntity` | Create a Index entity instance. |
+| `Index(data?)` | `IndexEntity` | Create an Index entity instance. |
 | `PostTitle(data?)` | `PostTitleEntity` | Create a PostTitle entity instance. |
 | `tester(testopts?, sdkopts?)` | `HealthcareGovContentSDK` | Create a test-mode client instance. |
 
@@ -194,29 +200,30 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Result>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Result>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Result>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Result>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<Result>` | Remove an entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
+| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
+| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
 | `data` | `data(data?): any` | Get or set entity data. |
 | `match` | `match(match?): any` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): HealthcareGovContentSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
 
-#### Result shape
+#### Return values
 
-All entity operations return a Result object:
+Entity operations resolve to the entity data directly — there is no
+result envelope:
 
-```ts
-{
-  ok: boolean      // true if the HTTP status is 2xx
-  status: number   // HTTP status code
-  headers: object  // response headers
-  data: any        // parsed JSON response body
-}
-```
+- `load`, `create` and `update` resolve to a single entity object.
+- `list` resolves to an **array** of entity objects (iterate it directly;
+  there is no `.data` and no `.ok`).
+- `remove` resolves to `void`.
+
+On a failed request these methods **throw**, so wrap calls in
+`try`/`catch` to handle errors. Only `direct()` returns the result
+envelope described below.
 
 ### DirectResult shape
 
@@ -303,7 +310,7 @@ API path: `/{post-title}.json`
 
 ### ContentCollection
 
-Create an instance: `const content_collection = client.content_collection`
+Create an instance: `const content_collection = client.ContentCollection()`
 
 #### Operations
 
@@ -320,13 +327,13 @@ Create an instance: `const content_collection = client.content_collection`
 #### Example: Load
 
 ```ts
-const content_collection = await client.content_collection.load({ id: 'content_collection_id' })
+const content_collection = await client.ContentCollection().load({ id: 'content_collection_id' })
 ```
 
 
 ### Index
 
-Create an instance: `const index = client.index`
+Create an instance: `const index = client.Index()`
 
 #### Operations
 
@@ -351,13 +358,13 @@ Create an instance: `const index = client.index`
 #### Example: List
 
 ```ts
-const indexs = await client.index.list()
+const indexs = await client.Index().list()
 ```
 
 
 ### PostTitle
 
-Create an instance: `const post_title = client.post_title`
+Create an instance: `const post_title = client.PostTitle()`
 
 #### Operations
 
@@ -384,7 +391,7 @@ Create an instance: `const post_title = client.post_title`
 #### Example: List
 
 ```ts
-const post_titles = await client.post_title.list()
+const post_titles = await client.PostTitle().list()
 ```
 
 
@@ -455,7 +462,7 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const contentcollection = client.contentcollection
+const contentcollection = client.ContentCollection()
 await contentcollection.load({ id: "example_id" })
 
 // contentcollection.data() now returns the loaded contentcollection data

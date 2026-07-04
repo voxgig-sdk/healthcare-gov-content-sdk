@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:content_collection():list() / client:content_collection():load({ id = ... })
-function HealthcareGovContentSDK:content_collection(data)
+-- Idiomatic facade: client:ContentCollection():list() / client:ContentCollection():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function HealthcareGovContentSDK:ContentCollection(data)
   local EntityMod = require("entity.content_collection_entity")
   if data == nil then
     if self._content_collection == nil then
@@ -256,15 +257,10 @@ function HealthcareGovContentSDK:content_collection(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:content_collection() instead.
-function HealthcareGovContentSDK:ContentCollection(data)
-  local EntityMod = require("entity.content_collection_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:index():list() / client:index():load({ id = ... })
-function HealthcareGovContentSDK:index(data)
+-- Idiomatic facade: client:Index():list() / client:Index():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function HealthcareGovContentSDK:Index(data)
   local EntityMod = require("entity.index_entity")
   if data == nil then
     if self._index == nil then
@@ -275,15 +271,10 @@ function HealthcareGovContentSDK:index(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:index() instead.
-function HealthcareGovContentSDK:Index(data)
-  local EntityMod = require("entity.index_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:post_title():list() / client:post_title():load({ id = ... })
-function HealthcareGovContentSDK:post_title(data)
+-- Idiomatic facade: client:PostTitle():list() / client:PostTitle():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function HealthcareGovContentSDK:PostTitle(data)
   local EntityMod = require("entity.post_title_entity")
   if data == nil then
     if self._post_title == nil then
@@ -291,12 +282,6 @@ function HealthcareGovContentSDK:post_title(data)
     end
     return self._post_title
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:post_title() instead.
-function HealthcareGovContentSDK:PostTitle(data)
-  local EntityMod = require("entity.post_title_entity")
   return EntityMod.new(self, data)
 end
 

@@ -34,9 +34,9 @@ local client = sdk.new()
 ### 3. Load a contentcollection
 
 ```lua
-local result, err = client:contentcollection():load({ id = "example_id" })
+local contentcollection, err = client:ContentCollection():load({ id = "example_id" })
 if err then error(err) end
-print(result)
+print(contentcollection)
 ```
 
 
@@ -82,8 +82,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:contentcollection():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:ContentCollection():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -162,7 +162,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `prepare` | `(fetchargs) -> table, err` | Build an HTTP request definition without sending. |
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
 | `ContentCollection` | `(data) -> ContentCollectionEntity` | Create a ContentCollection entity instance. |
-| `Index` | `(data) -> IndexEntity` | Create a Index entity instance. |
+| `Index` | `(data) -> IndexEntity` | Create an Index entity instance. |
 | `PostTitle` | `(data) -> PostTitleEntity` | Create a PostTitle entity instance. |
 
 ### Entity interface
@@ -185,17 +185,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local content_collection, err = client:ContentCollection():load({ id = "example_id" })
+    if err then error(err) end
+    -- content_collection is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -254,7 +259,7 @@ API path: `/{post-title}.json`
 
 ### ContentCollection
 
-Create an instance: `const content_collection = client.content_collection`
+Create an instance: `local content_collection = client:ContentCollection(nil)`
 
 #### Operations
 
@@ -270,14 +275,14 @@ Create an instance: `const content_collection = client.content_collection`
 
 #### Example: Load
 
-```ts
-const content_collection = await client.content_collection.load({ id: 'content_collection_id' })
+```lua
+local content_collection, err = client:ContentCollection():load({ id = "content_collection_id" })
 ```
 
 
 ### Index
 
-Create an instance: `const index = client.index`
+Create an instance: `local index = client:Index(nil)`
 
 #### Operations
 
@@ -301,14 +306,14 @@ Create an instance: `const index = client.index`
 
 #### Example: List
 
-```ts
-const indexs = await client.index.list()
+```lua
+local indexs, err = client:Index():list()
 ```
 
 
 ### PostTitle
 
-Create an instance: `const post_title = client.post_title`
+Create an instance: `local post_title = client:PostTitle(nil)`
 
 #### Operations
 
@@ -334,8 +339,8 @@ Create an instance: `const post_title = client.post_title`
 
 #### Example: List
 
-```ts
-const post_titles = await client.post_title.list()
+```lua
+local post_titles, err = client:PostTitle():list()
 ```
 
 
@@ -410,7 +415,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local contentcollection = client:contentcollection()
+local contentcollection = client:ContentCollection()
 contentcollection:load({ id = "example_id" })
 
 -- contentcollection:data_get() now returns the loaded contentcollection data

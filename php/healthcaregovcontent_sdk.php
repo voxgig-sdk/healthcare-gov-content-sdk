@@ -233,10 +233,10 @@ class HealthcareGovContentSDK
 
     private $_content_collection = null;
 
-    // Idiomatic facade: $client->content_collection()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias ContentCollection() (PHP method
-    // names are case-insensitive).
-    public function content_collection($data = null)
+    // Canonical facade: $client->ContentCollection()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->content_collection()
+    // resolves here too.
+    public function ContentCollection($data = null)
     {
         require_once __DIR__ . '/entity/content_collection_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class HealthcareGovContentSDK
 
     private $_index = null;
 
-    // Idiomatic facade: $client->index()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Index() (PHP method
-    // names are case-insensitive).
-    public function index($data = null)
+    // Canonical facade: $client->Index()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->index()
+    // resolves here too.
+    public function Index($data = null)
     {
         require_once __DIR__ . '/entity/index_entity.php';
         if ($data === null) {
@@ -269,10 +269,10 @@ class HealthcareGovContentSDK
 
     private $_post_title = null;
 
-    // Idiomatic facade: $client->post_title()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias PostTitle() (PHP method
-    // names are case-insensitive).
-    public function post_title($data = null)
+    // Canonical facade: $client->PostTitle()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->post_title()
+    // resolves here too.
+    public function PostTitle($data = null)
     {
         require_once __DIR__ . '/entity/post_title_entity.php';
         if ($data === null) {

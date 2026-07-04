@@ -33,9 +33,10 @@ $client = new HealthcareGovContentSDK();
 
 ```php
 try {
-    $result = $client->contentcollection()->load(["id" => "example_id"]);
-    print_r($result);
-} catch (\Exception $err) {
+    // load() returns the bare ContentCollection record (throws on error).
+    $contentcollection = $client->ContentCollection()->load(["id" => "example_id"]);
+    print_r($contentcollection);
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -81,13 +82,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = HealthcareGovContentSDK::test();
+$client = HealthcareGovContentSDK::test([
+    "entity" => ["contentcollection" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->contentcollection()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$contentcollection = $client->ContentCollection()->load(["id" => "test01"]);
+print_r($contentcollection);
 ```
 
 ### Use a custom fetch function
@@ -167,7 +172,7 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
 | `ContentCollection` | `($data): ContentCollectionEntity` | Create a ContentCollection entity instance. |
-| `Index` | `($data): IndexEntity` | Create a Index entity instance. |
+| `Index` | `($data): IndexEntity` | Create an Index entity instance. |
 | `PostTitle` | `($data): PostTitleEntity` | Create a PostTitle entity instance. |
 
 ### Entity interface
@@ -263,7 +268,7 @@ API path: `/{post-title}.json`
 
 ### ContentCollection
 
-Create an instance: `const content_collection = client.content_collection`
+Create an instance: `$content_collection = $client->ContentCollection();`
 
 #### Operations
 
@@ -279,14 +284,15 @@ Create an instance: `const content_collection = client.content_collection`
 
 #### Example: Load
 
-```ts
-const content_collection = await client.content_collection.load({ id: 'content_collection_id' })
+```php
+// load() returns the bare ContentCollection record (throws on error).
+$content_collection = $client->ContentCollection()->load(["id" => "content_collection_id"]);
 ```
 
 
 ### Index
 
-Create an instance: `const index = client.index`
+Create an instance: `$index = $client->Index();`
 
 #### Operations
 
@@ -310,14 +316,15 @@ Create an instance: `const index = client.index`
 
 #### Example: List
 
-```ts
-const indexs = await client.index.list()
+```php
+// list() returns an array of Index records (throws on error).
+$indexs = $client->Index()->list();
 ```
 
 
 ### PostTitle
 
-Create an instance: `const post_title = client.post_title`
+Create an instance: `$post_title = $client->PostTitle();`
 
 #### Operations
 
@@ -343,8 +350,9 @@ Create an instance: `const post_title = client.post_title`
 
 #### Example: List
 
-```ts
-const post_titles = await client.post_title.list()
+```php
+// list() returns an array of PostTitle records (throws on error).
+$post_titles = $client->PostTitle()->list();
 ```
 
 
@@ -419,7 +427,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$contentcollection = $client->contentcollection();
+$contentcollection = $client->ContentCollection();
 $contentcollection->load(["id" => "example_id"]);
 
 // $contentcollection->dataGet() now returns the loaded contentcollection data

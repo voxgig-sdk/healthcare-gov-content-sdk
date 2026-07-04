@@ -33,10 +33,12 @@ client = HealthcareGovContentSDK()
 
 ### 3. Load a contentcollection
 
+`load()` returns the bare record (a `dict`) and raises on error.
+
 ```python
 try:
-    result = client.contentcollection.load({"id": "example_id"})
-    print(result)
+    contentcollection = client.ContentCollection().load({"id": "example_id"})
+    print(contentcollection)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -84,8 +86,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = HealthcareGovContentSDK.test()
 
-result = client.contentcollection.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+contentcollection = client.ContentCollection().load({"id": "test01"})
+# contentcollection contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -162,7 +165,7 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `ContentCollection` | `(data) -> ContentCollectionEntity` | Create a ContentCollection entity instance. |
-| `Index` | `(data) -> IndexEntity` | Create a Index entity instance. |
+| `Index` | `(data) -> IndexEntity` | Create an Index entity instance. |
 | `PostTitle` | `(data) -> PostTitleEntity` | Create a PostTitle entity instance. |
 
 ### Entity interface
@@ -258,7 +261,7 @@ API path: `/{post-title}.json`
 
 ### ContentCollection
 
-Create an instance: `const content_collection = client.content_collection`
+Create an instance: `content_collection = client.ContentCollection()`
 
 #### Operations
 
@@ -274,14 +277,14 @@ Create an instance: `const content_collection = client.content_collection`
 
 #### Example: Load
 
-```ts
-const content_collection = await client.content_collection.load({ id: 'content_collection_id' })
+```python
+content_collection = client.ContentCollection().load({"id": "content_collection_id"})
 ```
 
 
 ### Index
 
-Create an instance: `const index = client.index`
+Create an instance: `index = client.Index()`
 
 #### Operations
 
@@ -305,14 +308,14 @@ Create an instance: `const index = client.index`
 
 #### Example: List
 
-```ts
-const indexs = await client.index.list()
+```python
+indexs = client.Index().list({})
 ```
 
 
 ### PostTitle
 
-Create an instance: `const post_title = client.post_title`
+Create an instance: `post_title = client.PostTitle()`
 
 #### Operations
 
@@ -338,8 +341,8 @@ Create an instance: `const post_title = client.post_title`
 
 #### Example: List
 
-```ts
-const post_titles = await client.post_title.list()
+```python
+post_titles = client.PostTitle().list({})
 ```
 
 
@@ -413,7 +416,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-contentcollection = client.contentcollection
+contentcollection = client.ContentCollection()
 contentcollection.load({"id": "example_id"})
 
 # contentcollection.data_get() now returns the loaded contentcollection data
