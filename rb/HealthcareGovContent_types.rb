@@ -67,7 +67,7 @@ Index = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Index#list (any subset of Index fields).
+# Request payload for Index#list.
 #
 # @!attribute [rw] bite
 #   @return [String, nil]

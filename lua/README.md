@@ -4,6 +4,8 @@
 
 The Lua SDK for the HealthcareGovContent API — an entity-oriented client using Lua conventions.
 
+It exposes the API as capitalised, semantic **Entities** — e.g. `client:ContentCollection()` — each with the same small set of operations (`list`, `load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -34,9 +36,31 @@ local client = sdk.new()
 ### 3. Load a contentcollection
 
 ```lua
-local contentcollection, err = client:ContentCollection():load({ id = "example_id" })
+local contentcollection, err = client:ContentCollection():load()
 if err then error(err) end
 print(contentcollection)
+```
+
+
+## Error handling
+
+Entity operations return `(value, err)`. Check `err` before using
+the value:
+
+```lua
+local contentcollection, err = client:ContentCollection():load()
+if err then error(err) end
+```
+
+`direct` follows the same `(value, err)` convention:
+
+```lua
+local result, err = client:direct({
+  path = "/api/resource/{id}",
+  method = "GET",
+  params = { id = "example_id" },
+})
+if err then error(err) end
 ```
 
 
@@ -82,8 +106,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:ContentCollection():load({ id = "test01" })
--- result is the loaded data; err is set on failure
+local result, err = client:ContentCollection():load()
+-- result is the returned data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -173,9 +197,6 @@ All entities share the same interface.
 | --- | --- | --- |
 | `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria. |
 | `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> any, err` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> any, err` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> any, err` | Remove an entity. |
 | `data_get` | `() -> table` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> table` | Get entity match criteria. |
@@ -190,12 +211,12 @@ data **directly** — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `load` | the entity record (a `table`) |
 | `list` | an array (`table`) of entity records |
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local content_collection, err = client:ContentCollection():load({ id = "example_id" })
+    local content_collection, err = client:ContentCollection():load()
     if err then error(err) end
     -- content_collection is the loaded record
 
@@ -271,12 +292,12 @@ Create an instance: `local content_collection = client:ContentCollection(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `glossary` | ``$ARRAY`` |  |
+| `glossary` | `table` |  |
 
 #### Example: Load
 
 ```lua
-local content_collection, err = client:ContentCollection():load({ id = "content_collection_id" })
+local content_collection, err = client:ContentCollection():load()
 ```
 
 
@@ -294,15 +315,15 @@ Create an instance: `local index = client:Index(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bite` | ``$STRING`` |  |
-| `category` | ``$ARRAY`` |  |
-| `es_bite` | ``$STRING`` |  |
-| `es_title` | ``$STRING`` |  |
-| `state` | ``$ARRAY`` |  |
-| `tag` | ``$ARRAY`` |  |
-| `title` | ``$STRING`` |  |
-| `topic` | ``$ARRAY`` |  |
-| `url` | ``$STRING`` |  |
+| `bite` | `string` |  |
+| `category` | `table` |  |
+| `es_bite` | `string` |  |
+| `es_title` | `string` |  |
+| `state` | `table` |  |
+| `tag` | `table` |  |
+| `title` | `string` |  |
+| `topic` | `table` |  |
+| `url` | `string` |  |
 
 #### Example: List
 
@@ -325,17 +346,17 @@ Create an instance: `local post_title = client:PostTitle(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `author` | ``$STRING`` |  |
-| `category` | ``$ARRAY`` |  |
-| `content` | ``$STRING`` |  |
-| `date` | ``$STRING`` |  |
-| `lang` | ``$STRING`` |  |
-| `layout` | ``$STRING`` |  |
-| `order` | ``$INTEGER`` |  |
-| `tag` | ``$ARRAY`` |  |
-| `title` | ``$STRING`` |  |
-| `topic` | ``$ARRAY`` |  |
-| `url` | ``$STRING`` |  |
+| `author` | `string` |  |
+| `category` | `table` |  |
+| `content` | `string` |  |
+| `date` | `string` |  |
+| `lang` | `string` |  |
+| `layout` | `string` |  |
+| `order` | `number` |  |
+| `tag` | `table` |  |
+| `title` | `string` |  |
+| `topic` | `table` |  |
+| `url` | `string` |  |
 
 #### Example: List
 
@@ -344,12 +365,16 @@ local post_titles, err = client:PostTitle():list()
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -366,8 +391,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as a second return value.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -416,9 +442,9 @@ stores the returned data and match criteria internally.
 
 ```lua
 local contentcollection = client:ContentCollection()
-contentcollection:load({ id = "example_id" })
+contentcollection:load()
 
--- contentcollection:data_get() now returns the loaded contentcollection data
+-- contentcollection:data_get() now returns the contentcollection data from the last load
 -- contentcollection:match_get() returns the last match criteria
 ```
 

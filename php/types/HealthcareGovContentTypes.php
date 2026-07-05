@@ -38,7 +38,7 @@ class Index
     public ?string $url = null;
 }
 
-/** Match filter for Index#list (any subset of Index fields). */
+/** Request payload for Index#list. */
 class IndexListMatch
 {
     public ?string $bite = null;

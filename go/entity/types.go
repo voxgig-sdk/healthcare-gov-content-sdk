@@ -31,8 +31,7 @@ type Index struct {
 	Url *string `json:"url,omitempty"`
 }
 
-// IndexListMatch mirrors the index fields as an all-optional match
-// filter (Go analog of Partial<Index>).
+// IndexListMatch is the typed request payload for Index.ListTyped.
 type IndexListMatch struct {
 	Bite *string `json:"bite,omitempty"`
 	Category *[]any `json:"category,omitempty"`

@@ -8,7 +8,7 @@ Complete API reference for the HealthcareGovContent PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/healthcare-gov-content_sdk.php';
+require_once __DIR__ . '/healthcaregovcontent_sdk.php';
 
 $client = new HealthcareGovContentSDK($options);
 ```
@@ -53,11 +53,11 @@ Create a new `IndexEntity` instance. Pass `null` for no initial data.
 
 Create a new `PostTitleEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): HealthcareGovContentUtility`
 
 Return a copy of the SDK utility object.
 
@@ -100,7 +100,7 @@ $content_collection = $client->ContentCollection();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `glossary` | ``$ARRAY`` | No |  |
+| `glossary` | `array` | No |  |
 
 ### Operations
 
@@ -109,24 +109,24 @@ $content_collection = $client->ContentCollection();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->ContentCollection()->load(["id" => "content_collection_id"]);
+$result = $client->ContentCollection()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -135,7 +135,7 @@ Set the entity match criteria.
 Create a new `ContentCollectionEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -152,41 +152,41 @@ $index = $client->Index();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bite` | ``$STRING`` | No |  |
-| `category` | ``$ARRAY`` | No |  |
-| `es_bite` | ``$STRING`` | No |  |
-| `es_title` | ``$STRING`` | No |  |
-| `state` | ``$ARRAY`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `topic` | ``$ARRAY`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `bite` | `string` | No |  |
+| `category` | `array` | No |  |
+| `es_bite` | `string` | No |  |
+| `es_title` | `string` | No |  |
+| `state` | `array` | No |  |
+| `tag` | `array` | No |  |
+| `title` | `string` | No |  |
+| `topic` | `array` | No |  |
+| `url` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Index()->list([]);
+$results = $client->Index()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -195,7 +195,7 @@ Set the entity match criteria.
 Create a new `IndexEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -212,43 +212,43 @@ $post_title = $client->PostTitle();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `author` | ``$STRING`` | No |  |
-| `category` | ``$ARRAY`` | No |  |
-| `content` | ``$STRING`` | No |  |
-| `date` | ``$STRING`` | No |  |
-| `lang` | ``$STRING`` | No |  |
-| `layout` | ``$STRING`` | No |  |
-| `order` | ``$INTEGER`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `topic` | ``$ARRAY`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `author` | `string` | No |  |
+| `category` | `array` | No |  |
+| `content` | `string` | No |  |
+| `date` | `string` | No |  |
+| `lang` | `string` | No |  |
+| `layout` | `string` | No |  |
+| `order` | `int` | No |  |
+| `tag` | `array` | No |  |
+| `title` | `string` | No |  |
+| `topic` | `array` | No |  |
+| `url` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->PostTitle()->list([]);
+$results = $client->PostTitle()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -257,7 +257,7 @@ Set the entity match criteria.
 Create a new `PostTitleEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

@@ -8,7 +8,7 @@ Complete API reference for the HealthcareGovContent Python SDK.
 ### Constructor
 
 ```python
-from healthcare-gov-content_sdk import HealthcareGovContentSDK
+from healthcaregovcontent_sdk import HealthcareGovContentSDK
 
 client = HealthcareGovContentSDK(options)
 ```
@@ -95,7 +95,7 @@ content_collection = client.ContentCollection()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `glossary` | ``$ARRAY`` | No |  |
+| `glossary` | `list` | No |  |
 
 ### Operations
 
@@ -104,7 +104,7 @@ content_collection = client.ContentCollection()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.ContentCollection().load({"id": "content_collection_id"})
+result = client.ContentCollection().load()
 ```
 
 ### Common Methods
@@ -146,24 +146,24 @@ index = client.Index()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bite` | ``$STRING`` | No |  |
-| `category` | ``$ARRAY`` | No |  |
-| `es_bite` | ``$STRING`` | No |  |
-| `es_title` | ``$STRING`` | No |  |
-| `state` | ``$ARRAY`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `topic` | ``$ARRAY`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `bite` | `str` | No |  |
+| `category` | `list` | No |  |
+| `es_bite` | `str` | No |  |
+| `es_title` | `str` | No |  |
+| `state` | `list` | No |  |
+| `tag` | `list` | No |  |
+| `title` | `str` | No |  |
+| `topic` | `list` | No |  |
+| `url` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Index().list({})
+results = client.Index().list()
 for index in results:
     print(index)
 ```
@@ -207,26 +207,26 @@ post_title = client.PostTitle()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `author` | ``$STRING`` | No |  |
-| `category` | ``$ARRAY`` | No |  |
-| `content` | ``$STRING`` | No |  |
-| `date` | ``$STRING`` | No |  |
-| `lang` | ``$STRING`` | No |  |
-| `layout` | ``$STRING`` | No |  |
-| `order` | ``$INTEGER`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `topic` | ``$ARRAY`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `author` | `str` | No |  |
+| `category` | `list` | No |  |
+| `content` | `str` | No |  |
+| `date` | `str` | No |  |
+| `lang` | `str` | No |  |
+| `layout` | `str` | No |  |
+| `order` | `int` | No |  |
+| `tag` | `list` | No |  |
+| `title` | `str` | No |  |
+| `topic` | `list` | No |  |
+| `url` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.PostTitle().list({})
+results = client.PostTitle().list()
 for post_title in results:
     print(post_title)
 ```

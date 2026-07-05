@@ -105,7 +105,7 @@ content_collection := client.ContentCollection(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `glossary` | ``$ARRAY`` | No |  |
+| `glossary` | `[]any` | No |  |
 
 ### Operations
 
@@ -114,7 +114,7 @@ content_collection := client.ContentCollection(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.ContentCollection(nil).Load(map[string]any{"id": "content_collection_id"}, nil)
+result, err := client.ContentCollection(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -151,15 +151,15 @@ index := client.Index(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bite` | ``$STRING`` | No |  |
-| `category` | ``$ARRAY`` | No |  |
-| `es_bite` | ``$STRING`` | No |  |
-| `es_title` | ``$STRING`` | No |  |
-| `state` | ``$ARRAY`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `topic` | ``$ARRAY`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `bite` | `string` | No |  |
+| `category` | `[]any` | No |  |
+| `es_bite` | `string` | No |  |
+| `es_title` | `string` | No |  |
+| `state` | `[]any` | No |  |
+| `tag` | `[]any` | No |  |
+| `title` | `string` | No |  |
+| `topic` | `[]any` | No |  |
+| `url` | `string` | No |  |
 
 ### Operations
 
@@ -205,17 +205,17 @@ post_title := client.PostTitle(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `author` | ``$STRING`` | No |  |
-| `category` | ``$ARRAY`` | No |  |
-| `content` | ``$STRING`` | No |  |
-| `date` | ``$STRING`` | No |  |
-| `lang` | ``$STRING`` | No |  |
-| `layout` | ``$STRING`` | No |  |
-| `order` | ``$INTEGER`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `topic` | ``$ARRAY`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `author` | `string` | No |  |
+| `category` | `[]any` | No |  |
+| `content` | `string` | No |  |
+| `date` | `string` | No |  |
+| `lang` | `string` | No |  |
+| `layout` | `string` | No |  |
+| `order` | `int` | No |  |
+| `tag` | `[]any` | No |  |
+| `title` | `string` | No |  |
+| `topic` | `[]any` | No |  |
+| `url` | `string` | No |  |
 
 ### Operations
 

@@ -221,19 +221,19 @@ class HealthcareGovContentSDK:
 
 
     def ContentCollection(self, data=None) -> "ContentCollectionEntity":
-        """Entity factory: client.ContentCollection().list({}) / client.ContentCollection().load({"id": ...})."""
+        """Entity factory: client.ContentCollection().list() / client.ContentCollection().load({"id": ...})."""
         from entity.content_collection_entity import ContentCollectionEntity
         return ContentCollectionEntity(self, data)
 
 
     def Index(self, data=None) -> "IndexEntity":
-        """Entity factory: client.Index().list({}) / client.Index().load({"id": ...})."""
+        """Entity factory: client.Index().list() / client.Index().load({"id": ...})."""
         from entity.index_entity import IndexEntity
         return IndexEntity(self, data)
 
 
     def PostTitle(self, data=None) -> "PostTitleEntity":
-        """Entity factory: client.PostTitle().list({}) / client.PostTitle().load({"id": ...})."""
+        """Entity factory: client.PostTitle().list() / client.PostTitle().load({"id": ...})."""
         from entity.post_title_entity import PostTitleEntity
         return PostTitleEntity(self, data)
 

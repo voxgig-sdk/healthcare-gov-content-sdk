@@ -98,7 +98,7 @@ local content_collection = client:ContentCollection(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `glossary` | ``$ARRAY`` | No |  |
+| `glossary` | `table` | No |  |
 
 ### Operations
 
@@ -107,7 +107,7 @@ local content_collection = client:ContentCollection(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:ContentCollection():load({ id = "content_collection_id" })
+local result, err = client:ContentCollection():load()
 ```
 
 ### Common Methods
@@ -150,15 +150,15 @@ local index = client:Index(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bite` | ``$STRING`` | No |  |
-| `category` | ``$ARRAY`` | No |  |
-| `es_bite` | ``$STRING`` | No |  |
-| `es_title` | ``$STRING`` | No |  |
-| `state` | ``$ARRAY`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `topic` | ``$ARRAY`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `bite` | `string` | No |  |
+| `category` | `table` | No |  |
+| `es_bite` | `string` | No |  |
+| `es_title` | `string` | No |  |
+| `state` | `table` | No |  |
+| `tag` | `table` | No |  |
+| `title` | `string` | No |  |
+| `topic` | `table` | No |  |
+| `url` | `string` | No |  |
 
 ### Operations
 
@@ -210,17 +210,17 @@ local post_title = client:PostTitle(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `author` | ``$STRING`` | No |  |
-| `category` | ``$ARRAY`` | No |  |
-| `content` | ``$STRING`` | No |  |
-| `date` | ``$STRING`` | No |  |
-| `lang` | ``$STRING`` | No |  |
-| `layout` | ``$STRING`` | No |  |
-| `order` | ``$INTEGER`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `topic` | ``$ARRAY`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `author` | `string` | No |  |
+| `category` | `table` | No |  |
+| `content` | `string` | No |  |
+| `date` | `string` | No |  |
+| `lang` | `string` | No |  |
+| `layout` | `string` | No |  |
+| `order` | `number` | No |  |
+| `tag` | `table` | No |  |
+| `title` | `string` | No |  |
+| `topic` | `table` | No |  |
+| `url` | `string` | No |  |
 
 ### Operations
 

@@ -25,7 +25,17 @@ export interface Index {
   url?: string
 }
 
-export type IndexListMatch = Partial<Index>
+export interface IndexListMatch {
+  bite?: string
+  category?: any[]
+  es_bite?: string
+  es_title?: string
+  state?: any[]
+  tag?: any[]
+  title?: string
+  topic?: any[]
+  url?: string
+}
 
 export interface PostTitle {
   author?: string

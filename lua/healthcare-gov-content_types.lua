@@ -24,6 +24,15 @@
 ---@field url? string
 
 ---@class IndexListMatch
+---@field bite? string
+---@field category? table
+---@field es_bite? string
+---@field es_title? string
+---@field state? table
+---@field tag? table
+---@field title? string
+---@field topic? table
+---@field url? string
 
 ---@class PostTitle
 ---@field author? string
