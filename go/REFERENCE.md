@@ -98,7 +98,8 @@ same parameters as `Direct()`.
 ## ContentCollectionEntity
 
 ```go
-content_collection := client.ContentCollection(nil)
+contentCollection := client.ContentCollection(nil)
+fmt.Println(contentCollection.GetName()) // "content_collection"
 ```
 
 ### Fields
@@ -114,7 +115,11 @@ content_collection := client.ContentCollection(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.ContentCollection(nil).Load(nil, nil)
+result, err := client.ContentCollection(nil).Load(map[string]any{"content_type": "content_type"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -145,6 +150,7 @@ Return the entity name.
 
 ```go
 index := client.Index(nil)
+fmt.Println(index.GetName()) // "index"
 ```
 
 ### Fields
@@ -169,6 +175,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Index(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -198,7 +208,8 @@ Return the entity name.
 ## PostTitleEntity
 
 ```go
-post_title := client.PostTitle(nil)
+postTitle := client.PostTitle(nil)
+fmt.Println(postTitle.GetName()) // "post_title"
 ```
 
 ### Fields
@@ -225,6 +236,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.PostTitle(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods

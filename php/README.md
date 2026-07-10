@@ -33,10 +33,12 @@ $client = new HealthcareGovContentSDK();
 
 ### 3. Load a contentcollection
 
+ContentCollection is nested under content_type, so provide the `content_type`.
+
 ```php
 try {
     // load() returns the bare ContentCollection record (throws on error).
-    $contentcollection = $client->ContentCollection()->load();
+    $contentcollection = $client->ContentCollection()->load(["content_type" => "example_content_type"]);
     print_r($contentcollection);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
@@ -316,7 +318,7 @@ Create an instance: `$content_collection = $client->ContentCollection();`
 
 ```php
 // load() returns the bare ContentCollection record (throws on error).
-$content_collection = $client->ContentCollection()->load();
+$content_collection = $client->ContentCollection()->load(["content_type" => "content_type"]);
 ```
 
 

@@ -16,10 +16,10 @@ main: {
           url: "https://www.healthcare.gov"
         }
       ]
+      summary: "The HealthCare.gov Content API provides developers with access to educational content and resources related to the Health Insurance Marketplace in JSON format."
       termsOfService: "https://www.healthcare.gov/using-this-site"
       title: "HealthCare.gov Content API"
       version: "1.0.0"
+      website: "https://www.healthcare.gov/developers/"
     }
   }
-}
-

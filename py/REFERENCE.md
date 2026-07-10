@@ -104,7 +104,7 @@ content_collection = client.ContentCollection()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.ContentCollection().load()
+result = client.ContentCollection().load({"content_type": "content_type"})
 ```
 
 ### Common Methods

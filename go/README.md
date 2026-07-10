@@ -50,12 +50,12 @@ import (
 func main() {
     client := sdk.New()
 
-    // Load a single contentcollection — the value is the loaded record.
-    contentcollection, err := client.ContentCollection(nil).Load(nil, nil)
+    // Load a single contentCollection — the value is the loaded record.
+    contentCollection, err := client.ContentCollection(nil).Load(map[string]any{"content_type": "example_content_type"}, nil)
     if err != nil {
         panic(err)
     }
-    fmt.Println(contentcollection)
+    fmt.Println(contentCollection)
 }
 ```
 
@@ -135,13 +135,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-contentcollection, err := client.ContentCollection(nil).Load(
+contentCollection, err := client.ContentCollection(nil).Load(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(contentcollection) // the returned mock data
+fmt.Println(contentCollection) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -249,9 +249,9 @@ Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    contentcollection, err := client.ContentCollection(nil).Load(nil, nil)
+    contentCollection, err := client.ContentCollection(nil).Load(nil, nil)
     if err != nil { /* handle */ }
-    // contentcollection is the returned record
+    // contentCollection is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -313,7 +313,7 @@ API path: `/{post-title}.json`
 
 ### ContentCollection
 
-Create an instance: `content_collection := client.ContentCollection(nil)`
+Create an instance: `contentCollection := client.ContentCollection(nil)`
 
 #### Operations
 
@@ -330,11 +330,11 @@ Create an instance: `content_collection := client.ContentCollection(nil)`
 #### Example: Load
 
 ```go
-content_collection, err := client.ContentCollection(nil).Load(nil, nil)
+contentCollection, err := client.ContentCollection(nil).Load(map[string]any{"content_type": "content_type"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(content_collection) // the loaded record
+fmt.Println(contentCollection) // the loaded record
 ```
 
 
@@ -375,7 +375,7 @@ fmt.Println(indexs) // the array of records
 
 ### PostTitle
 
-Create an instance: `post_title := client.PostTitle(nil)`
+Create an instance: `postTitle := client.PostTitle(nil)`
 
 #### Operations
 
@@ -402,11 +402,11 @@ Create an instance: `post_title := client.PostTitle(nil)`
 #### Example: List
 
 ```go
-post_titles, err := client.PostTitle(nil).List(nil, nil)
+postTitles, err := client.PostTitle(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(post_titles) // the array of records
+fmt.Println(postTitles) // the array of records
 ```
 
 

@@ -35,11 +35,14 @@ const client = new HealthcareGovContentSDK()
 
 ### 3. Load a contentcollection
 
+ContentCollection is nested under content_type, so provide the `content_type`.
 `load()` returns the entity directly and throws on failure:
 
 ```ts
 try {
-  const contentcollection = await client.ContentCollection().load()
+  const contentcollection = await client.ContentCollection().load({
+    content_type: 'example_content_type',
+  })
   console.log(contentcollection)
 } catch (err) {
   console.error('load failed:', err)
@@ -357,7 +360,7 @@ Create an instance: `const content_collection = client.ContentCollection()`
 #### Example: Load
 
 ```ts
-const content_collection = await client.ContentCollection().load()
+const content_collection = await client.ContentCollection().load({ content_type: 'content_type' })
 ```
 
 

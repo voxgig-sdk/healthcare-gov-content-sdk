@@ -35,8 +35,10 @@ local client = sdk.new()
 
 ### 3. Load a contentcollection
 
+ContentCollection is nested under content_type, so provide the `content_type`.
+
 ```lua
-local contentcollection, err = client:ContentCollection():load()
+local contentcollection, err = client:ContentCollection():load({ content_type = "example_content_type" })
 if err then error(err) end
 print(contentcollection)
 ```
@@ -297,7 +299,7 @@ Create an instance: `local content_collection = client:ContentCollection(nil)`
 #### Example: Load
 
 ```lua
-local content_collection, err = client:ContentCollection():load()
+local content_collection, err = client:ContentCollection():load({ content_type = "content_type" })
 ```
 
 

@@ -38,11 +38,12 @@ client = HealthcareGovContentSDK()
 
 ### 3. Load a contentcollection
 
+ContentCollection is nested under content_type, so provide the `content_type`.
 `load()` returns the bare record (a `dict`) and raises on error.
 
 ```python
 try:
-    contentcollection = client.ContentCollection().load()
+    contentcollection = client.ContentCollection().load({"content_type": "example_content_type"})
     print(contentcollection)
 except Exception as err:
     print(f"load failed: {err}")
@@ -311,7 +312,7 @@ Create an instance: `content_collection = client.ContentCollection()`
 #### Example: Load
 
 ```python
-content_collection = client.ContentCollection().load()
+content_collection = client.ContentCollection().load({"content_type": "content_type"})
 ```
 
 

@@ -149,7 +149,7 @@ const content_collection = client.ContentCollection()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.ContentCollection().load()
+const result = await client.ContentCollection().load({ content_type: 'content_type' })
 ```
 
 ### Common Methods

@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -514,15 +511,18 @@
           "url": "https://www.healthcare.gov/developers/"
         },
         "description": "The HealthCare.gov Content API provides developers with access to educational content and resources related to the Health Insurance Marketplace in JSON format. This allows applications and websites to integrate and display up-to-date information directly from HealthCare.gov, supporting open data and accessibility for all users.",
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "Production server",
             "url": "https://www.healthcare.gov"
           }
         ],
+        "summary": "The HealthCare.gov Content API provides developers with access to educational content and resources related to the Health Insurance Marketplace in JSON format.",
         "termsOfService": "https://www.healthcare.gov/using-this-site",
         "title": "HealthCare.gov Content API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://www.healthcare.gov/developers/"
       },
       "option": {},
       "target": {
@@ -575,6 +575,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -625,6 +628,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

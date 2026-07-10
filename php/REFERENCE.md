@@ -109,7 +109,7 @@ $content_collection = $client->ContentCollection();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->ContentCollection()->load();
+$result = $client->ContentCollection()->load(["content_type" => "content_type"]);
 ```
 
 ### Common Methods

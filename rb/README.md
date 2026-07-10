@@ -32,10 +32,12 @@ client = HealthcareGovContentSDK.new
 
 ### 3. Load a contentcollection
 
+ContentCollection is nested under content_type, so provide the `content_type`.
+
 ```ruby
 begin
   # load returns the bare ContentCollection record (raises on error).
-  contentcollection = client.ContentCollection.load()
+  contentcollection = client.ContentCollection.load({ "content_type" => "example_content_type" })
   puts contentcollection
 rescue => err
   warn "load failed: #{err}"
@@ -306,7 +308,7 @@ Create an instance: `content_collection = client.ContentCollection`
 
 ```ruby
 # load returns the bare ContentCollection record (raises on error).
-content_collection = client.ContentCollection.load()
+content_collection = client.ContentCollection.load({ "content_type" => "content_type" })
 ```
 
 

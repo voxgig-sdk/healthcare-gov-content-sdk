@@ -107,7 +107,7 @@ local content_collection = client:ContentCollection(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:ContentCollection():load()
+local result, err = client:ContentCollection():load({ content_type = "content_type" })
 ```
 
 ### Common Methods
