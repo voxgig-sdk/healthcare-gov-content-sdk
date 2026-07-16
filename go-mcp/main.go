@@ -37,7 +37,20 @@ func main() {
 	addr := flag.String("addr", ":8080", "listen address for http transport")
 	flag.Parse()
 
-	client := sdk.NewHealthcareGovContentSDK(nil)
+	// Configure from the environment: HEALTHCARE_GOV_CONTENT_APIKEY carries the API key and
+	// HEALTHCARE_GOV_CONTENT_BASE optionally overrides the API base URL (e.g. production).
+	// Both injectable by a secrets vault. Unset -> nil config defaults.
+	var opts map[string]any
+	if apikey := os.Getenv("HEALTHCARE_GOV_CONTENT_APIKEY"); apikey != "" {
+		opts = map[string]any{"apikey": apikey}
+	}
+	if base := os.Getenv("HEALTHCARE_GOV_CONTENT_BASE"); base != "" {
+		if opts == nil {
+			opts = map[string]any{}
+		}
+		opts["base"] = base
+	}
+	client := sdk.NewHealthcareGovContentSDK(opts)
 	server := mcp.NewServer(
 		&mcp.Implementation{
 			Name:    "healthcare-gov-content",
