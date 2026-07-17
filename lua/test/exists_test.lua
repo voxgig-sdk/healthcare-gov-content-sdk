@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- HealthcareGovContent SDK exists test
 
 local sdk = require("healthcare-gov-content_sdk")
 
