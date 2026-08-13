@@ -147,13 +147,13 @@ index = client.Index()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `bite` | `str` | No |  |
-| `category` | `list` | No |  |
-| `es_bite` | `str` | No |  |
-| `es_title` | `str` | No |  |
+| `categories` | `list` | No |  |
+| `esbite` | `str` | No |  |
+| `estitle` | `str` | No |  |
 | `state` | `list` | No |  |
-| `tag` | `list` | No |  |
+| `tags` | `list` | No |  |
 | `title` | `str` | No |  |
-| `topic` | `list` | No |  |
+| `topics` | `list` | No |  |
 | `url` | `str` | No |  |
 
 ### Operations
@@ -208,15 +208,15 @@ post_title = client.PostTitle()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `author` | `str` | No |  |
-| `category` | `list` | No |  |
+| `categories` | `list` | No |  |
 | `content` | `str` | No |  |
 | `date` | `str` | No |  |
 | `lang` | `str` | No |  |
 | `layout` | `str` | No |  |
 | `order` | `int` | No |  |
-| `tag` | `list` | No |  |
+| `tags` | `list` | No |  |
 | `title` | `str` | No |  |
-| `topic` | `list` | No |  |
+| `topics` | `list` | No |  |
 | `url` | `str` | No |  |
 
 ### Operations
@@ -226,7 +226,7 @@ post_title = client.PostTitle()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.PostTitle().list()
+results = client.PostTitle().list({"post_title": "example"})
 for post_title in results:
     print(post_title)
 ```

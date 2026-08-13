@@ -56,10 +56,10 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const contentcollection = await client.ContentCollection().load()
-  console.log(contentcollection)
+  const posttitles = await client.PostTitle().list()
+  console.log(posttitles)
 } catch (err) {
-  console.error('load failed:', err)
+  console.error('list failed:', err)
 }
 ```
 
@@ -123,9 +123,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = HealthcareGovContentSDK.test()
 
-const contentcollection = await client.ContentCollection().load()
-// contentcollection is a bare entity populated with mock response data
-console.log(contentcollection)
+const posttitle = await client.PostTitle().list()
+// posttitle is the entity, populated with mock response data
+// — call posttitle.data() for the record itself
+console.log(posttitle)
 ```
 
 You can also use the instance method:
@@ -140,10 +141,10 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.ContentCollection()
+const entity = client.PostTitle()
 
 // First call runs the operation and stores its result
-await entity.load()
+await entity.list()
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
@@ -303,13 +304,13 @@ API path: `/api/{content-type}.json`
 | Field | Description |
 | --- | --- |
 | `bite` |  |
-| `category` |  |
-| `es_bite` |  |
-| `es_title` |  |
+| `categories` |  |
+| `esbite` |  |
+| `estitle` |  |
 | `state` |  |
-| `tag` |  |
+| `tags` |  |
 | `title` |  |
-| `topic` |  |
+| `topics` |  |
 | `url` |  |
 
 Operations: list.
@@ -321,15 +322,15 @@ API path: `/api/index.json`
 | Field | Description |
 | --- | --- |
 | `author` |  |
-| `category` |  |
+| `categories` |  |
 | `content` |  |
 | `date` |  |
 | `lang` |  |
 | `layout` |  |
 | `order` |  |
-| `tag` |  |
+| `tags` |  |
 | `title` |  |
-| `topic` |  |
+| `topics` |  |
 | `url` |  |
 
 Operations: list.
@@ -379,13 +380,13 @@ Create an instance: `const index = client.Index()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `bite` | `string` |  |
-| `category` | `any[]` |  |
-| `es_bite` | `string` |  |
-| `es_title` | `string` |  |
+| `categories` | `any[]` |  |
+| `esbite` | `string` |  |
+| `estitle` | `string` |  |
 | `state` | `any[]` |  |
-| `tag` | `any[]` |  |
+| `tags` | `any[]` |  |
 | `title` | `string` |  |
-| `topic` | `any[]` |  |
+| `topics` | `any[]` |  |
 | `url` | `string` |  |
 
 #### Example: List
@@ -410,21 +411,21 @@ Create an instance: `const post_title = client.PostTitle()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `author` | `string` |  |
-| `category` | `any[]` |  |
+| `categories` | `any[]` |  |
 | `content` | `string` |  |
 | `date` | `string` |  |
 | `lang` | `string` |  |
 | `layout` | `string` |  |
 | `order` | `number` |  |
-| `tag` | `any[]` |  |
+| `tags` | `any[]` |  |
 | `title` | `string` |  |
-| `topic` | `any[]` |  |
+| `topics` | `any[]` |  |
 | `url` | `string` |  |
 
 #### Example: List
 
 ```ts
-const post_titles = await client.PostTitle().list()
+const post_titles = await client.PostTitle().list({ post_title: "example" })
 ```
 
 
@@ -492,16 +493,16 @@ import { HealthcareGovContentSDK } from '@voxgig-sdk/healthcare-gov-content'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const contentcollection = client.ContentCollection()
-await contentcollection.load()
+const posttitle = client.PostTitle()
+await posttitle.list()
 
-// contentcollection.data() now returns the contentcollection data from the last `load`
-// contentcollection.match() returns the last match criteria
+// posttitle.data() now returns the posttitle data from the last `list`
+// posttitle.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

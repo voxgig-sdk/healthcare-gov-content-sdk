@@ -151,13 +151,13 @@ local index = client:Index(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `bite` | `string` | No |  |
-| `category` | `table` | No |  |
-| `es_bite` | `string` | No |  |
-| `es_title` | `string` | No |  |
+| `categories` | `table` | No |  |
+| `esbite` | `string` | No |  |
+| `estitle` | `string` | No |  |
 | `state` | `table` | No |  |
-| `tag` | `table` | No |  |
+| `tags` | `table` | No |  |
 | `title` | `string` | No |  |
-| `topic` | `table` | No |  |
+| `topics` | `table` | No |  |
 | `url` | `string` | No |  |
 
 ### Operations
@@ -211,15 +211,15 @@ local post_title = client:PostTitle(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `author` | `string` | No |  |
-| `category` | `table` | No |  |
+| `categories` | `table` | No |  |
 | `content` | `string` | No |  |
 | `date` | `string` | No |  |
 | `lang` | `string` | No |  |
 | `layout` | `string` | No |  |
 | `order` | `number` | No |  |
-| `tag` | `table` | No |  |
+| `tags` | `table` | No |  |
 | `title` | `string` | No |  |
-| `topic` | `table` | No |  |
+| `topics` | `table` | No |  |
 | `url` | `string` | No |  |
 
 ### Operations

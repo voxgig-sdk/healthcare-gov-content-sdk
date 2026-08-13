@@ -191,13 +191,13 @@ const index = client.Index()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `bite` | `string` | No |  |
-| `category` | `any[]` | No |  |
-| `es_bite` | `string` | No |  |
-| `es_title` | `string` | No |  |
+| `categories` | `any[]` | No |  |
+| `esbite` | `string` | No |  |
+| `estitle` | `string` | No |  |
 | `state` | `any[]` | No |  |
-| `tag` | `any[]` | No |  |
+| `tags` | `any[]` | No |  |
 | `title` | `string` | No |  |
-| `topic` | `any[]` | No |  |
+| `topics` | `any[]` | No |  |
 | `url` | `string` | No |  |
 
 ### Operations
@@ -249,15 +249,15 @@ const post_title = client.PostTitle()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `author` | `string` | No |  |
-| `category` | `any[]` | No |  |
+| `categories` | `any[]` | No |  |
 | `content` | `string` | No |  |
 | `date` | `string` | No |  |
 | `lang` | `string` | No |  |
 | `layout` | `string` | No |  |
 | `order` | `number` | No |  |
-| `tag` | `any[]` | No |  |
+| `tags` | `any[]` | No |  |
 | `title` | `string` | No |  |
-| `topic` | `any[]` | No |  |
+| `topics` | `any[]` | No |  |
 | `url` | `string` | No |  |
 
 ### Operations
@@ -267,7 +267,7 @@ const post_title = client.PostTitle()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.PostTitle().list()
+const results = await client.PostTitle().list({ post_title: "example" })
 ```
 
 ### Common Methods

@@ -66,12 +66,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-contentcollection, err := client.ContentCollection(nil).Load(nil, nil)
+posttitles, err := client.PostTitle(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = contentcollection
+_ = posttitles
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -135,13 +135,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-contentCollection, err := client.ContentCollection(nil).Load(
+postTitle, err := client.PostTitle(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(contentCollection) // the returned mock data
+fmt.Println(postTitle) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -273,13 +273,13 @@ API path: `/api/{content-type}.json`
 | Field | Description |
 | --- | --- |
 | `"bite"` |  |
-| `"category"` |  |
-| `"es_bite"` |  |
-| `"es_title"` |  |
+| `"categories"` |  |
+| `"esbite"` |  |
+| `"estitle"` |  |
 | `"state"` |  |
-| `"tag"` |  |
+| `"tags"` |  |
 | `"title"` |  |
-| `"topic"` |  |
+| `"topics"` |  |
 | `"url"` |  |
 
 Operations: List.
@@ -291,15 +291,15 @@ API path: `/api/index.json`
 | Field | Description |
 | --- | --- |
 | `"author"` |  |
-| `"category"` |  |
+| `"categories"` |  |
 | `"content"` |  |
 | `"date"` |  |
 | `"lang"` |  |
 | `"layout"` |  |
 | `"order"` |  |
-| `"tag"` |  |
+| `"tags"` |  |
 | `"title"` |  |
-| `"topic"` |  |
+| `"topics"` |  |
 | `"url"` |  |
 
 Operations: List.
@@ -353,13 +353,13 @@ Create an instance: `index := client.Index(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `bite` | `string` |  |
-| `category` | `[]any` |  |
-| `es_bite` | `string` |  |
-| `es_title` | `string` |  |
+| `categories` | `[]any` |  |
+| `esbite` | `string` |  |
+| `estitle` | `string` |  |
 | `state` | `[]any` |  |
-| `tag` | `[]any` |  |
+| `tags` | `[]any` |  |
 | `title` | `string` |  |
-| `topic` | `[]any` |  |
+| `topics` | `[]any` |  |
 | `url` | `string` |  |
 
 #### Example: List
@@ -388,15 +388,15 @@ Create an instance: `postTitle := client.PostTitle(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `author` | `string` |  |
-| `category` | `[]any` |  |
+| `categories` | `[]any` |  |
 | `content` | `string` |  |
 | `date` | `string` |  |
 | `lang` | `string` |  |
 | `layout` | `string` |  |
 | `order` | `int` |  |
-| `tag` | `[]any` |  |
+| `tags` | `[]any` |  |
 | `title` | `string` |  |
-| `topic` | `[]any` |  |
+| `topics` | `[]any` |  |
 | `url` | `string` |  |
 
 #### Example: List
@@ -479,15 +479,15 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `Load`, the entity
+Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-contentcollection := client.ContentCollection(nil)
-contentcollection.Load(nil, nil)
+posttitle := client.PostTitle(nil)
+posttitle.List(nil, nil)
 
-// contentcollection.Data() now returns the contentcollection data from the last load
-// contentcollection.Match() returns the last match criteria
+// posttitle.Data() now returns the posttitle data from the last list
+// posttitle.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

@@ -36,7 +36,7 @@ ContentCollection is nested under content_type, so provide the `content_type`.
 
 ```ruby
 begin
-  # load returns the bare ContentCollection record (raises on error).
+  # load returns the ENTITY — call data_get for the ContentCollection record (raises on error).
   contentcollection = client.ContentCollection.load({ "content_type" => "example_content_type" })
   puts contentcollection
 rescue => err
@@ -51,9 +51,9 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  contentcollection = client.ContentCollection.load()
+  posttitles = client.PostTitle.list()
 rescue => err
-  warn "load failed: #{err}"
+  warn "list failed: #{err}"
 end
 ```
 
@@ -119,9 +119,10 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = HealthcareGovContentSDK.test
 
-# Entity ops return the bare mock record (raises on error).
-contentcollection = client.ContentCollection.load()
-puts contentcollection
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+posttitle = client.PostTitle.list()
+puts posttitle
 ```
 
 ### Use a custom fetch function
@@ -250,13 +251,13 @@ API path: `/api/{content-type}.json`
 | Field | Description |
 | --- | --- |
 | `bite` |  |
-| `category` |  |
-| `es_bite` |  |
-| `es_title` |  |
+| `categories` |  |
+| `esbite` |  |
+| `estitle` |  |
 | `state` |  |
-| `tag` |  |
+| `tags` |  |
 | `title` |  |
-| `topic` |  |
+| `topics` |  |
 | `url` |  |
 
 Operations: List.
@@ -268,15 +269,15 @@ API path: `/api/index.json`
 | Field | Description |
 | --- | --- |
 | `author` |  |
-| `category` |  |
+| `categories` |  |
 | `content` |  |
 | `date` |  |
 | `lang` |  |
 | `layout` |  |
 | `order` |  |
-| `tag` |  |
+| `tags` |  |
 | `title` |  |
-| `topic` |  |
+| `topics` |  |
 | `url` |  |
 
 Operations: List.
@@ -307,7 +308,7 @@ Create an instance: `content_collection = client.ContentCollection`
 #### Example: Load
 
 ```ruby
-# load returns the bare ContentCollection record (raises on error).
+# load returns the ENTITY — call data_get for the ContentCollection record (raises on error).
 content_collection = client.ContentCollection.load({ "content_type" => "content_type" })
 ```
 
@@ -327,13 +328,13 @@ Create an instance: `index = client.Index`
 | Field | Type | Description |
 | --- | --- | --- |
 | `bite` | `String` |  |
-| `category` | `Array` |  |
-| `es_bite` | `String` |  |
-| `es_title` | `String` |  |
+| `categories` | `Array` |  |
+| `esbite` | `String` |  |
+| `estitle` | `String` |  |
 | `state` | `Array` |  |
-| `tag` | `Array` |  |
+| `tags` | `Array` |  |
 | `title` | `String` |  |
-| `topic` | `Array` |  |
+| `topics` | `Array` |  |
 | `url` | `String` |  |
 
 #### Example: List
@@ -359,15 +360,15 @@ Create an instance: `post_title = client.PostTitle`
 | Field | Type | Description |
 | --- | --- | --- |
 | `author` | `String` |  |
-| `category` | `Array` |  |
+| `categories` | `Array` |  |
 | `content` | `String` |  |
 | `date` | `String` |  |
 | `lang` | `String` |  |
 | `layout` | `String` |  |
 | `order` | `Integer` |  |
-| `tag` | `Array` |  |
+| `tags` | `Array` |  |
 | `title` | `String` |  |
-| `topic` | `Array` |  |
+| `topics` | `Array` |  |
 | `url` | `String` |  |
 
 #### Example: List
@@ -450,15 +451,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-contentcollection = client.ContentCollection
-contentcollection.load()
+posttitle = client.PostTitle
+posttitle.list()
 
-# contentcollection.data_get now returns the contentcollection data from the last load
-# contentcollection.match_get returns the last match criteria
+# posttitle.data_get now returns the posttitle data from the last list
+# posttitle.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

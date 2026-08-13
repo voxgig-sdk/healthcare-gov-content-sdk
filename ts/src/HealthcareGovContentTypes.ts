@@ -15,39 +15,39 @@ export interface ContentCollectionLoadMatch {
 
 export interface Index {
   bite?: string
-  category?: any[]
-  es_bite?: string
-  es_title?: string
+  categories?: any[]
+  esbite?: string
+  estitle?: string
   state?: any[]
-  tag?: any[]
+  tags?: any[]
   title?: string
-  topic?: any[]
+  topics?: any[]
   url?: string
 }
 
 export interface IndexListMatch {
   bite?: string
-  category?: any[]
-  es_bite?: string
-  es_title?: string
+  categories?: any[]
+  esbite?: string
+  estitle?: string
   state?: any[]
-  tag?: any[]
+  tags?: any[]
   title?: string
-  topic?: any[]
+  topics?: any[]
   url?: string
 }
 
 export interface PostTitle {
   author?: string
-  category?: any[]
+  categories?: any[]
   content?: string
   date?: string
   lang?: string
   layout?: string
   order?: number
-  tag?: any[]
+  tags?: any[]
   title?: string
-  topic?: any[]
+  topics?: any[]
   url?: string
 }
 

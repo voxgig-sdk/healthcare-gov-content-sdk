@@ -3,43 +3,43 @@
     "post_title": {
       "POST_TITLE00": {
         "author": "s6e",
-        "category": [],
+        "categories": [],
         "content": "s70",
         "date": "s71",
         "lang": "s72",
         "layout": "s73",
         "order": "s74",
-        "tag": [],
+        "tags": [],
         "title": "s76",
-        "topic": [],
+        "topics": [],
         "url": "s78",
         "post_title": "POST_TITLE01"
       },
       "POST_TITLE01": {
         "author": "sdc",
-        "category": [],
+        "categories": [],
         "content": "sde",
         "date": "sdf",
         "lang": "se0",
         "layout": "se1",
         "order": "se2",
-        "tag": [],
+        "tags": [],
         "title": "se4",
-        "topic": [],
+        "topics": [],
         "url": "se6",
         "post_title": "POST_TITLE01"
       },
       "POST_TITLE02": {
         "author": "s14a",
-        "category": [],
+        "categories": [],
         "content": "s14c",
         "date": "s14d",
         "lang": "s14e",
         "layout": "s14f",
         "order": "s150",
-        "tag": [],
+        "tags": [],
         "title": "s152",
-        "topic": [],
+        "topics": [],
         "url": "s154",
         "post_title": "POST_TITLE01"
       }
@@ -49,15 +49,15 @@
     "post_title": {
       "post_title_ref01": {
         "author": "s1b8",
-        "category": [],
+        "categories": [],
         "content": "s1ba",
         "date": "s1bb",
         "lang": "s1bc",
         "layout": "s1bd",
         "order": "s1be",
-        "tag": [],
+        "tags": [],
         "title": "s1c0",
-        "topic": [],
+        "topics": [],
         "url": "s1c2"
       }
     }

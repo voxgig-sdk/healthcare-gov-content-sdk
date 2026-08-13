@@ -14,37 +14,37 @@
 
 ---@class Index
 ---@field bite? string
----@field category? table
----@field es_bite? string
----@field es_title? string
+---@field categories? table
+---@field esbite? string
+---@field estitle? string
 ---@field state? table
----@field tag? table
+---@field tags? table
 ---@field title? string
----@field topic? table
+---@field topics? table
 ---@field url? string
 
 ---@class IndexListMatch
 ---@field bite? string
----@field category? table
----@field es_bite? string
----@field es_title? string
+---@field categories? table
+---@field esbite? string
+---@field estitle? string
 ---@field state? table
----@field tag? table
+---@field tags? table
 ---@field title? string
----@field topic? table
+---@field topics? table
 ---@field url? string
 
 ---@class PostTitle
 ---@field author? string
----@field category? table
+---@field categories? table
 ---@field content? string
 ---@field date? string
 ---@field lang? string
 ---@field layout? string
 ---@field order? number
----@field tag? table
+---@field tags? table
 ---@field title? string
----@field topic? table
+---@field topics? table
 ---@field url? string
 
 ---@class PostTitleListMatch

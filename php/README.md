@@ -37,7 +37,7 @@ ContentCollection is nested under content_type, so provide the `content_type`.
 
 ```php
 try {
-    // load() returns the bare ContentCollection record (throws on error).
+    // load() returns the ENTITY — call data_get() for the ContentCollection record (throws on error).
     $contentcollection = $client->ContentCollection()->load(["content_type" => "example_content_type"]);
     print_r($contentcollection);
 } catch (\Throwable $err) {
@@ -53,7 +53,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $contentcollection = $client->ContentCollection()->load();
+    $posttitles = $client->PostTitle()->list();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -125,9 +125,10 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = HealthcareGovContentSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
-$contentcollection = $client->ContentCollection()->load();
-print_r($contentcollection);
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$posttitle = $client->PostTitle()->list();
+print_r($posttitle);
 ```
 
 ### Use a custom fetch function
@@ -227,7 +228,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -260,13 +261,13 @@ API path: `/api/{content-type}.json`
 | Field | Description |
 | --- | --- |
 | `bite` |  |
-| `category` |  |
-| `es_bite` |  |
-| `es_title` |  |
+| `categories` |  |
+| `esbite` |  |
+| `estitle` |  |
 | `state` |  |
-| `tag` |  |
+| `tags` |  |
 | `title` |  |
-| `topic` |  |
+| `topics` |  |
 | `url` |  |
 
 Operations: List.
@@ -278,15 +279,15 @@ API path: `/api/index.json`
 | Field | Description |
 | --- | --- |
 | `author` |  |
-| `category` |  |
+| `categories` |  |
 | `content` |  |
 | `date` |  |
 | `lang` |  |
 | `layout` |  |
 | `order` |  |
-| `tag` |  |
+| `tags` |  |
 | `title` |  |
-| `topic` |  |
+| `topics` |  |
 | `url` |  |
 
 Operations: List.
@@ -317,7 +318,7 @@ Create an instance: `$content_collection = $client->ContentCollection();`
 #### Example: Load
 
 ```php
-// load() returns the bare ContentCollection record (throws on error).
+// load() returns the ENTITY — call data_get() for the ContentCollection record (throws on error).
 $content_collection = $client->ContentCollection()->load(["content_type" => "content_type"]);
 ```
 
@@ -337,13 +338,13 @@ Create an instance: `$index = $client->Index();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `bite` | `string` |  |
-| `category` | `array` |  |
-| `es_bite` | `string` |  |
-| `es_title` | `string` |  |
+| `categories` | `array` |  |
+| `esbite` | `string` |  |
+| `estitle` | `string` |  |
 | `state` | `array` |  |
-| `tag` | `array` |  |
+| `tags` | `array` |  |
 | `title` | `string` |  |
-| `topic` | `array` |  |
+| `topics` | `array` |  |
 | `url` | `string` |  |
 
 #### Example: List
@@ -369,15 +370,15 @@ Create an instance: `$post_title = $client->PostTitle();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `author` | `string` |  |
-| `category` | `array` |  |
+| `categories` | `array` |  |
 | `content` | `string` |  |
 | `date` | `string` |  |
 | `lang` | `string` |  |
 | `layout` | `string` |  |
 | `order` | `int` |  |
-| `tag` | `array` |  |
+| `tags` | `array` |  |
 | `title` | `string` |  |
-| `topic` | `array` |  |
+| `topics` | `array` |  |
 | `url` | `string` |  |
 
 #### Example: List
@@ -460,15 +461,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$contentcollection = $client->ContentCollection();
-$contentcollection->load();
+$posttitle = $client->PostTitle();
+$posttitle->list();
 
-// $contentcollection->data_get() now returns the contentcollection data from the last load
-// $contentcollection->match_get() returns the last match criteria
+// $posttitle->data_get() now returns the posttitle data from the last list
+// $posttitle->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

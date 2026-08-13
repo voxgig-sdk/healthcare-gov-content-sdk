@@ -80,11 +80,11 @@ function post_title_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "HEALTHCAREGOVCONTENT_TEST_POST_TITLE_ENTID" => [],
-        "HEALTHCAREGOVCONTENT_TEST_LIVE" => "FALSE",
+        "HEALTHCARE_GOV_CONTENT_TEST_POST_TITLE_ENTID" => [],
+        "HEALTHCARE_GOV_CONTENT_TEST_LIVE" => "FALSE",
     ]);
 
-    $live = $env["HEALTHCAREGOVCONTENT_TEST_LIVE"] === "TRUE";
+    $live = $env["HEALTHCARE_GOV_CONTENT_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [

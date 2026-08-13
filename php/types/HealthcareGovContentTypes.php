@@ -28,13 +28,13 @@ class ContentCollectionLoadMatch
 class Index
 {
     public ?string $bite = null;
-    public ?array $category = null;
-    public ?string $es_bite = null;
-    public ?string $es_title = null;
+    public ?array $categories = null;
+    public ?string $esbite = null;
+    public ?string $estitle = null;
     public ?array $state = null;
-    public ?array $tag = null;
+    public ?array $tags = null;
     public ?string $title = null;
-    public ?array $topic = null;
+    public ?array $topics = null;
     public ?string $url = null;
 }
 
@@ -42,13 +42,13 @@ class Index
 class IndexListMatch
 {
     public ?string $bite = null;
-    public ?array $category = null;
-    public ?string $es_bite = null;
-    public ?string $es_title = null;
+    public ?array $categories = null;
+    public ?string $esbite = null;
+    public ?string $estitle = null;
     public ?array $state = null;
-    public ?array $tag = null;
+    public ?array $tags = null;
     public ?string $title = null;
-    public ?array $topic = null;
+    public ?array $topics = null;
     public ?string $url = null;
 }
 
@@ -56,15 +56,15 @@ class IndexListMatch
 class PostTitle
 {
     public ?string $author = null;
-    public ?array $category = null;
+    public ?array $categories = null;
     public ?string $content = null;
     public ?string $date = null;
     public ?string $lang = null;
     public ?string $layout = null;
     public ?int $order = null;
-    public ?array $tag = null;
+    public ?array $tags = null;
     public ?string $title = null;
-    public ?array $topic = null;
+    public ?array $topics = null;
     public ?string $url = null;
 }
 

@@ -37,7 +37,7 @@ class PostTitleEntity extends HealthcareGovContentEntityBase<PostTitle> {
 
 
 
-  async list(this: any, reqmatch?: PostTitleListMatch, ctrl?: Control): Promise<PostTitle[]> {
+  async list(this: any, reqmatch?: PostTitleListMatch, ctrl?: Control): Promise<PostTitleEntity[]> {
 
     const utility = this._utility
 

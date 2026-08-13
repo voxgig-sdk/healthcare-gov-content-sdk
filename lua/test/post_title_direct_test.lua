@@ -75,11 +75,11 @@ function post_title_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["HEALTHCAREGOVCONTENT_TEST_POST_TITLE_ENTID"] = {},
-    ["HEALTHCAREGOVCONTENT_TEST_LIVE"] = "FALSE",
+    ["HEALTHCARE_GOV_CONTENT_TEST_POST_TITLE_ENTID"] = {},
+    ["HEALTHCARE_GOV_CONTENT_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["HEALTHCAREGOVCONTENT_TEST_LIVE"] == "TRUE"
+  local live = env["HEALTHCARE_GOV_CONTENT_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {

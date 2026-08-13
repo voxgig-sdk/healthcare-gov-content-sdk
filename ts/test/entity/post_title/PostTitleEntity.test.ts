@@ -26,8 +26,8 @@ import {
 describe('PostTitleEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when HEALTHCAREGOVCONTENT_TEST_LIVE=TRUE.
-  afterEach(liveDelay('HEALTHCAREGOVCONTENT_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when HEALTHCARE_GOV_CONTENT_TEST_LIVE=TRUE.
+  afterEach(liveDelay('HEALTHCARE_GOV_CONTENT_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = HealthcareGovContentSDK.test()
@@ -64,7 +64,7 @@ describe('PostTitleEntity', async () => {
     const post_title_ref01_match: any = {}
     post_title_ref01_match['post_title'] = setup.idmap['post_title01']
 
-    const post_title_ref01_list = await post_title_ref01_ent.list(post_title_ref01_match)
+    const post_title_ref01_list = (await post_title_ref01_ent.list(post_title_ref01_match)).map((e: any) => e.data())
 
 
   })

@@ -11,17 +11,17 @@ main: kit: entity: index: {
       type: "`$STRING`"
     }
     {
-      name: "category"
+      name: "categories"
       req: false
       type: "`$ARRAY`"
     }
     {
-      name: "es_bite"
+      name: "esbite"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "es_title"
+      name: "estitle"
       req: false
       type: "`$STRING`"
     }
@@ -31,7 +31,7 @@ main: kit: entity: index: {
       type: "`$ARRAY`"
     }
     {
-      name: "tag"
+      name: "tags"
       req: false
       type: "`$ARRAY`"
     }
@@ -41,7 +41,7 @@ main: kit: entity: index: {
       type: "`$STRING`"
     }
     {
-      name: "topic"
+      name: "topics"
       req: false
       type: "`$ARRAY`"
     }

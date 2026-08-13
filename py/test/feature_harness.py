@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import HealthcareGovContentControl
-from core.error import HealthcareGovContentError
-from core.result import HealthcareGovContentResult
-from core.spec import HealthcareGovContentSpec
+from healthcaregovcontent_sdk.config import make_config
+from healthcaregovcontent_sdk.features import _make_feature
+from healthcaregovcontent_sdk.core.control import HealthcareGovContentControl
+from healthcaregovcontent_sdk.core.error import HealthcareGovContentError
+from healthcaregovcontent_sdk.core.result import HealthcareGovContentResult
+from healthcaregovcontent_sdk.core.spec import HealthcareGovContentSpec
 
 
 # True when this SDK was generated with the named feature.

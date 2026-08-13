@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from healthcaregovcontent_sdk.utility.voxgig_struct import voxgig_struct as vs
 from healthcaregovcontent_sdk import HealthcareGovContentSDK
-from core import helpers
+from healthcaregovcontent_sdk.core import helpers
 from test import runner
 
 
@@ -56,11 +56,11 @@ def _content_collection_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "HEALTHCAREGOVCONTENT_TEST_CONTENT_COLLECTION_ENTID": {},
-        "HEALTHCAREGOVCONTENT_TEST_LIVE": "FALSE",
+        "HEALTHCARE_GOV_CONTENT_TEST_CONTENT_COLLECTION_ENTID": {},
+        "HEALTHCARE_GOV_CONTENT_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("HEALTHCAREGOVCONTENT_TEST_LIVE") == "TRUE"
+    live = env.get("HEALTHCARE_GOV_CONTENT_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

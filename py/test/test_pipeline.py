@@ -16,11 +16,11 @@
 import pytest
 
 from healthcaregovcontent_sdk import HealthcareGovContentSDK
-from core.error import HealthcareGovContentError
-from core.result import HealthcareGovContentResult
-from core.response import HealthcareGovContentResponse
-from core.spec import HealthcareGovContentSpec
-from feature.base_feature import HealthcareGovContentBaseFeature
+from healthcaregovcontent_sdk.core.error import HealthcareGovContentError
+from healthcaregovcontent_sdk.core.result import HealthcareGovContentResult
+from healthcaregovcontent_sdk.core.response import HealthcareGovContentResponse
+from healthcaregovcontent_sdk.core.spec import HealthcareGovContentSpec
+from healthcaregovcontent_sdk.feature.base_feature import HealthcareGovContentBaseFeature
 
 
 def _client():

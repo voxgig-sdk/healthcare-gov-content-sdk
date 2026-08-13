@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# HealthcareGovContent SDK exists test
 
 import pytest
 from healthcaregovcontent_sdk import HealthcareGovContentSDK

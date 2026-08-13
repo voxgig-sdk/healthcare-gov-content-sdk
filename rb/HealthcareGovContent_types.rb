@@ -31,38 +31,38 @@ ContentCollectionLoadMatch = Struct.new(
 # @!attribute [rw] bite
 #   @return [String, nil]
 #
-# @!attribute [rw] category
+# @!attribute [rw] categories
 #   @return [Array, nil]
 #
-# @!attribute [rw] es_bite
+# @!attribute [rw] esbite
 #   @return [String, nil]
 #
-# @!attribute [rw] es_title
+# @!attribute [rw] estitle
 #   @return [String, nil]
 #
 # @!attribute [rw] state
 #   @return [Array, nil]
 #
-# @!attribute [rw] tag
+# @!attribute [rw] tags
 #   @return [Array, nil]
 #
 # @!attribute [rw] title
 #   @return [String, nil]
 #
-# @!attribute [rw] topic
+# @!attribute [rw] topics
 #   @return [Array, nil]
 #
 # @!attribute [rw] url
 #   @return [String, nil]
 Index = Struct.new(
   :bite,
-  :category,
-  :es_bite,
-  :es_title,
+  :categories,
+  :esbite,
+  :estitle,
   :state,
-  :tag,
+  :tags,
   :title,
-  :topic,
+  :topics,
   :url,
   keyword_init: true
 )
@@ -72,38 +72,38 @@ Index = Struct.new(
 # @!attribute [rw] bite
 #   @return [String, nil]
 #
-# @!attribute [rw] category
+# @!attribute [rw] categories
 #   @return [Array, nil]
 #
-# @!attribute [rw] es_bite
+# @!attribute [rw] esbite
 #   @return [String, nil]
 #
-# @!attribute [rw] es_title
+# @!attribute [rw] estitle
 #   @return [String, nil]
 #
 # @!attribute [rw] state
 #   @return [Array, nil]
 #
-# @!attribute [rw] tag
+# @!attribute [rw] tags
 #   @return [Array, nil]
 #
 # @!attribute [rw] title
 #   @return [String, nil]
 #
-# @!attribute [rw] topic
+# @!attribute [rw] topics
 #   @return [Array, nil]
 #
 # @!attribute [rw] url
 #   @return [String, nil]
 IndexListMatch = Struct.new(
   :bite,
-  :category,
-  :es_bite,
-  :es_title,
+  :categories,
+  :esbite,
+  :estitle,
   :state,
-  :tag,
+  :tags,
   :title,
-  :topic,
+  :topics,
   :url,
   keyword_init: true
 )
@@ -113,7 +113,7 @@ IndexListMatch = Struct.new(
 # @!attribute [rw] author
 #   @return [String, nil]
 #
-# @!attribute [rw] category
+# @!attribute [rw] categories
 #   @return [Array, nil]
 #
 # @!attribute [rw] content
@@ -131,28 +131,28 @@ IndexListMatch = Struct.new(
 # @!attribute [rw] order
 #   @return [Integer, nil]
 #
-# @!attribute [rw] tag
+# @!attribute [rw] tags
 #   @return [Array, nil]
 #
 # @!attribute [rw] title
 #   @return [String, nil]
 #
-# @!attribute [rw] topic
+# @!attribute [rw] topics
 #   @return [Array, nil]
 #
 # @!attribute [rw] url
 #   @return [String, nil]
 PostTitle = Struct.new(
   :author,
-  :category,
+  :categories,
   :content,
   :date,
   :lang,
   :layout,
   :order,
-  :tag,
+  :tags,
   :title,
-  :topic,
+  :topics,
   :url,
   keyword_init: true
 )

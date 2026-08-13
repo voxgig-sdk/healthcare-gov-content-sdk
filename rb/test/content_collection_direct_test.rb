@@ -59,11 +59,11 @@ def content_collection_direct_setup(mockres)
   calls = []
 
   env = Runner.env_override({
-    "HEALTHCAREGOVCONTENT_TEST_CONTENT_COLLECTION_ENTID" => {},
-    "HEALTHCAREGOVCONTENT_TEST_LIVE" => "FALSE",
+    "HEALTHCARE_GOV_CONTENT_TEST_CONTENT_COLLECTION_ENTID" => {},
+    "HEALTHCARE_GOV_CONTENT_TEST_LIVE" => "FALSE",
   })
 
-  live = env["HEALTHCAREGOVCONTENT_TEST_LIVE"] == "TRUE"
+  live = env["HEALTHCARE_GOV_CONTENT_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {

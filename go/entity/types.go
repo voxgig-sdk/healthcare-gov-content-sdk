@@ -6,7 +6,11 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
 
-import "encoding/json"
+import (
+	"encoding/json"
+
+	"github.com/voxgig-sdk/healthcare-gov-content-sdk/go/core"
+)
 
 // ContentCollection is the typed data model for the content_collection entity.
 type ContentCollection struct {
@@ -21,41 +25,41 @@ type ContentCollectionLoadMatch struct {
 // Index is the typed data model for the index entity.
 type Index struct {
 	Bite *string `json:"bite,omitempty"`
-	Category *[]any `json:"category,omitempty"`
-	EsBite *string `json:"es_bite,omitempty"`
-	EsTitle *string `json:"es_title,omitempty"`
+	Categories *[]any `json:"categories,omitempty"`
+	Esbite *string `json:"esbite,omitempty"`
+	Estitle *string `json:"estitle,omitempty"`
 	State *[]any `json:"state,omitempty"`
-	Tag *[]any `json:"tag,omitempty"`
+	Tags *[]any `json:"tags,omitempty"`
 	Title *string `json:"title,omitempty"`
-	Topic *[]any `json:"topic,omitempty"`
+	Topics *[]any `json:"topics,omitempty"`
 	Url *string `json:"url,omitempty"`
 }
 
 // IndexListMatch is the typed request payload for Index.ListTyped.
 type IndexListMatch struct {
 	Bite *string `json:"bite,omitempty"`
-	Category *[]any `json:"category,omitempty"`
-	EsBite *string `json:"es_bite,omitempty"`
-	EsTitle *string `json:"es_title,omitempty"`
+	Categories *[]any `json:"categories,omitempty"`
+	Esbite *string `json:"esbite,omitempty"`
+	Estitle *string `json:"estitle,omitempty"`
 	State *[]any `json:"state,omitempty"`
-	Tag *[]any `json:"tag,omitempty"`
+	Tags *[]any `json:"tags,omitempty"`
 	Title *string `json:"title,omitempty"`
-	Topic *[]any `json:"topic,omitempty"`
+	Topics *[]any `json:"topics,omitempty"`
 	Url *string `json:"url,omitempty"`
 }
 
 // PostTitle is the typed data model for the post_title entity.
 type PostTitle struct {
 	Author *string `json:"author,omitempty"`
-	Category *[]any `json:"category,omitempty"`
+	Categories *[]any `json:"categories,omitempty"`
 	Content *string `json:"content,omitempty"`
 	Date *string `json:"date,omitempty"`
 	Lang *string `json:"lang,omitempty"`
 	Layout *string `json:"layout,omitempty"`
 	Order *int `json:"order,omitempty"`
-	Tag *[]any `json:"tag,omitempty"`
+	Tags *[]any `json:"tags,omitempty"`
 	Title *string `json:"title,omitempty"`
-	Topic *[]any `json:"topic,omitempty"`
+	Topics *[]any `json:"topics,omitempty"`
 	Url *string `json:"url,omitempty"`
 }
 
@@ -76,12 +80,26 @@ func asMap(v any) map[string]any {
 	return out
 }
 
-// typedFrom decodes a runtime value (a map[string]any produced by the op
-// pipeline) into a typed model T via a JSON round-trip. On any error it
-// returns the zero value of T; the op's own (value, error) tuple carries the
-// real error.
+// entityData unwraps an entity to its data map.
+//
+// Operations resolve to the ENTITY, not the raw data (see AGENTS.md), and an
+// entity's fields are UNEXPORTED — marshalling one directly yields `{}`, so
+// every typed accessor would silently hand back a zero-valued struct. The
+// typed boundary therefore takes the data hop first.
+func entityData(v any) any {
+	if ent, ok := v.(core.Entity); ok {
+		return ent.Data()
+	}
+	return v
+}
+
+// typedFrom decodes a runtime value (an entity, or the map[string]any the op
+// pipeline produced) into a typed model T via a JSON round-trip. On any error
+// it returns the zero value of T; the op's own (value, error) tuple carries
+// the real error.
 func typedFrom[T any](v any) T {
 	var out T
+	v = entityData(v)
 	if v == nil {
 		return out
 	}
@@ -93,12 +111,20 @@ func typedFrom[T any](v any) T {
 	return out
 }
 
-// typedSliceFrom decodes a runtime list value ([]any of maps) into a typed
-// slice []T via a JSON round-trip, for list ops.
+// typedSliceFrom decodes a runtime list value into a typed slice []T via a
+// JSON round-trip, for list ops. `list` resolves to a slice of ENTITY
+// instances, so each element takes the data hop.
 func typedSliceFrom[T any](v any) []T {
 	var out []T
 	if v == nil {
 		return out
+	}
+	if list, ok := v.([]any); ok {
+		unwrapped := make([]any, 0, len(list))
+		for _, item := range list {
+			unwrapped = append(unwrapped, entityData(item))
+		}
+		v = unwrapped
 	}
 	b, err := json.Marshal(v)
 	if err != nil {

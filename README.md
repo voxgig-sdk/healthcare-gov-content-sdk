@@ -23,7 +23,7 @@ support (`list`, `load`):
 
 ```ts
 const client = new HealthcareGovContentSDK()
-const contentcollection = await client.ContentCollection().load()
+const contentcollection = await client.ContentCollection().load({ content_type: "example" })
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -38,18 +38,27 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = HealthcareGovContentSDK.test()
-const contentcollection = await client.ContentCollection().load({ content_type: 'example_content_type' })
-// contentcollection is a bare ContentCollection populated with mock data
-console.log(contentcollection)
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = HealthcareGovContentSDK.test({
+  entity: {
+    post_title: {
+      test01: { id: 'test01' },
+    },
+  },
+})
+const posttitles = await client.PostTitle().list()
+// posttitles is an array of PostTitle entities, populated with mock data
+// — call posttitles[0].data() for the record itself
+console.log(posttitles)
 ```
 
 ### Python
 
 ```python
 client = HealthcareGovContentSDK.test()
-contentcollection = client.ContentCollection().load({"content_type": "example"})
-print(contentcollection)
+posttitles = client.PostTitle().list()
+print(posttitles)
 ```
 
 ### PHP
@@ -57,16 +66,16 @@ print(contentcollection)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = HealthcareGovContentSDK::test([
-    "entity" => ["contentcollection" => ["test01" => []]],
+    "entity" => ["posttitle" => ["test01" => []]],
 ]);
-$contentcollection = $client->ContentCollection()->load(["content_type" => "example"]);
+$posttitles = $client->PostTitle()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.ContentCollection(nil).Load(
+result, err := client.PostTitle(nil).List(
     nil, nil,
 )
 ```
@@ -76,16 +85,16 @@ result, err := client.ContentCollection(nil).Load(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = HealthcareGovContentSDK.test({
-  "entity" => { "contentcollection" => { "test01" => {} } },
+  "entity" => { "posttitle" => { "test01" => {} } },
 })
-contentcollection = client.ContentCollection.load({ "content_type" => "example" })
+posttitles = client.PostTitle.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:ContentCollection():load({ content_type = "example" })
+local results, err = client:PostTitle():list()
 ```
 
 ## Packages
@@ -187,7 +196,7 @@ require_once 'healthcaregovcontent_sdk.php';
 $client = new HealthcareGovContentSDK();
 
 
-// Load a specific contentcollection (returns the bare record; throws on error)
+// Load a specific contentcollection (returns the ENTITY; call data_get() for the record; throws on error)
 $contentcollection = $client->ContentCollection()->load(["content_type" => "example_content_type"]);
 print_r($contentcollection);
 ```
@@ -218,7 +227,7 @@ require_relative "HealthcareGovContent_sdk"
 client = HealthcareGovContentSDK.new
 
 
-# Load a specific contentcollection (returns the bare record; raises on error)
+# Load a specific contentcollection (returns the ENTITY; call data_get for the record)
 contentcollection = client.ContentCollection.load({ "content_type" => "example_content_type" })
 puts contentcollection
 ```
@@ -352,6 +361,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://www.healthcare.gov/developers/](https://www.healthcare.gov/developers/)
 

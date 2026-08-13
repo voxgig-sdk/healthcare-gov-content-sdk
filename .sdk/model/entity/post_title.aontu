@@ -11,7 +11,7 @@ main: kit: entity: post_title: {
       type: "`$STRING`"
     }
     {
-      name: "category"
+      name: "categories"
       req: false
       type: "`$ARRAY`"
     }
@@ -41,7 +41,7 @@ main: kit: entity: post_title: {
       type: "`$INTEGER`"
     }
     {
-      name: "tag"
+      name: "tags"
       req: false
       type: "`$ARRAY`"
     }
@@ -51,7 +51,7 @@ main: kit: entity: post_title: {
       type: "`$STRING`"
     }
     {
-      name: "topic"
+      name: "topics"
       req: false
       type: "`$ARRAY`"
     }

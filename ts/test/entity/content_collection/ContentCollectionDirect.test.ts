@@ -19,11 +19,15 @@ import {
 describe('ContentCollectionDirect', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when HEALTHCAREGOVCONTENT_TEST_LIVE=TRUE.
-  afterEach(liveDelay('HEALTHCAREGOVCONTENT_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when HEALTHCARE_GOV_CONTENT_TEST_LIVE=TRUE.
+  afterEach(liveDelay('HEALTHCARE_GOV_CONTENT_TEST_LIVE'))
 
   test('direct-exists', async () => {
     const sdk = new HealthcareGovContentSDK({
+      // Concrete base: a live construction must satisfy any server
+      // variables a templated base URL declares; overriding base with a
+      // literal (as the direct flow tests do) sidesteps the requirement.
+      base: 'http://localhost:8080',
       system: { fetch: async () => ({}) }
     })
     assert('function' === typeof sdk.direct)
@@ -72,17 +76,17 @@ function directSetup(mockres?: any) {
   const calls: any[] = []
 
   const env = envOverride({
-    'HEALTHCAREGOVCONTENT_TEST_CONTENT_COLLECTION_ENTID': {},
-    'HEALTHCAREGOVCONTENT_TEST_LIVE': 'FALSE',
+    'HEALTHCARE_GOV_CONTENT_TEST_CONTENT_COLLECTION_ENTID': {},
+    'HEALTHCARE_GOV_CONTENT_TEST_LIVE': 'FALSE',
   })
 
-  const live = 'TRUE' === env.HEALTHCAREGOVCONTENT_TEST_LIVE
+  const live = 'TRUE' === env.HEALTHCARE_GOV_CONTENT_TEST_LIVE
 
   if (live) {
     const client = new HealthcareGovContentSDK({
     })
 
-    let idmap: any = env['HEALTHCAREGOVCONTENT_TEST_CONTENT_COLLECTION_ENTID']
+    let idmap: any = env['HEALTHCARE_GOV_CONTENT_TEST_CONTENT_COLLECTION_ENTID']
     if ('string' === typeof idmap && idmap.startsWith('{')) {
       idmap = JSON.parse(idmap)
     }

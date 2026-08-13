@@ -154,13 +154,13 @@ index = client.Index
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `bite` | `String` | No |  |
-| `category` | `Array` | No |  |
-| `es_bite` | `String` | No |  |
-| `es_title` | `String` | No |  |
+| `categories` | `Array` | No |  |
+| `esbite` | `String` | No |  |
+| `estitle` | `String` | No |  |
 | `state` | `Array` | No |  |
-| `tag` | `Array` | No |  |
+| `tags` | `Array` | No |  |
 | `title` | `String` | No |  |
-| `topic` | `Array` | No |  |
+| `topics` | `Array` | No |  |
 | `url` | `String` | No |  |
 
 ### Operations
@@ -214,15 +214,15 @@ post_title = client.PostTitle
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `author` | `String` | No |  |
-| `category` | `Array` | No |  |
+| `categories` | `Array` | No |  |
 | `content` | `String` | No |  |
 | `date` | `String` | No |  |
 | `lang` | `String` | No |  |
 | `layout` | `String` | No |  |
 | `order` | `Integer` | No |  |
-| `tag` | `Array` | No |  |
+| `tags` | `Array` | No |  |
 | `title` | `String` | No |  |
-| `topic` | `Array` | No |  |
+| `topics` | `Array` | No |  |
 | `url` | `String` | No |  |
 
 ### Operations

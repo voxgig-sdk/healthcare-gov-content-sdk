@@ -26,8 +26,8 @@ import {
 describe('IndexEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when HEALTHCAREGOVCONTENT_TEST_LIVE=TRUE.
-  afterEach(liveDelay('HEALTHCAREGOVCONTENT_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when HEALTHCARE_GOV_CONTENT_TEST_LIVE=TRUE.
+  afterEach(liveDelay('HEALTHCARE_GOV_CONTENT_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = HealthcareGovContentSDK.test()
@@ -63,7 +63,7 @@ describe('IndexEntity', async () => {
     const index_ref01_ent = client.Index()
     const index_ref01_match: any = {}
 
-    const index_ref01_list = await index_ref01_ent.list(index_ref01_match)
+    const index_ref01_list = (await index_ref01_ent.list(index_ref01_match)).map((e: any) => e.data())
 
 
   })

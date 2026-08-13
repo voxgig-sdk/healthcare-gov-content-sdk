@@ -67,6 +67,7 @@ module HealthcareGovContentConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/{content-type}.json",
                   "parts" => [
@@ -108,21 +109,21 @@ module HealthcareGovContentConfig
             },
             {
               "active" => true,
-              "name" => "category",
+              "name" => "categories",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 1,
             },
             {
               "active" => true,
-              "name" => "es_bite",
+              "name" => "esbite",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 2,
             },
             {
               "active" => true,
-              "name" => "es_title",
+              "name" => "estitle",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 3,
@@ -136,7 +137,7 @@ module HealthcareGovContentConfig
             },
             {
               "active" => true,
-              "name" => "tag",
+              "name" => "tags",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 5,
@@ -150,7 +151,7 @@ module HealthcareGovContentConfig
             },
             {
               "active" => true,
-              "name" => "topic",
+              "name" => "topics",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 7,
@@ -183,6 +184,7 @@ module HealthcareGovContentConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/index.json",
                   "parts" => [
@@ -219,7 +221,7 @@ module HealthcareGovContentConfig
             },
             {
               "active" => true,
-              "name" => "category",
+              "name" => "categories",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 1,
@@ -261,7 +263,7 @@ module HealthcareGovContentConfig
             },
             {
               "active" => true,
-              "name" => "tag",
+              "name" => "tags",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 7,
@@ -275,7 +277,7 @@ module HealthcareGovContentConfig
             },
             {
               "active" => true,
-              "name" => "topic",
+              "name" => "topics",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 9,
@@ -320,6 +322,7 @@ module HealthcareGovContentConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/{post-title}.json",
                   "parts" => [

@@ -60,11 +60,11 @@ def index_direct_setup(mockres)
   calls = []
 
   env = Runner.env_override({
-    "HEALTHCAREGOVCONTENT_TEST_INDEX_ENTID" => {},
-    "HEALTHCAREGOVCONTENT_TEST_LIVE" => "FALSE",
+    "HEALTHCARE_GOV_CONTENT_TEST_INDEX_ENTID" => {},
+    "HEALTHCARE_GOV_CONTENT_TEST_LIVE" => "FALSE",
   })
 
-  live = env["HEALTHCAREGOVCONTENT_TEST_LIVE"] == "TRUE"
+  live = env["HEALTHCARE_GOV_CONTENT_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {

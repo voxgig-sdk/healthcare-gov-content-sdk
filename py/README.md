@@ -39,7 +39,7 @@ client = HealthcareGovContentSDK()
 ### 3. Load a contentcollection
 
 ContentCollection is nested under content_type, so provide the `content_type`.
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -56,10 +56,10 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    contentcollection = client.ContentCollection().load()
-    print(contentcollection)
+    posttitles = client.PostTitle().list()
+    print(posttitles)
 except Exception as err:
-    print(f"load failed: {err}")
+    print(f"list failed: {err}")
 ```
 
 `direct()` does **not** raise — it returns the result envelope. Branch
@@ -123,9 +123,10 @@ Create a mock client for unit testing — no server required:
 ```python
 client = HealthcareGovContentSDK.test()
 
-# Entity ops return the bare record and raise on error.
-contentcollection = client.ContentCollection().load()
-# contentcollection contains the mock response record
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
+posttitle = client.PostTitle().list()
+# posttitle contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -222,7 +223,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -255,13 +256,13 @@ API path: `/api/{content-type}.json`
 | Field | Description |
 | --- | --- |
 | `bite` |  |
-| `category` |  |
-| `es_bite` |  |
-| `es_title` |  |
+| `categories` |  |
+| `esbite` |  |
+| `estitle` |  |
 | `state` |  |
-| `tag` |  |
+| `tags` |  |
 | `title` |  |
-| `topic` |  |
+| `topics` |  |
 | `url` |  |
 
 Operations: List.
@@ -273,15 +274,15 @@ API path: `/api/index.json`
 | Field | Description |
 | --- | --- |
 | `author` |  |
-| `category` |  |
+| `categories` |  |
 | `content` |  |
 | `date` |  |
 | `lang` |  |
 | `layout` |  |
 | `order` |  |
-| `tag` |  |
+| `tags` |  |
 | `title` |  |
-| `topic` |  |
+| `topics` |  |
 | `url` |  |
 
 Operations: List.
@@ -331,13 +332,13 @@ Create an instance: `index = client.Index()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `bite` | `str` |  |
-| `category` | `list` |  |
-| `es_bite` | `str` |  |
-| `es_title` | `str` |  |
+| `categories` | `list` |  |
+| `esbite` | `str` |  |
+| `estitle` | `str` |  |
 | `state` | `list` |  |
-| `tag` | `list` |  |
+| `tags` | `list` |  |
 | `title` | `str` |  |
-| `topic` | `list` |  |
+| `topics` | `list` |  |
 | `url` | `str` |  |
 
 #### Example: List
@@ -362,21 +363,21 @@ Create an instance: `post_title = client.PostTitle()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `author` | `str` |  |
-| `category` | `list` |  |
+| `categories` | `list` |  |
 | `content` | `str` |  |
 | `date` | `str` |  |
 | `lang` | `str` |  |
 | `layout` | `str` |  |
 | `order` | `int` |  |
-| `tag` | `list` |  |
+| `tags` | `list` |  |
 | `title` | `str` |  |
-| `topic` | `list` |  |
+| `topics` | `list` |  |
 | `url` | `str` |  |
 
 #### Example: List
 
 ```python
-post_titles = client.PostTitle().list()
+post_titles = client.PostTitle().list({"post_title": "example"})
 ```
 
 
@@ -451,15 +452,15 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-contentcollection = client.ContentCollection()
-contentcollection.load()
+posttitle = client.PostTitle()
+posttitle.list()
 
-# contentcollection.data_get() now returns the contentcollection data from the last load
-# contentcollection.match_get() returns the last match criteria
+# posttitle.data_get() now returns the posttitle data from the last list
+# posttitle.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -26,8 +26,8 @@ import {
 describe('ContentCollectionEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when HEALTHCAREGOVCONTENT_TEST_LIVE=TRUE.
-  afterEach(liveDelay('HEALTHCAREGOVCONTENT_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when HEALTHCARE_GOV_CONTENT_TEST_LIVE=TRUE.
+  afterEach(liveDelay('HEALTHCARE_GOV_CONTENT_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = HealthcareGovContentSDK.test()

@@ -158,13 +158,13 @@ fmt.Println(index.GetName()) // "index"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `bite` | `string` | No |  |
-| `category` | `[]any` | No |  |
-| `es_bite` | `string` | No |  |
-| `es_title` | `string` | No |  |
+| `categories` | `[]any` | No |  |
+| `esbite` | `string` | No |  |
+| `estitle` | `string` | No |  |
 | `state` | `[]any` | No |  |
-| `tag` | `[]any` | No |  |
+| `tags` | `[]any` | No |  |
 | `title` | `string` | No |  |
-| `topic` | `[]any` | No |  |
+| `topics` | `[]any` | No |  |
 | `url` | `string` | No |  |
 
 ### Operations
@@ -217,15 +217,15 @@ fmt.Println(postTitle.GetName()) // "post_title"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `author` | `string` | No |  |
-| `category` | `[]any` | No |  |
+| `categories` | `[]any` | No |  |
 | `content` | `string` | No |  |
 | `date` | `string` | No |  |
 | `lang` | `string` | No |  |
 | `layout` | `string` | No |  |
 | `order` | `int` | No |  |
-| `tag` | `[]any` | No |  |
+| `tags` | `[]any` | No |  |
 | `title` | `string` | No |  |
-| `topic` | `[]any` | No |  |
+| `topics` | `[]any` | No |  |
 | `url` | `string` | No |  |
 
 ### Operations

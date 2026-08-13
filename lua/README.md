@@ -50,7 +50,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local contentcollection, err = client:ContentCollection():load()
+local posttitles, err = client:PostTitle():list()
 if err then error(err) end
 ```
 
@@ -108,7 +108,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:ContentCollection():load()
+local result, err = client:PostTitle():list()
 -- result is the returned data; err is set on failure
 ```
 
@@ -242,13 +242,13 @@ API path: `/api/{content-type}.json`
 | Field | Description |
 | --- | --- |
 | `bite` |  |
-| `category` |  |
-| `es_bite` |  |
-| `es_title` |  |
+| `categories` |  |
+| `esbite` |  |
+| `estitle` |  |
 | `state` |  |
-| `tag` |  |
+| `tags` |  |
 | `title` |  |
-| `topic` |  |
+| `topics` |  |
 | `url` |  |
 
 Operations: List.
@@ -260,15 +260,15 @@ API path: `/api/index.json`
 | Field | Description |
 | --- | --- |
 | `author` |  |
-| `category` |  |
+| `categories` |  |
 | `content` |  |
 | `date` |  |
 | `lang` |  |
 | `layout` |  |
 | `order` |  |
-| `tag` |  |
+| `tags` |  |
 | `title` |  |
-| `topic` |  |
+| `topics` |  |
 | `url` |  |
 
 Operations: List.
@@ -318,13 +318,13 @@ Create an instance: `local index = client:Index(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `bite` | `string` |  |
-| `category` | `table` |  |
-| `es_bite` | `string` |  |
-| `es_title` | `string` |  |
+| `categories` | `table` |  |
+| `esbite` | `string` |  |
+| `estitle` | `string` |  |
 | `state` | `table` |  |
-| `tag` | `table` |  |
+| `tags` | `table` |  |
 | `title` | `string` |  |
-| `topic` | `table` |  |
+| `topics` | `table` |  |
 | `url` | `string` |  |
 
 #### Example: List
@@ -349,15 +349,15 @@ Create an instance: `local post_title = client:PostTitle(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `author` | `string` |  |
-| `category` | `table` |  |
+| `categories` | `table` |  |
 | `content` | `string` |  |
 | `date` | `string` |  |
 | `lang` | `string` |  |
 | `layout` | `string` |  |
 | `order` | `number` |  |
-| `tag` | `table` |  |
+| `tags` | `table` |  |
 | `title` | `string` |  |
-| `topic` | `table` |  |
+| `topics` | `table` |  |
 | `url` | `string` |  |
 
 #### Example: List
@@ -439,15 +439,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local contentcollection = client:ContentCollection()
-contentcollection:load()
+local posttitle = client:PostTitle()
+posttitle:list()
 
--- contentcollection:data_get() now returns the contentcollection data from the last load
--- contentcollection:match_get() returns the last match criteria
+-- posttitle:data_get() now returns the posttitle data from the last list
+-- posttitle:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

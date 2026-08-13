@@ -153,13 +153,13 @@ $index = $client->Index();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `bite` | `string` | No |  |
-| `category` | `array` | No |  |
-| `es_bite` | `string` | No |  |
-| `es_title` | `string` | No |  |
+| `categories` | `array` | No |  |
+| `esbite` | `string` | No |  |
+| `estitle` | `string` | No |  |
 | `state` | `array` | No |  |
-| `tag` | `array` | No |  |
+| `tags` | `array` | No |  |
 | `title` | `string` | No |  |
-| `topic` | `array` | No |  |
+| `topics` | `array` | No |  |
 | `url` | `string` | No |  |
 
 ### Operations
@@ -213,15 +213,15 @@ $post_title = $client->PostTitle();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `author` | `string` | No |  |
-| `category` | `array` | No |  |
+| `categories` | `array` | No |  |
 | `content` | `string` | No |  |
 | `date` | `string` | No |  |
 | `lang` | `string` | No |  |
 | `layout` | `string` | No |  |
 | `order` | `int` | No |  |
-| `tag` | `array` | No |  |
+| `tags` | `array` | No |  |
 | `title` | `string` | No |  |
-| `topic` | `array` | No |  |
+| `topics` | `array` | No |  |
 | `url` | `string` | No |  |
 
 ### Operations
