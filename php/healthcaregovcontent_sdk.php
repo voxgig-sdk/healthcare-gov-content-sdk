@@ -40,7 +40,7 @@ class HealthcareGovContentSDK
         $utility = new HealthcareGovContentUtility();
         $this->_utility = $utility;
 
-        $config = HealthcareGovContentConfig::make_config();
+        $config = HealthcareGovContentConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

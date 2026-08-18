@@ -28,7 +28,7 @@ class HealthcareGovContentSDK
     utility = HealthcareGovContentUtility.new
     @_utility = utility
 
-    config = HealthcareGovContentConfig.make_config
+    config = HealthcareGovContentConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,
