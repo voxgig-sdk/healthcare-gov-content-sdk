@@ -146,15 +146,15 @@ index = client.Index()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bite` | `str` | No |  |
-| `categories` | `list` | No |  |
-| `esbite` | `str` | No |  |
-| `estitle` | `str` | No |  |
-| `state` | `list` | No |  |
-| `tags` | `list` | No |  |
-| `title` | `str` | No |  |
-| `topics` | `list` | No |  |
-| `url` | `str` | No |  |
+| `bite` | `str` | No | A short summary of the post |
+| `categories` | `list` | No | Content types and language code |
+| `esbite` | `str` | No | The post summary in Spanish |
+| `estitle` | `str` | No | Spanish translation of the post's title |
+| `state` | `list` | No | Associated states for the post |
+| `tags` | `list` | No | An array of content tags, such as 'promote' |
+| `title` | `str` | No | The post's title |
+| `topics` | `list` | No | Associated topics (for articles) |
+| `url` | `str` | No | URL to the HTML version of the post (add .json for post object) |
 
 ### Operations
 
@@ -207,17 +207,17 @@ post_title = client.PostTitle()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `author` | `str` | No |  |
-| `categories` | `list` | No |  |
-| `content` | `str` | No |  |
-| `date` | `str` | No |  |
-| `lang` | `str` | No |  |
-| `layout` | `str` | No |  |
-| `order` | `int` | No |  |
-| `tags` | `list` | No |  |
-| `title` | `str` | No |  |
-| `topics` | `list` | No |  |
-| `url` | `str` | No |  |
+| `author` | `str` | No | The author of the content post |
+| `categories` | `list` | No | Content types and language code |
+| `content` | `str` | No | The HTML body content of the post |
+| `date` | `str` | No | The publication or last modified date |
+| `lang` | `str` | No | Language code: 'en' for English, 'es' for Spanish |
+| `layout` | `str` | No | The layout used to display the content |
+| `order` | `int` | No | Contextual position of the content |
+| `tags` | `list` | No | An array of content tags, such as 'promote' |
+| `title` | `str` | No | The title of the content post |
+| `topics` | `list` | No | Associated topics (for articles) |
+| `url` | `str` | No | The URL path to the content post |
 
 ### Operations
 

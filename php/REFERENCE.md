@@ -152,15 +152,15 @@ $index = $client->Index();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bite` | `string` | No |  |
-| `categories` | `array` | No |  |
-| `esbite` | `string` | No |  |
-| `estitle` | `string` | No |  |
-| `state` | `array` | No |  |
-| `tags` | `array` | No |  |
-| `title` | `string` | No |  |
-| `topics` | `array` | No |  |
-| `url` | `string` | No |  |
+| `bite` | `string` | No | A short summary of the post |
+| `categories` | `array` | No | Content types and language code |
+| `esbite` | `string` | No | The post summary in Spanish |
+| `estitle` | `string` | No | Spanish translation of the post's title |
+| `state` | `array` | No | Associated states for the post |
+| `tags` | `array` | No | An array of content tags, such as 'promote' |
+| `title` | `string` | No | The post's title |
+| `topics` | `array` | No | Associated topics (for articles) |
+| `url` | `string` | No | URL to the HTML version of the post (add .json for post object) |
 
 ### Operations
 
@@ -212,17 +212,17 @@ $post_title = $client->PostTitle();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `author` | `string` | No |  |
-| `categories` | `array` | No |  |
-| `content` | `string` | No |  |
-| `date` | `string` | No |  |
-| `lang` | `string` | No |  |
-| `layout` | `string` | No |  |
-| `order` | `int` | No |  |
-| `tags` | `array` | No |  |
-| `title` | `string` | No |  |
-| `topics` | `array` | No |  |
-| `url` | `string` | No |  |
+| `author` | `string` | No | The author of the content post |
+| `categories` | `array` | No | Content types and language code |
+| `content` | `string` | No | The HTML body content of the post |
+| `date` | `string` | No | The publication or last modified date |
+| `lang` | `string` | No | Language code: 'en' for English, 'es' for Spanish |
+| `layout` | `string` | No | The layout used to display the content |
+| `order` | `int` | No | Contextual position of the content |
+| `tags` | `array` | No | An array of content tags, such as 'promote' |
+| `title` | `string` | No | The title of the content post |
+| `topics` | `array` | No | Associated topics (for articles) |
+| `url` | `string` | No | The URL path to the content post |
 
 ### Operations
 

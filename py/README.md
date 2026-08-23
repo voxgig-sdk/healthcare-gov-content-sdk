@@ -255,15 +255,15 @@ API path: `/api/{content-type}.json`
 
 | Field | Description |
 | --- | --- |
-| `bite` |  |
-| `categories` |  |
-| `esbite` |  |
-| `estitle` |  |
-| `state` |  |
-| `tags` |  |
-| `title` |  |
-| `topics` |  |
-| `url` |  |
+| `bite` | A short summary of the post |
+| `categories` | Content types and language code |
+| `esbite` | The post summary in Spanish |
+| `estitle` | Spanish translation of the post's title |
+| `state` | Associated states for the post |
+| `tags` | An array of content tags, such as 'promote' |
+| `title` | The post's title |
+| `topics` | Associated topics (for articles) |
+| `url` | URL to the HTML version of the post (add .json for post object) |
 
 Operations: List.
 
@@ -273,17 +273,17 @@ API path: `/api/index.json`
 
 | Field | Description |
 | --- | --- |
-| `author` |  |
-| `categories` |  |
-| `content` |  |
-| `date` |  |
-| `lang` |  |
-| `layout` |  |
-| `order` |  |
-| `tags` |  |
-| `title` |  |
-| `topics` |  |
-| `url` |  |
+| `author` | The author of the content post |
+| `categories` | Content types and language code |
+| `content` | The HTML body content of the post |
+| `date` | The publication or last modified date |
+| `lang` | Language code: 'en' for English, 'es' for Spanish |
+| `layout` | The layout used to display the content |
+| `order` | Contextual position of the content |
+| `tags` | An array of content tags, such as 'promote' |
+| `title` | The title of the content post |
+| `topics` | Associated topics (for articles) |
+| `url` | The URL path to the content post |
 
 Operations: List.
 
@@ -331,15 +331,15 @@ Create an instance: `index = client.Index()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bite` | `str` |  |
-| `categories` | `list` |  |
-| `esbite` | `str` |  |
-| `estitle` | `str` |  |
-| `state` | `list` |  |
-| `tags` | `list` |  |
-| `title` | `str` |  |
-| `topics` | `list` |  |
-| `url` | `str` |  |
+| `bite` | `str` | A short summary of the post |
+| `categories` | `list` | Content types and language code |
+| `esbite` | `str` | The post summary in Spanish |
+| `estitle` | `str` | Spanish translation of the post's title |
+| `state` | `list` | Associated states for the post |
+| `tags` | `list` | An array of content tags, such as 'promote' |
+| `title` | `str` | The post's title |
+| `topics` | `list` | Associated topics (for articles) |
+| `url` | `str` | URL to the HTML version of the post (add .json for post object) |
 
 #### Example: List
 
@@ -362,17 +362,17 @@ Create an instance: `post_title = client.PostTitle()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `author` | `str` |  |
-| `categories` | `list` |  |
-| `content` | `str` |  |
-| `date` | `str` |  |
-| `lang` | `str` |  |
-| `layout` | `str` |  |
-| `order` | `int` |  |
-| `tags` | `list` |  |
-| `title` | `str` |  |
-| `topics` | `list` |  |
-| `url` | `str` |  |
+| `author` | `str` | The author of the content post |
+| `categories` | `list` | Content types and language code |
+| `content` | `str` | The HTML body content of the post |
+| `date` | `str` | The publication or last modified date |
+| `lang` | `str` | Language code: 'en' for English, 'es' for Spanish |
+| `layout` | `str` | The layout used to display the content |
+| `order` | `int` | Contextual position of the content |
+| `tags` | `list` | An array of content tags, such as 'promote' |
+| `title` | `str` | The title of the content post |
+| `topics` | `list` | Associated topics (for articles) |
+| `url` | `str` | The URL path to the content post |
 
 #### Example: List
 

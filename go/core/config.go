@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "HealthcareGovContent",
+			"slug": "healthcare-gov-content",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -98,38 +101,47 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "bite",
+						"short": "A short summary of the post",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "categories",
+						"short": "Content types and language code",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "esbite",
+						"short": "The post summary in Spanish",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "estitle",
+						"short": "Spanish translation of the post's title",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "state",
+						"short": "Associated states for the post",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "tags",
+						"short": "An array of content tags, such as 'promote'",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "title",
+						"short": "The post's title",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "topics",
+						"short": "Associated topics (for articles)",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "url",
+						"short": "URL to the HTML version of the post (add .json for post object)",
 						"type": "`$STRING`",
 					},
 				},
@@ -178,46 +190,57 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "author",
+						"short": "The author of the content post",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "categories",
+						"short": "Content types and language code",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "content",
+						"short": "The HTML body content of the post",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "date",
+						"short": "The publication or last modified date",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "lang",
+						"short": "Language code: 'en' for English, 'es' for Spanish",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "layout",
+						"short": "The layout used to display the content",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "order",
+						"short": "Contextual position of the content",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "tags",
+						"short": "An array of content tags, such as 'promote'",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "title",
+						"short": "The title of the content post",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "topics",
+						"short": "Associated topics (for articles)",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "url",
+						"short": "The URL path to the content post",
 						"type": "`$STRING`",
 					},
 				},

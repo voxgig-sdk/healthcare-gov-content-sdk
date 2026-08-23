@@ -260,15 +260,15 @@ API path: `/api/{content-type}.json`
 
 | Field | Description |
 | --- | --- |
-| `bite` |  |
-| `categories` |  |
-| `esbite` |  |
-| `estitle` |  |
-| `state` |  |
-| `tags` |  |
-| `title` |  |
-| `topics` |  |
-| `url` |  |
+| `bite` | A short summary of the post |
+| `categories` | Content types and language code |
+| `esbite` | The post summary in Spanish |
+| `estitle` | Spanish translation of the post's title |
+| `state` | Associated states for the post |
+| `tags` | An array of content tags, such as 'promote' |
+| `title` | The post's title |
+| `topics` | Associated topics (for articles) |
+| `url` | URL to the HTML version of the post (add .json for post object) |
 
 Operations: List.
 
@@ -278,17 +278,17 @@ API path: `/api/index.json`
 
 | Field | Description |
 | --- | --- |
-| `author` |  |
-| `categories` |  |
-| `content` |  |
-| `date` |  |
-| `lang` |  |
-| `layout` |  |
-| `order` |  |
-| `tags` |  |
-| `title` |  |
-| `topics` |  |
-| `url` |  |
+| `author` | The author of the content post |
+| `categories` | Content types and language code |
+| `content` | The HTML body content of the post |
+| `date` | The publication or last modified date |
+| `lang` | Language code: 'en' for English, 'es' for Spanish |
+| `layout` | The layout used to display the content |
+| `order` | Contextual position of the content |
+| `tags` | An array of content tags, such as 'promote' |
+| `title` | The title of the content post |
+| `topics` | Associated topics (for articles) |
+| `url` | The URL path to the content post |
 
 Operations: List.
 
@@ -337,15 +337,15 @@ Create an instance: `$index = $client->Index();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bite` | `string` |  |
-| `categories` | `array` |  |
-| `esbite` | `string` |  |
-| `estitle` | `string` |  |
-| `state` | `array` |  |
-| `tags` | `array` |  |
-| `title` | `string` |  |
-| `topics` | `array` |  |
-| `url` | `string` |  |
+| `bite` | `string` | A short summary of the post |
+| `categories` | `array` | Content types and language code |
+| `esbite` | `string` | The post summary in Spanish |
+| `estitle` | `string` | Spanish translation of the post's title |
+| `state` | `array` | Associated states for the post |
+| `tags` | `array` | An array of content tags, such as 'promote' |
+| `title` | `string` | The post's title |
+| `topics` | `array` | Associated topics (for articles) |
+| `url` | `string` | URL to the HTML version of the post (add .json for post object) |
 
 #### Example: List
 
@@ -369,17 +369,17 @@ Create an instance: `$post_title = $client->PostTitle();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `author` | `string` |  |
-| `categories` | `array` |  |
-| `content` | `string` |  |
-| `date` | `string` |  |
-| `lang` | `string` |  |
-| `layout` | `string` |  |
-| `order` | `int` |  |
-| `tags` | `array` |  |
-| `title` | `string` |  |
-| `topics` | `array` |  |
-| `url` | `string` |  |
+| `author` | `string` | The author of the content post |
+| `categories` | `array` | Content types and language code |
+| `content` | `string` | The HTML body content of the post |
+| `date` | `string` | The publication or last modified date |
+| `lang` | `string` | Language code: 'en' for English, 'es' for Spanish |
+| `layout` | `string` | The layout used to display the content |
+| `order` | `int` | Contextual position of the content |
+| `tags` | `array` | An array of content tags, such as 'promote' |
+| `title` | `string` | The title of the content post |
+| `topics` | `array` | Associated topics (for articles) |
+| `url` | `string` | The URL path to the content post |
 
 #### Example: List
 

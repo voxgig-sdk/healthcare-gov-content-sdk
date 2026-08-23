@@ -150,15 +150,15 @@ local index = client:Index(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bite` | `string` | No |  |
-| `categories` | `table` | No |  |
-| `esbite` | `string` | No |  |
-| `estitle` | `string` | No |  |
-| `state` | `table` | No |  |
-| `tags` | `table` | No |  |
-| `title` | `string` | No |  |
-| `topics` | `table` | No |  |
-| `url` | `string` | No |  |
+| `bite` | `string` | No | A short summary of the post |
+| `categories` | `table` | No | Content types and language code |
+| `esbite` | `string` | No | The post summary in Spanish |
+| `estitle` | `string` | No | Spanish translation of the post's title |
+| `state` | `table` | No | Associated states for the post |
+| `tags` | `table` | No | An array of content tags, such as 'promote' |
+| `title` | `string` | No | The post's title |
+| `topics` | `table` | No | Associated topics (for articles) |
+| `url` | `string` | No | URL to the HTML version of the post (add .json for post object) |
 
 ### Operations
 
@@ -210,17 +210,17 @@ local post_title = client:PostTitle(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `author` | `string` | No |  |
-| `categories` | `table` | No |  |
-| `content` | `string` | No |  |
-| `date` | `string` | No |  |
-| `lang` | `string` | No |  |
-| `layout` | `string` | No |  |
-| `order` | `number` | No |  |
-| `tags` | `table` | No |  |
-| `title` | `string` | No |  |
-| `topics` | `table` | No |  |
-| `url` | `string` | No |  |
+| `author` | `string` | No | The author of the content post |
+| `categories` | `table` | No | Content types and language code |
+| `content` | `string` | No | The HTML body content of the post |
+| `date` | `string` | No | The publication or last modified date |
+| `lang` | `string` | No | Language code: 'en' for English, 'es' for Spanish |
+| `layout` | `string` | No | The layout used to display the content |
+| `order` | `number` | No | Contextual position of the content |
+| `tags` | `table` | No | An array of content tags, such as 'promote' |
+| `title` | `string` | No | The title of the content post |
+| `topics` | `table` | No | Associated topics (for articles) |
+| `url` | `string` | No | The URL path to the content post |
 
 ### Operations
 

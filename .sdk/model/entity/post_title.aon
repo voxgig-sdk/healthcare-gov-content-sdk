@@ -8,56 +8,67 @@ main: kit: entity: post_title: {
     {
       name: "author"
       req: false
+      short: "The author of the content post"
       type: "`$STRING`"
     }
     {
       name: "categories"
       req: false
+      short: "Content types and language code"
       type: "`$ARRAY`"
     }
     {
       name: "content"
       req: false
+      short: "The HTML body content of the post"
       type: "`$STRING`"
     }
     {
       name: "date"
       req: false
+      short: "The publication or last modified date"
       type: "`$STRING`"
     }
     {
       name: "lang"
       req: false
+      short: "Language code: 'en' for English, 'es' for Spanish"
       type: "`$STRING`"
     }
     {
       name: "layout"
       req: false
+      short: "The layout used to display the content"
       type: "`$STRING`"
     }
     {
       name: "order"
       req: false
+      short: "Contextual position of the content"
       type: "`$INTEGER`"
     }
     {
       name: "tags"
       req: false
+      short: "An array of content tags, such as 'promote'"
       type: "`$ARRAY`"
     }
     {
       name: "title"
       req: false
+      short: "The title of the content post"
       type: "`$STRING`"
     }
     {
       name: "topics"
       req: false
+      short: "Associated topics (for articles)"
       type: "`$ARRAY`"
     }
     {
       name: "url"
       req: false
+      short: "The URL path to the content post"
       type: "`$STRING`"
     }
   ]

@@ -109,54 +109,63 @@
               "active": true,
               "name": "bite",
               "req": false,
+              "short": "A short summary of the post",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "categories",
               "req": false,
+              "short": "Content types and language code",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "esbite",
               "req": false,
+              "short": "The post summary in Spanish",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "estitle",
               "req": false,
+              "short": "Spanish translation of the post's title",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "state",
               "req": false,
+              "short": "Associated states for the post",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "tags",
               "req": false,
+              "short": "An array of content tags, such as 'promote'",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "title",
               "req": false,
+              "short": "The post's title",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "topics",
               "req": false,
+              "short": "Associated topics (for articles)",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "url",
               "req": false,
+              "short": "URL to the HTML version of the post (add .json for post object)",
               "type": "`$STRING`"
             }
           ],
@@ -214,66 +223,77 @@
               "active": true,
               "name": "author",
               "req": false,
+              "short": "The author of the content post",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "categories",
               "req": false,
+              "short": "Content types and language code",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "content",
               "req": false,
+              "short": "The HTML body content of the post",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "date",
               "req": false,
+              "short": "The publication or last modified date",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "lang",
               "req": false,
+              "short": "Language code: 'en' for English, 'es' for Spanish",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "layout",
               "req": false,
+              "short": "The layout used to display the content",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "order",
               "req": false,
+              "short": "Contextual position of the content",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "tags",
               "req": false,
+              "short": "An array of content tags, such as 'promote'",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "title",
               "req": false,
+              "short": "The title of the content post",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "topics",
               "req": false,
+              "short": "Associated topics (for articles)",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "url",
               "req": false,
+              "short": "The URL path to the content post",
               "type": "`$STRING`"
             }
           ],

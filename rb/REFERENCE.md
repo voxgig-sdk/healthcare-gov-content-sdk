@@ -153,15 +153,15 @@ index = client.Index
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bite` | `String` | No |  |
-| `categories` | `Array` | No |  |
-| `esbite` | `String` | No |  |
-| `estitle` | `String` | No |  |
-| `state` | `Array` | No |  |
-| `tags` | `Array` | No |  |
-| `title` | `String` | No |  |
-| `topics` | `Array` | No |  |
-| `url` | `String` | No |  |
+| `bite` | `String` | No | A short summary of the post |
+| `categories` | `Array` | No | Content types and language code |
+| `esbite` | `String` | No | The post summary in Spanish |
+| `estitle` | `String` | No | Spanish translation of the post's title |
+| `state` | `Array` | No | Associated states for the post |
+| `tags` | `Array` | No | An array of content tags, such as 'promote' |
+| `title` | `String` | No | The post's title |
+| `topics` | `Array` | No | Associated topics (for articles) |
+| `url` | `String` | No | URL to the HTML version of the post (add .json for post object) |
 
 ### Operations
 
@@ -213,17 +213,17 @@ post_title = client.PostTitle
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `author` | `String` | No |  |
-| `categories` | `Array` | No |  |
-| `content` | `String` | No |  |
-| `date` | `String` | No |  |
-| `lang` | `String` | No |  |
-| `layout` | `String` | No |  |
-| `order` | `Integer` | No |  |
-| `tags` | `Array` | No |  |
-| `title` | `String` | No |  |
-| `topics` | `Array` | No |  |
-| `url` | `String` | No |  |
+| `author` | `String` | No | The author of the content post |
+| `categories` | `Array` | No | Content types and language code |
+| `content` | `String` | No | The HTML body content of the post |
+| `date` | `String` | No | The publication or last modified date |
+| `lang` | `String` | No | Language code: 'en' for English, 'es' for Spanish |
+| `layout` | `String` | No | The layout used to display the content |
+| `order` | `Integer` | No | Contextual position of the content |
+| `tags` | `Array` | No | An array of content tags, such as 'promote' |
+| `title` | `String` | No | The title of the content post |
+| `topics` | `Array` | No | Associated topics (for articles) |
+| `url` | `String` | No | The URL path to the content post |
 
 ### Operations
 

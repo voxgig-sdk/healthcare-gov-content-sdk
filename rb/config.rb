@@ -19,6 +19,9 @@ module HealthcareGovContentConfig
     {
       "main" => {
         "name" => "HealthcareGovContent",
+        "slug" => "healthcare-gov-content",
+        "version" => "0.0.1",
+        "target" => "rb",
       },
       "feature" => {
         "test" => {
@@ -106,38 +109,47 @@ module HealthcareGovContentConfig
           "fields" => [
             {
               "name" => "bite",
+              "short" => "A short summary of the post",
               "type" => "`$STRING`",
             },
             {
               "name" => "categories",
+              "short" => "Content types and language code",
               "type" => "`$ARRAY`",
             },
             {
               "name" => "esbite",
+              "short" => "The post summary in Spanish",
               "type" => "`$STRING`",
             },
             {
               "name" => "estitle",
+              "short" => "Spanish translation of the post's title",
               "type" => "`$STRING`",
             },
             {
               "name" => "state",
+              "short" => "Associated states for the post",
               "type" => "`$ARRAY`",
             },
             {
               "name" => "tags",
+              "short" => "An array of content tags, such as 'promote'",
               "type" => "`$ARRAY`",
             },
             {
               "name" => "title",
+              "short" => "The post's title",
               "type" => "`$STRING`",
             },
             {
               "name" => "topics",
+              "short" => "Associated topics (for articles)",
               "type" => "`$ARRAY`",
             },
             {
               "name" => "url",
+              "short" => "URL to the HTML version of the post (add .json for post object)",
               "type" => "`$STRING`",
             },
           ],
@@ -186,46 +198,57 @@ module HealthcareGovContentConfig
           "fields" => [
             {
               "name" => "author",
+              "short" => "The author of the content post",
               "type" => "`$STRING`",
             },
             {
               "name" => "categories",
+              "short" => "Content types and language code",
               "type" => "`$ARRAY`",
             },
             {
               "name" => "content",
+              "short" => "The HTML body content of the post",
               "type" => "`$STRING`",
             },
             {
               "name" => "date",
+              "short" => "The publication or last modified date",
               "type" => "`$STRING`",
             },
             {
               "name" => "lang",
+              "short" => "Language code: 'en' for English, 'es' for Spanish",
               "type" => "`$STRING`",
             },
             {
               "name" => "layout",
+              "short" => "The layout used to display the content",
               "type" => "`$STRING`",
             },
             {
               "name" => "order",
+              "short" => "Contextual position of the content",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "tags",
+              "short" => "An array of content tags, such as 'promote'",
               "type" => "`$ARRAY`",
             },
             {
               "name" => "title",
+              "short" => "The title of the content post",
               "type" => "`$STRING`",
             },
             {
               "name" => "topics",
+              "short" => "Associated topics (for articles)",
               "type" => "`$ARRAY`",
             },
             {
               "name" => "url",
+              "short" => "The URL path to the content post",
               "type" => "`$STRING`",
             },
           ],
