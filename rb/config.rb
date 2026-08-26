@@ -28,6 +28,7 @@ module HealthcareGovContentConfig
           "options" => {
             "active" => false,
           },
+          "transport" => "base",
         },
       },
       "options" => {
