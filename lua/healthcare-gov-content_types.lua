@@ -11,6 +11,7 @@
 
 ---@class ContentCollectionLoadMatch
 ---@field content_type string
+---@field callback? string
 
 ---@class Index
 ---@field bite? string
@@ -24,15 +25,7 @@
 ---@field url? string
 
 ---@class IndexListMatch
----@field bite? string
----@field categories? table
----@field esbite? string
----@field estitle? string
----@field state? table
----@field tags? table
----@field title? string
----@field topics? table
----@field url? string
+---@field callback? string
 
 ---@class PostTitle
 ---@field author? string
@@ -49,6 +42,7 @@
 
 ---@class PostTitleListMatch
 ---@field post_title string
+---@field callback? string
 
 local M = {}
 

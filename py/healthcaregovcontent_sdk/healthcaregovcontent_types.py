@@ -20,8 +20,12 @@ class ContentCollection(TypedDict, total=False):
     glossary: list
 
 
-class ContentCollectionLoadMatch(TypedDict):
+class ContentCollectionLoadMatchRequired(TypedDict):
     content_type: str
+
+
+class ContentCollectionLoadMatch(ContentCollectionLoadMatchRequired, total=False):
+    callback: str
 
 
 class Index(TypedDict, total=False):
@@ -37,15 +41,7 @@ class Index(TypedDict, total=False):
 
 
 class IndexListMatch(TypedDict, total=False):
-    bite: str
-    categories: list
-    esbite: str
-    estitle: str
-    state: list
-    tags: list
-    title: str
-    topics: list
-    url: str
+    callback: str
 
 
 class PostTitle(TypedDict, total=False):
@@ -62,5 +58,9 @@ class PostTitle(TypedDict, total=False):
     url: str
 
 
-class PostTitleListMatch(TypedDict):
+class PostTitleListMatchRequired(TypedDict):
     post_title: str
+
+
+class PostTitleListMatch(PostTitleListMatchRequired, total=False):
+    callback: str

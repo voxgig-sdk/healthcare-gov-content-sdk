@@ -20,6 +20,7 @@ type ContentCollection struct {
 // ContentCollectionLoadMatch is the typed request payload for ContentCollection.LoadTyped.
 type ContentCollectionLoadMatch struct {
 	ContentType string `json:"content_type"`
+	Callback *string `json:"callback,omitempty"`
 }
 
 // Index is the typed data model for the index entity.
@@ -37,15 +38,7 @@ type Index struct {
 
 // IndexListMatch is the typed request payload for Index.ListTyped.
 type IndexListMatch struct {
-	Bite *string `json:"bite,omitempty"`
-	Categories *[]any `json:"categories,omitempty"`
-	Esbite *string `json:"esbite,omitempty"`
-	Estitle *string `json:"estitle,omitempty"`
-	State *[]any `json:"state,omitempty"`
-	Tags *[]any `json:"tags,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Topics *[]any `json:"topics,omitempty"`
-	Url *string `json:"url,omitempty"`
+	Callback *string `json:"callback,omitempty"`
 }
 
 // PostTitle is the typed data model for the post_title entity.
@@ -66,6 +59,7 @@ type PostTitle struct {
 // PostTitleListMatch is the typed request payload for PostTitle.ListTyped.
 type PostTitleListMatch struct {
 	PostTitle string `json:"post_title"`
+	Callback *string `json:"callback,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

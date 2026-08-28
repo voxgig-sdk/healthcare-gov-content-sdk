@@ -21,8 +21,12 @@ ContentCollection = Struct.new(
 #
 # @!attribute [rw] content_type
 #   @return [String]
+#
+# @!attribute [rw] callback
+#   @return [String, nil]
 ContentCollectionLoadMatch = Struct.new(
   :content_type,
+  :callback,
   keyword_init: true
 )
 
@@ -69,42 +73,10 @@ Index = Struct.new(
 
 # Request payload for Index#list.
 #
-# @!attribute [rw] bite
-#   @return [String, nil]
-#
-# @!attribute [rw] categories
-#   @return [Array, nil]
-#
-# @!attribute [rw] esbite
-#   @return [String, nil]
-#
-# @!attribute [rw] estitle
-#   @return [String, nil]
-#
-# @!attribute [rw] state
-#   @return [Array, nil]
-#
-# @!attribute [rw] tags
-#   @return [Array, nil]
-#
-# @!attribute [rw] title
-#   @return [String, nil]
-#
-# @!attribute [rw] topics
-#   @return [Array, nil]
-#
-# @!attribute [rw] url
+# @!attribute [rw] callback
 #   @return [String, nil]
 IndexListMatch = Struct.new(
-  :bite,
-  :categories,
-  :esbite,
-  :estitle,
-  :state,
-  :tags,
-  :title,
-  :topics,
-  :url,
+  :callback,
   keyword_init: true
 )
 
@@ -161,8 +133,12 @@ PostTitle = Struct.new(
 #
 # @!attribute [rw] post_title
 #   @return [String]
+#
+# @!attribute [rw] callback
+#   @return [String, nil]
 PostTitleListMatch = Struct.new(
   :post_title,
+  :callback,
   keyword_init: true
 )
 

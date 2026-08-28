@@ -22,6 +22,7 @@ class ContentCollection
 class ContentCollectionLoadMatch
 {
     public string $content_type;
+    public ?string $callback = null;
 }
 
 /** Index entity data model. */
@@ -41,15 +42,7 @@ class Index
 /** Request payload for Index#list. */
 class IndexListMatch
 {
-    public ?string $bite = null;
-    public ?array $categories = null;
-    public ?string $esbite = null;
-    public ?string $estitle = null;
-    public ?array $state = null;
-    public ?array $tags = null;
-    public ?string $title = null;
-    public ?array $topics = null;
-    public ?string $url = null;
+    public ?string $callback = null;
 }
 
 /** PostTitle entity data model. */
@@ -72,5 +65,6 @@ class PostTitle
 class PostTitleListMatch
 {
     public string $post_title;
+    public ?string $callback = null;
 }
 

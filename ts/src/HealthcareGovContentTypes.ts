@@ -11,6 +11,7 @@ export interface ContentCollection {
 
 export interface ContentCollectionLoadMatch {
   content_type: string
+  callback?: string
 }
 
 export interface Index {
@@ -26,15 +27,7 @@ export interface Index {
 }
 
 export interface IndexListMatch {
-  bite?: string
-  categories?: any[]
-  esbite?: string
-  estitle?: string
-  state?: any[]
-  tags?: any[]
-  title?: string
-  topics?: any[]
-  url?: string
+  callback?: string
 }
 
 export interface PostTitle {
@@ -53,5 +46,6 @@ export interface PostTitle {
 
 export interface PostTitleListMatch {
   post_title: string
+  callback?: string
 }
 
