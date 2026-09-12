@@ -70,7 +70,7 @@ function content_collection_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["content_collection01", "content_collection02", "content_collection03", "api01", "api02", "api03", "content_type01"] as $k) {
+    foreach (["content_collection01", "content_collection02", "content_collection03", "content_type01"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 
@@ -94,9 +94,16 @@ function content_collection_basic_setup($extra)
 
     if ($env["HEALTHCARE_GOV_CONTENT_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
+            // FIRST, so the generated fields below win: sdk-test-control.json's
+            // test.client.options adds to the live client, it does not redirect it.
+            Runner::live_client_options(),
             [
             ],
-            $extra ?? [],
+            // ismap, not a plain "?? []" default: an empty PHP array is a
+            // LIST, and a non-map later entry REPLACES the accumulated map in
+            // merge - so the no-extras call discarded live_client_options()
+            // and the apikey/server map above it.
+            Vs::ismap($extra) ? $extra : new \stdClass(),
         ]);
         $client = new HealthcareGovContentSDK(Helpers::to_map($merged_opts));
     }

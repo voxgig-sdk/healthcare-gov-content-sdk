@@ -41,9 +41,13 @@ main: kit: entity: content_collection: {
           }
           method: "GET"
           orig: "/api/{content-type}.json"
-          parts: [
-            "api"
-            "{content-type}.json"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "{content-type}.json"
+            }
           ]
           select: {
             exist: [
@@ -58,14 +62,6 @@ main: kit: entity: content_collection: {
         }
       ]
     }
-  }
-
-  relations: {
-    ancestors: [
-      [
-        "api"
-      ]
-    ]
   }
 
 

@@ -50,7 +50,7 @@ func TestContentCollectionEntity(t *testing.T) {
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		contentCollectionRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.content_collection", setup.data)))
+		contentCollectionRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.content_collection")))
 		var contentCollectionRef01Data map[string]any
 		if len(contentCollectionRef01DataRaw) > 0 {
 			contentCollectionRef01Data = core.ToMapAny(contentCollectionRef01DataRaw[0][1])
@@ -97,8 +97,8 @@ func content_collectionBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
-		[]any{"content_collection01", "content_collection02", "content_collection03", "api01", "api02", "api03", "content_type01"},
+	idmap, _ := vs.Transform(
+		[]any{"content_collection01", "content_collection02", "content_collection03", "content_type01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",
@@ -125,10 +125,22 @@ func content_collectionBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["HEALTHCARE_GOV_CONTENT_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewHealthcareGovContentSDK(core.ToMapAny(mergedOpts))
 	}

@@ -68,9 +68,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/{content-type}.json",
-                ["parts"] = {
-                  "api",
-                  "{content-type}.json",
+                ["segments"] = {
+                  {
+                    ["lit"] = "api",
+                  },
+                  {
+                    ["lit"] = "{content-type}.json",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -82,16 +86,16 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
+                ["parts"] = {
+                  "api",
+                  "{content-type}.json",
+                },
               },
             },
           },
         },
         ["relations"] = {
-          ["ancestors"] = {
-            {
-              "api",
-            },
-          },
+          ["ancestors"] = {},
         },
       },
       ["index"] = {
@@ -162,9 +166,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/index.json",
-                ["parts"] = {
-                  "api",
-                  "index.json",
+                ["segments"] = {
+                  {
+                    ["lit"] = "api",
+                  },
+                  {
+                    ["lit"] = "index.json",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -174,6 +182,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "api",
+                  "index.json",
                 },
               },
             },
@@ -271,8 +283,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/{post-title}.json",
-                ["parts"] = {
-                  "{post-title}.json",
+                ["segments"] = {
+                  {
+                    ["lit"] = "{post-title}.json",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -283,6 +297,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "{post-title}.json",
                 },
               },
             },

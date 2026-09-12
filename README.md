@@ -123,11 +123,8 @@ import { HealthcareGovContentSDK } from '@voxgig-sdk/healthcare-gov-content'
 
 const client = new HealthcareGovContentSDK()
 
-
-// Load a specific contentcollection (returns a ContentCollection)
-const contentcollection = await client.ContentCollection().load({
-  content_type: 'example_content_type',
-})
+// Load contentcollection data (returns a ContentCollection)
+const contentcollection = await client.ContentCollection().load()
 console.log(contentcollection)
 ```
 
@@ -212,11 +209,8 @@ import sdk "github.com/voxgig-sdk/healthcare-gov-content-sdk/go"
 
 client := sdk.New()
 
-
-// Load a specific contentcollection
-contentCollection, err := client.ContentCollection(nil).Load(
-    map[string]any{"content_type": "example_content_type"}, nil,
-)
+// Load contentcollection data
+contentCollection, err := client.ContentCollection(nil).Load(map[string]any{"content_type": "example_content_type"}, nil)
 if err != nil {
     panic(err)
 }
@@ -359,7 +353,7 @@ customizable without forking any upstream tool:
 
 - **The model** (`.sdk/model/`) declares everything this project owns:
   package names, versions, active features, per-target settings. It is
-  written in [aontu](https://github.com/aontu-lang/aontu), a JSON-based
+  written in [aontu](https://aontu.dev), a JSON-based
   specification language designed for building ontologies: easy to edit
   by hand, and files unify rather than override, so small declarations
   compose into one model. Regeneration re-reads it every time.

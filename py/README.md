@@ -38,7 +38,6 @@ client = HealthcareGovContentSDK()
 
 ### 3. Load a contentcollection
 
-ContentCollection is nested under content_type, so provide the `content_type`.
 `load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python

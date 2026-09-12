@@ -98,7 +98,7 @@ func TestPostTitleEntity(t *testing.T) {
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		postTitleRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.post_title", setup.data)))
+		postTitleRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.post_title")))
 		var postTitleRef01Data map[string]any
 		if len(postTitleRef01DataRaw) > 0 {
 			postTitleRef01Data = core.ToMapAny(postTitleRef01DataRaw[0][1])
@@ -149,7 +149,7 @@ func post_titleBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"post_title01", "post_title02", "post_title03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -177,10 +177,22 @@ func post_titleBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["HEALTHCARE_GOV_CONTENT_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewHealthcareGovContentSDK(core.ToMapAny(mergedOpts))
 	}

@@ -1,6 +1,14 @@
 # HealthcareGovContent SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -89,9 +97,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/{content-type}.json",
-                "parts": [
-                  "api",
-                  "{content-type}.json",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "{content-type}.json",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -103,16 +115,16 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "api",
+                  "{content-type}.json",
+                ],
               },
             ],
           },
         },
         "relations": {
-          "ancestors": [
-            [
-              "api",
-            ],
-          ],
+          "ancestors": [],
         },
       },
       "index": {
@@ -183,9 +195,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/index.json",
-                "parts": [
-                  "api",
-                  "index.json",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "index.json",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -196,6 +212,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "api",
+                  "index.json",
+                ],
               },
             ],
           },
@@ -292,8 +312,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/{post-title}.json",
-                "parts": [
-                  "{post-title}.json",
+                "segments": [
+                  {
+                    "lit": "{post-title}.json",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -305,6 +327,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "{post-title}.json",
+                ],
               },
             ],
           },

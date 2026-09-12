@@ -72,7 +72,7 @@ function content_collection_basic_setup(extra)
 
   -- Generate idmap via transform.
   local idmap = vs.transform(
-    { "content_collection01", "content_collection02", "content_collection03", "api01", "api02", "api03", "content_type01" },
+    { "content_collection01", "content_collection02", "content_collection03", "content_type01" },
     {
       ["`$PACK`"] = { "", {
         ["`$KEY`"] = "`$COPY`",
@@ -101,6 +101,9 @@ function content_collection_basic_setup(extra)
 
   if env["HEALTHCARE_GOV_CONTENT_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
+      -- FIRST, so the generated fields below win: sdk-test-control.json's
+      -- test.client.options adds to the live client, it does not redirect it.
+      runner.live_client_options(),
       {
       },
       extra or {},

@@ -80,9 +80,13 @@ main: kit: entity: index: {
           }
           method: "GET"
           orig: "/api/index.json"
-          parts: [
-            "api"
-            "index.json"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "index.json"
+            }
           ]
           select: {
             exist: [

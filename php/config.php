@@ -94,9 +94,13 @@ class HealthcareGovContentConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/{content-type}.json',
-                  'parts' => [
-                    'api',
-                    '{content-type}.json',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
+                    [
+                      'lit' => '{content-type}.json',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -108,16 +112,16 @@ class HealthcareGovContentConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
+                  'parts' => [
+                    'api',
+                    '{content-type}.json',
+                  ],
                 ],
               ],
             ],
           ],
           'relations' => [
-            'ancestors' => [
-              [
-                'api',
-              ],
-            ],
+            'ancestors' => [],
           ],
         ],
         'index' => [
@@ -188,9 +192,13 @@ class HealthcareGovContentConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/index.json',
-                  'parts' => [
-                    'api',
-                    'index.json',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
+                    [
+                      'lit' => 'index.json',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -200,6 +208,10 @@ class HealthcareGovContentConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'api',
+                    'index.json',
                   ],
                 ],
               ],
@@ -297,8 +309,10 @@ class HealthcareGovContentConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/{post-title}.json',
-                  'parts' => [
-                    '{post-title}.json',
+                  'segments' => [
+                    [
+                      'lit' => '{post-title}.json',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -309,6 +323,9 @@ class HealthcareGovContentConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    '{post-title}.json',
                   ],
                 ],
               ],

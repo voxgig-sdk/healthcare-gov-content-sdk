@@ -32,8 +32,6 @@ client = HealthcareGovContentSDK.new
 
 ### 3. Load a contentcollection
 
-ContentCollection is nested under content_type, so provide the `content_type`.
-
 ```ruby
 begin
   # load returns the ENTITY — call data_get for the ContentCollection record (raises on error).

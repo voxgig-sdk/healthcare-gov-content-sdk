@@ -62,7 +62,7 @@ def content_collection_basic_setup(extra)
 
   # Generate idmap via transform.
   idmap = Vs.transform(
-    ["content_collection01", "content_collection02", "content_collection03", "api01", "api02", "api03", "content_type01"],
+    ["content_collection01", "content_collection02", "content_collection03", "content_type01"],
     {
       "`$PACK`" => ["", {
         "`$KEY`" => "`$COPY`",
@@ -91,6 +91,9 @@ def content_collection_basic_setup(extra)
 
   if env["HEALTHCARE_GOV_CONTENT_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
+      # FIRST, so the generated fields below win: sdk-test-control.json's
+      # test.client.options adds to the live client, it does not redirect it.
+      Runner.live_client_options,
       {
       },
       extra || {},

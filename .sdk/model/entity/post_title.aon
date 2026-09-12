@@ -102,8 +102,10 @@ main: kit: entity: post_title: {
           }
           method: "GET"
           orig: "/{post-title}.json"
-          parts: [
-            "{post-title}.json"
+          segments: [
+            {
+              lit: "{post-title}.json"
+            }
           ]
           select: {
             exist: [
