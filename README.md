@@ -105,7 +105,7 @@ local results, err = client:PostTitle():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/healthcare-gov-content` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases) |
+| TypeScript | `@voxgig-sdk/healthcare-gov-content-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases) |
 | Python | `voxgig-sdk-healthcare-gov-content` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases) |
 | PHP | `voxgig-sdk/healthcare-gov-content` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/healthcare-gov-content-sdk/go` | `go get github.com/voxgig-sdk/healthcare-gov-content-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:PostTitle():list()
 ### TypeScript
 
 ```ts
-import { HealthcareGovContentSDK } from '@voxgig-sdk/healthcare-gov-content'
+import { HealthcareGovContentSDK } from '@voxgig-sdk/healthcare-gov-content-sdk'
 
 const client = new HealthcareGovContentSDK()
 

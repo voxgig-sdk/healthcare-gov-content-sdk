@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { HealthcareGovContentSDK } from '@voxgig-sdk/healthcare-gov-content'
+import { HealthcareGovContentSDK } from '@voxgig-sdk/healthcare-gov-content-sdk'
 
 const client = new HealthcareGovContentSDK()
 ```
@@ -508,7 +508,7 @@ healthcare-gov-content/
 Import the SDK from the package root:
 
 ```ts
-import { HealthcareGovContentSDK } from '@voxgig-sdk/healthcare-gov-content'
+import { HealthcareGovContentSDK } from '@voxgig-sdk/healthcare-gov-content-sdk'
 ```
 
 ### Entity state
