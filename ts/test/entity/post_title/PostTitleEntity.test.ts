@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { HealthcareGovContentSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('PostTitleEntity', async () => {
 
     const live = 'TRUE' === process.env.HEALTHCARE_GOV_CONTENT_TEST_LIVE
     for (const op of ['list']) {
-      if (maybeSkipControl(t, 'entityOp', 'post_title.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'post_title.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set HEALTHCARE_GOV_CONTENT_TEST_POST_TITLE_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"author","req":false,"short":"The author of the content post","type":"`$STRING`","index$":0},{"active":true,"name":"categories","req":false,"short":"Content types and language code","type":"`$ARRAY`","index$":1},{"active":true,"name":"content","req":false,"short":"The HTML body content of the post","type":"`$STRING`","index$":2},{"active":true,"name":"date","req":false,"short":"The publication or last modified date","type":"`$STRING`","index$":3},{"active":true,"name":"lang","req":false,"short":"Language code: 'en' for English, 'es' for Spanish","type":"`$STRING`","index$":4},{"active":true,"name":"layout","req":false,"short":"The layout used to display the content","type":"`$STRING`","index$":5},{"active":true,"name":"order","req":false,"short":"Contextual position of the content","type":"`$INTEGER`","index$":6},{"active":true,"name":"tags","req":false,"short":"An array of content tags, such as 'promote'","type":"`$ARRAY`","index$":7},{"active":true,"name":"title","req":false,"short":"The title of the content post","type":"`$STRING`","index$":8},{"active":true,"name":"topics","req":false,"short":"Associated topics (for articles)","type":"`$ARRAY`","index$":9},{"active":true,"name":"url","req":false,"short":"The URL path to the content post","type":"`$STRING`","index$":10}],"name":"post_title","op":{"list":{"input":"data","name":"list","points":[{"active":true,"args":{"params":[{"active":true,"example":"accessibility","kind":"param","name":"post_title","orig":"post_title","reqd":true,"type":"`$STRING`","index$":0}],"query":[{"active":true,"kind":"query","name":"callback","orig":"callback","reqd":false,"type":"`$STRING`","index$":0}]},"contract":{"id":"GET /{post-title}.json","json":"{\"operationId\":\"getContentObject\",\"parameters\":[{\"description\":\"The title/slug of the post to retrieve\",\"example\":\"accessibility\",\"in\":\"path\",\"name\":\"post-title\",\"required\":true,\"schema\":{\"type\":\"string\"}},{\"description\":\"JSONP callback function name for cross-domain requests\",\"in\":\"query\",\"name\":\"callback\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"example\":{\"author\":\"HealthCare.gov\",\"categories\":[\"article\",\"en\"],\"content\":\"<p>Content about accessibility...</p>\",\"date\":\"2023-01-01\",\"lang\":\"en\",\"layout\":\"basic\",\"order\":0,\"tags\":[\"promote\"],\"title\":\"Accessibility\",\"topics\":[\"getting-coverage\"],\"url\":\"/accessibility/\"},\"schema\":{\"description\":\"A complete content post with body content and metadata\",\"properties\":{\"author\":{\"description\":\"The author of the content post\",\"example\":\"HealthCare.gov\",\"type\":\"string\"},\"categories\":{\"description\":\"Content types and language code\",\"example\":[\"article\",\"en\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"content\":{\"description\":\"The HTML body content of the post\",\"example\":\"<p>Content about accessibility...</p>\",\"type\":\"string\"},\"date\":{\"description\":\"The publication or last modified date\",\"example\":\"2023-01-01\",\"type\":\"string\"},\"lang\":{\"description\":\"Language code: 'en' for English, 'es' for Spanish\",\"enum\":[\"en\",\"es\"],\"example\":\"en\",\"type\":\"string\"},\"layout\":{\"description\":\"The layout used to display the content\",\"example\":\"basic\",\"type\":\"string\"},\"order\":{\"description\":\"Contextual position of the content\",\"example\":0,\"type\":\"integer\"},\"tags\":{\"description\":\"An array of content tags, such as 'promote'\",\"example\":[\"promote\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"title\":{\"description\":\"The title of the content post\",\"example\":\"Accessibility\",\"type\":\"string\"},\"topics\":{\"description\":\"Associated topics (for articles)\",\"example\":[\"getting-coverage\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"url\":{\"description\":\"The URL path to the content post\",\"example\":\"/accessibility/\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successful response with content object\"},\"404\":{\"description\":\"Content not found\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/{post-title}.json","segments":[{"lit":"{post-title}.json"}],"select":{"exist":["callback","post_title"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"post_title","name__orig":"post_title","Name":"PostTitle","name_":"post_title","name-":"post-title","NAME":"POST_TITLE","index$":2}, {"active":true,"entity":"post_title","key$":"BasicPostTitleFlow","kind":"basic","name":"BasicPostTitleFlow","param":{},"step":[{"active":true,"data":{},"input":{},"match":{"post_title":"post_title01"},"op":"list","spec":[],"valid":[{"apply":"ItemExists","def":{"ref":"post_title_ref01"}}],"index$":0}]}, 'PostTitle')
     }
     const client = setup.client
     const struct = setup.struct
@@ -110,13 +109,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['HEALTHCARE_GOV_CONTENT_TEST_POST_TITLE_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'HEALTHCARE_GOV_CONTENT_TEST_POST_TITLE_ENTID': idmap,
     'HEALTHCARE_GOV_CONTENT_TEST_LIVE': 'FALSE',
@@ -127,7 +119,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.HEALTHCARE_GOV_CONTENT_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['HEALTHCARE_GOV_CONTENT_TEST_POST_TITLE_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new HealthcareGovContentSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -139,7 +137,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -152,7 +151,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.HEALTHCARE_GOV_CONTENT_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

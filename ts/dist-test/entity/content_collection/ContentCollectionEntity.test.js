@@ -40,6 +40,8 @@ const node_path_1 = __importDefault(require("node:path"));
 const Fs = __importStar(require("node:fs"));
 const node_test_1 = require("node:test");
 const node_assert_1 = __importDefault(require("node:assert"));
+const live_runner_1 = require("../../live-runner");
+const live_entity_1 = require("../../live-entity");
 const __1 = require("../../..");
 const utility_1 = require("../../utility");
 // AFTER the imports on purpose: TypeScript hoists `import` above any
@@ -59,16 +61,12 @@ const utility_1 = require("../../utility");
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.HEALTHCARE_GOV_CONTENT_TEST_LIVE;
         for (const op of ['load']) {
-            if ((0, utility_1.maybeSkipControl)(t, 'entityOp', 'content_collection.' + op, live))
+            if (!live && (0, utility_1.maybeSkipControl)(t, 'entityOp', 'content_collection.' + op, live))
                 return;
         }
         const setup = basicSetup();
-        // The basic flow consumes synthetic IDs and field values from the
-        // fixture (entity TestData.json). Those don't exist on the live API.
-        // Skip live runs unless the user provided a real ENTID env override.
-        if (setup.syntheticOnly) {
-            t.skip('live entity test uses synthetic IDs from fixture — set HEALTHCARE_GOV_CONTENT_TEST_CONTENT_COLLECTION_ENTID JSON to run live');
-            return;
+        if (setup.live) {
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": [{ "active": true, "name": "glossary", "req": false, "type": "`$ARRAY`", "index$": 0 }], "name": "content_collection", "op": { "load": { "input": "data", "name": "load", "points": [{ "active": true, "args": { "params": [{ "active": true, "example": "glossary", "kind": "param", "name": "content_type", "orig": "content_type", "reqd": true, "type": "`$STRING`", "index$": 0 }], "query": [{ "active": true, "kind": "query", "name": "callback", "orig": "callback", "reqd": false, "type": "`$STRING`", "index$": 0 }] }, "contract": { "id": "GET /api/{content-type}.json", "json": "{\"operationId\":\"getContentCollection\",\"parameters\":[{\"description\":\"The type of content to retrieve\",\"example\":\"glossary\",\"in\":\"path\",\"name\":\"content-type\",\"required\":true,\"schema\":{\"enum\":[\"articles\",\"blog\",\"questions\",\"glossary\",\"states\",\"topics\"],\"type\":\"string\"}},{\"description\":\"JSONP callback function name for cross-domain requests\",\"in\":\"query\",\"name\":\"callback\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"examples\":{\"glossary\":{\"summary\":\"Glossary collection example\",\"value\":{\"glossary\":[{\"categories\":[\"glossary\",\"en\"],\"content\":\"<p>Definition content...</p>\",\"lang\":\"en\",\"layout\":\"glossary\",\"order\":0,\"tags\":[],\"title\":\"Children's Health Insurance Program (CHIP)\",\"topics\":[],\"url\":\"/glossary/childrens-health-insurance-program-chip/\"}]}}},\"schema\":{\"additionalProperties\":{\"items\":{\"description\":\"A complete content post with body content and metadata\",\"properties\":{\"author\":{\"description\":\"The author of the content post\",\"example\":\"HealthCare.gov\",\"type\":\"string\"},\"categories\":{\"description\":\"Content types and language code\",\"example\":[\"article\",\"en\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"content\":{\"description\":\"The HTML body content of the post\",\"example\":\"<p>Content about accessibility...</p>\",\"type\":\"string\"},\"date\":{\"description\":\"The publication or last modified date\",\"example\":\"2023-01-01\",\"type\":\"string\"},\"lang\":{\"description\":\"Language code: 'en' for English, 'es' for Spanish\",\"enum\":[\"en\",\"es\"],\"example\":\"en\",\"type\":\"string\"},\"layout\":{\"description\":\"The layout used to display the content\",\"example\":\"basic\",\"type\":\"string\"},\"order\":{\"description\":\"Contextual position of the content\",\"example\":0,\"type\":\"integer\"},\"tags\":{\"description\":\"An array of content tags, such as 'promote'\",\"example\":[\"promote\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"title\":{\"description\":\"The title of the content post\",\"example\":\"Accessibility\",\"type\":\"string\"},\"topics\":{\"description\":\"Associated topics (for articles)\",\"example\":[\"getting-coverage\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"url\":{\"description\":\"The URL path to the content post\",\"example\":\"/accessibility/\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"description\":\"A collection of content posts by content type\",\"example\":{\"glossary\":[{\"categories\":[\"glossary\",\"en\"],\"content\":\"<p>The amount you pay...</p>\",\"lang\":\"en\",\"layout\":\"glossary\",\"order\":0,\"tags\":[],\"title\":\"Premium\",\"topics\":[],\"url\":\"/glossary/premium/\"}]},\"type\":\"object\"}}},\"description\":\"Successful response with content collection\"},\"404\":{\"description\":\"Content type not found\"}},\"securitySource\":\"unspecified\"}", "source": "openapi3", "version": 1 }, "kind": "http", "method": "GET", "orig": "/api/{content-type}.json", "segments": [{ "lit": "api" }, { "lit": "{content-type}.json" }], "select": { "exist": ["callback", "content_type"] }, "transform": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "load" } }, "relations": { "ancestors": [] }, "key$": "content_collection", "name__orig": "content_collection", "Name": "ContentCollection", "name_": "content_collection", "name-": "content-collection", "NAME": "CONTENT_COLLECTION", "index$": 0 }, { "active": true, "entity": "content_collection", "key$": "BasicContentCollectionFlow", "kind": "basic", "name": "BasicContentCollectionFlow", "param": {}, "step": [{ "active": true, "data": {}, "input": { "ref": "content_collection_ref01", "srcdatavar": "content_collection_ref01_data", "suffix": "_dt0" }, "match": { "content_type": "content_type01" }, "op": "load", "spec": [], "valid": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-content_collection_ref01" } }], "index$": 0 }] }, 'ContentCollection');
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -100,12 +98,6 @@ function basicSetup(extra) {
                 '`$VAL`': ['`$FORMAT`', 'upper', '`$COPY`']
             }]
     });
-    // Detect whether the user provided a real ENTID JSON via env var. The
-    // basic flow consumes synthetic IDs from the fixture file; without an
-    // override those synthetic IDs reach the live API and 4xx. Surface this
-    // to the test so it can skip rather than fail.
-    const idmapEnvVal = process.env['HEALTHCARE_GOV_CONTENT_TEST_CONTENT_COLLECTION_ENTID'];
-    const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{');
     const env = (0, utility_1.envOverride)({
         'HEALTHCARE_GOV_CONTENT_TEST_CONTENT_COLLECTION_ENTID': idmap,
         'HEALTHCARE_GOV_CONTENT_TEST_LIVE': 'FALSE',
@@ -113,7 +105,13 @@ function basicSetup(extra) {
     });
     idmap = env['HEALTHCARE_GOV_CONTENT_TEST_CONTENT_COLLECTION_ENTID'];
     const live = 'TRUE' === env.HEALTHCARE_GOV_CONTENT_TEST_LIVE;
+    const transport = (0, live_runner_1.createLiveTransport)();
     if (live) {
+        const rawIds = process.env['HEALTHCARE_GOV_CONTENT_TEST_CONTENT_COLLECTION_ENTID'];
+        idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {};
+        if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+            throw new Error('Live ENTID must be a JSON object');
+        }
         client = new __1.HealthcareGovContentSDK(merge([
             // FIRST, so the generated fields below win: sdk-test-control.json's
             // test.client.options adds to the live client, it does not redirect it.
@@ -124,7 +122,8 @@ function basicSetup(extra) {
             // argument at all - so a bare 'extra' silently discarded the apikey
             // and server values above and handed the SDK undefined. Harmless
             // while there was nothing in that object; not harmless now.
-            extra || {}
+            extra || {},
+            { system: { fetch: transport.fetch } }
         ]));
     }
     const setup = {
@@ -136,7 +135,7 @@ function basicSetup(extra) {
         data: entityData,
         explain: 'TRUE' === env.HEALTHCARE_GOV_CONTENT_TEST_EXPLAIN,
         live,
-        syntheticOnly: live && !idmapOverridden,
+        transport,
         now: Date.now(),
     };
     return setup;

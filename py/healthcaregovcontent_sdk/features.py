@@ -1,12 +1,18 @@
 # HealthcareGovContent SDK feature factory
 
 from healthcaregovcontent_sdk.feature.base_feature import HealthcareGovContentBaseFeature
+from healthcaregovcontent_sdk.feature.ratelimit_feature import HealthcareGovContentRatelimitFeature
+from healthcaregovcontent_sdk.feature.retry_feature import HealthcareGovContentRetryFeature
 from healthcaregovcontent_sdk.feature.test_feature import HealthcareGovContentTestFeature
+from healthcaregovcontent_sdk.feature.timeout_feature import HealthcareGovContentTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: HealthcareGovContentBaseFeature(),
+    "ratelimit": lambda: HealthcareGovContentRatelimitFeature(),
+    "retry": lambda: HealthcareGovContentRetryFeature(),
     "test": lambda: HealthcareGovContentTestFeature(),
+    "timeout": lambda: HealthcareGovContentTimeoutFeature(),
 }
 
 

@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { HealthcareGovContentSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('IndexEntity', async () => {
 
     const live = 'TRUE' === process.env.HEALTHCARE_GOV_CONTENT_TEST_LIVE
     for (const op of ['list']) {
-      if (maybeSkipControl(t, 'entityOp', 'index.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'index.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set HEALTHCARE_GOV_CONTENT_TEST_INDEX_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"bite","req":false,"short":"A short summary of the post","type":"`$STRING`","index$":0},{"active":true,"name":"categories","req":false,"short":"Content types and language code","type":"`$ARRAY`","index$":1},{"active":true,"name":"esbite","req":false,"short":"The post summary in Spanish","type":"`$STRING`","index$":2},{"active":true,"name":"estitle","req":false,"short":"Spanish translation of the post's title","type":"`$STRING`","index$":3},{"active":true,"name":"state","req":false,"short":"Associated states for the post","type":"`$ARRAY`","index$":4},{"active":true,"name":"tags","req":false,"short":"An array of content tags, such as 'promote'","type":"`$ARRAY`","index$":5},{"active":true,"name":"title","req":false,"short":"The post's title","type":"`$STRING`","index$":6},{"active":true,"name":"topics","req":false,"short":"Associated topics (for articles)","type":"`$ARRAY`","index$":7},{"active":true,"name":"url","req":false,"short":"URL to the HTML version of the post (add .json for post object)","type":"`$STRING`","index$":8}],"name":"index","op":{"list":{"input":"data","name":"list","points":[{"active":true,"args":{"query":[{"active":true,"kind":"query","name":"callback","orig":"callback","reqd":false,"type":"`$STRING`","index$":0}]},"contract":{"id":"GET /api/index.json","json":"{\"operationId\":\"getContentIndex\",\"parameters\":[{\"description\":\"JSONP callback function name for cross-domain requests\",\"in\":\"query\",\"name\":\"callback\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"example\":[{\"bite\":\"Learn how to apply for health insurance coverage\",\"categories\":[\"article\",\"en\"],\"es-bite\":\"Aprenda cómo solicitar cobertura de seguro médico\",\"es-title\":\"Cómo solicitar cobertura\",\"state\":[],\"tags\":[\"promote\"],\"title\":\"How to apply for coverage\",\"topics\":[\"getting-coverage\"],\"url\":\"/how-to-apply/\"},{\"bite\":\"The amount you pay for your health insurance every month\",\"categories\":[\"glossary\",\"en\"],\"es-bite\":\"La cantidad que paga por su seguro médico cada mes\",\"es-title\":\"Prima\",\"state\":[],\"tags\":[],\"title\":\"Premium\",\"topics\":[],\"url\":\"/glossary/premium/\"}],\"schema\":{\"items\":{\"description\":\"Abridged metadata for a content post in the site-wide index\",\"properties\":{\"bite\":{\"description\":\"A short summary of the post\",\"example\":\"Learn how to apply for health insurance coverage\",\"type\":\"string\"},\"categories\":{\"description\":\"Content types and language code\",\"example\":[\"article\",\"en\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"es-bite\":{\"description\":\"The post summary in Spanish\",\"example\":\"Aprenda cómo solicitar cobertura de seguro médico\",\"type\":\"string\"},\"es-title\":{\"description\":\"Spanish translation of the post's title\",\"example\":\"Cómo solicitar cobertura\",\"type\":\"string\"},\"state\":{\"description\":\"Associated states for the post\",\"example\":[],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"tags\":{\"description\":\"An array of content tags, such as 'promote'\",\"example\":[\"promote\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"title\":{\"description\":\"The post's title\",\"example\":\"How to apply for coverage\",\"type\":\"string\"},\"topics\":{\"description\":\"Associated topics (for articles)\",\"example\":[\"getting-coverage\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"url\":{\"description\":\"URL to the HTML version of the post (add .json for post object)\",\"example\":\"/how-to-apply/\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Successful response with content index\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/api/index.json","segments":[{"lit":"api"},{"lit":"index.json"}],"select":{"exist":["callback"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"index","name__orig":"index","Name":"Index","name_":"index","name-":"index","NAME":"INDEX","index$":1}, {"active":true,"entity":"index","key$":"BasicIndexFlow","kind":"basic","name":"BasicIndexFlow","param":{},"step":[{"active":true,"data":{},"input":{},"match":{},"op":"list","spec":[],"valid":[{"apply":"ItemExists","def":{"ref":"index_ref01"}}],"index$":0}]}, 'Index')
     }
     const client = setup.client
     const struct = setup.struct
@@ -109,13 +108,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['HEALTHCARE_GOV_CONTENT_TEST_INDEX_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'HEALTHCARE_GOV_CONTENT_TEST_INDEX_ENTID': idmap,
     'HEALTHCARE_GOV_CONTENT_TEST_LIVE': 'FALSE',
@@ -126,7 +118,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.HEALTHCARE_GOV_CONTENT_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['HEALTHCARE_GOV_CONTENT_TEST_INDEX_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new HealthcareGovContentSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -138,7 +136,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -151,7 +150,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.HEALTHCARE_GOV_CONTENT_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 
