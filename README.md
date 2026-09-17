@@ -105,12 +105,12 @@ local results, err = client:PostTitle():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/healthcare-gov-content-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases) |
-| Python | `voxgig-sdk-healthcare-gov-content` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases) |
-| PHP | `voxgig-sdk/healthcare-gov-content` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases) |
+| TypeScript | `@voxgig-sdk/healthcare-gov-content-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/tags) |
+| Python | `voxgig-sdk-healthcare-gov-content` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/tags) |
+| PHP | `voxgig-sdk/healthcare-gov-content` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/healthcare-gov-content-sdk/go` | `go get github.com/voxgig-sdk/healthcare-gov-content-sdk/go@latest` |
-| Ruby | `voxgig-sdk-healthcare-gov-content` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases) |
-| Lua | `voxgig-sdk-healthcare-gov-content` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases) |
+| Ruby | `voxgig-sdk-healthcare-gov-content` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/tags) |
+| Lua | `voxgig-sdk-healthcare-gov-content` | publish pending — [install from git tag](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/healthcare-gov-content-sdk/go-cli` | `go install github.com/voxgig-sdk/healthcare-gov-content-sdk/go-cli/cmd/healthcare-gov-content@latest` |
 | Go MCP server | `github.com/voxgig-sdk/healthcare-gov-content-sdk/go-mcp` | `go get github.com/voxgig-sdk/healthcare-gov-content-sdk/go-mcp@latest` |
 

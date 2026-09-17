@@ -127,15 +127,15 @@ class Config {
 
     entity: {
       
-      content_collection: {
-      },
-
-      index: {
-      },
-
-      post_title: {
-      },
-
+        content_collection: {
+        },
+  
+        index: {
+        },
+  
+        post_title: {
+        },
+  
     }
   }
 
