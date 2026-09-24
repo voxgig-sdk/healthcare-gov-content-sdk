@@ -24,20 +24,87 @@
         "repr": "auto"
       },
       "contributor": {},
+      "doc": {
+        "active": true,
+        "assets": {
+          "path": ".sdk/doc/assets"
+        },
+        "brand": {
+          "label": "",
+          "notice": "",
+          "shortNotice": "",
+          "url": ""
+        },
+        "ci": {
+          "active": true,
+          "branch": "main"
+        },
+        "content": {
+          "path": ".sdk/doc/content"
+        },
+        "edition": {
+          "summary": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "summary",
+            "name": "summary",
+            "origname": "",
+            "output": {
+              "path": "SUMMARY.md"
+            },
+            "package": "@voxgig/docgen",
+            "published": false,
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          }
+        },
+        "qa": {
+          "vocabulary": []
+        },
+        "style": {
+          "color": {
+            "accent": "#00c6d8",
+            "background": "#f5f5f9",
+            "darkBackground": "#0f1117",
+            "darkText": "#e6edf3",
+            "primary": "#e70042",
+            "text": "#0a0a0a"
+          },
+          "font": "Nunito, system-ui, sans-serif",
+          "fontFile": "",
+          "headingFont": "Nunito, system-ui, sans-serif",
+          "headingFontFile": "",
+          "logo": "",
+          "mode": "light",
+          "mono": "ui-monospace, monospace",
+          "monoFile": ""
+        },
+        "target": {}
+      },
       "entity": {
         "content_collection": {
           "active": true,
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "glossary",
-              "req": false,
-              "type": "`$ARRAY`"
+          "fields": {
+            "glossary": {
+              "a": true,
+              "h": "Glossary",
+              "n": "glossary",
+              "r": false,
+              "t": "`$ARRAY`"
             }
-          ],
+          },
           "name": "content_collection",
           "op": {
             "load": {
@@ -45,40 +112,46 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /api/{content-type}.json",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "example": "glossary",
-                        "kind": "param",
-                        "name": "content_type",
-                        "orig": "content_type",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "ex": "glossary",
+                        "k": "param",
+                        "n": "content_type",
+                        "or": "content_type",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ],
                     "query": [
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "callback",
-                        "orig": "callback",
-                        "reqd": false,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "query",
+                        "n": "callback",
+                        "or": "callback",
+                        "r": false,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /api/{content-type}.json",
-                    "json": "{\"operationId\":\"getContentCollection\",\"parameters\":[{\"description\":\"The type of content to retrieve\",\"example\":\"glossary\",\"in\":\"path\",\"name\":\"content-type\",\"required\":true,\"schema\":{\"enum\":[\"articles\",\"blog\",\"questions\",\"glossary\",\"states\",\"topics\"],\"type\":\"string\"}},{\"description\":\"JSONP callback function name for cross-domain requests\",\"in\":\"query\",\"name\":\"callback\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"examples\":{\"glossary\":{\"summary\":\"Glossary collection example\",\"value\":{\"glossary\":[{\"categories\":[\"glossary\",\"en\"],\"content\":\"<p>Definition content...</p>\",\"lang\":\"en\",\"layout\":\"glossary\",\"order\":0,\"tags\":[],\"title\":\"Children's Health Insurance Program (CHIP)\",\"topics\":[],\"url\":\"/glossary/childrens-health-insurance-program-chip/\"}]}}},\"schema\":{\"additionalProperties\":{\"items\":{\"description\":\"A complete content post with body content and metadata\",\"properties\":{\"author\":{\"description\":\"The author of the content post\",\"example\":\"HealthCare.gov\",\"type\":\"string\"},\"categories\":{\"description\":\"Content types and language code\",\"example\":[\"article\",\"en\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"content\":{\"description\":\"The HTML body content of the post\",\"example\":\"<p>Content about accessibility...</p>\",\"type\":\"string\"},\"date\":{\"description\":\"The publication or last modified date\",\"example\":\"2023-01-01\",\"type\":\"string\"},\"lang\":{\"description\":\"Language code: 'en' for English, 'es' for Spanish\",\"enum\":[\"en\",\"es\"],\"example\":\"en\",\"type\":\"string\"},\"layout\":{\"description\":\"The layout used to display the content\",\"example\":\"basic\",\"type\":\"string\"},\"order\":{\"description\":\"Contextual position of the content\",\"example\":0,\"type\":\"integer\"},\"tags\":{\"description\":\"An array of content tags, such as 'promote'\",\"example\":[\"promote\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"title\":{\"description\":\"The title of the content post\",\"example\":\"Accessibility\",\"type\":\"string\"},\"topics\":{\"description\":\"Associated topics (for articles)\",\"example\":[\"getting-coverage\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"url\":{\"description\":\"The URL path to the content post\",\"example\":\"/accessibility/\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"description\":\"A collection of content posts by content type\",\"example\":{\"glossary\":[{\"categories\":[\"glossary\",\"en\"],\"content\":\"<p>The amount you pay...</p>\",\"lang\":\"en\",\"layout\":\"glossary\",\"order\":0,\"tags\":[],\"title\":\"Premium\",\"topics\":[],\"url\":\"/glossary/premium/\"}]},\"type\":\"object\"}}},\"description\":\"Successful response with content collection\"},\"404\":{\"description\":\"Content type not found\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/api/{content-type}.json",
+                  "q": {
+                    "exist": [
+                      "callback",
+                      "content_type"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/api/{content-type}.json",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "api"
                     },
@@ -86,13 +159,7 @@
                       "lit": "{content-type}.json"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "callback",
-                      "content_type"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -109,71 +176,80 @@
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "bite",
-              "req": false,
-              "short": "A short summary of the post",
-              "type": "`$STRING`"
+          "fields": {
+            "bite": {
+              "a": true,
+              "h": "Bite",
+              "n": "bite",
+              "r": false,
+              "sh": "A short summary of the post",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "categories",
-              "req": false,
-              "short": "Content types and language code",
-              "type": "`$ARRAY`"
+            "categories": {
+              "a": true,
+              "h": "Categories",
+              "n": "categories",
+              "r": false,
+              "sh": "Content types and language code",
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "esbite",
-              "req": false,
-              "short": "The post summary in Spanish",
-              "type": "`$STRING`"
+            "esbite": {
+              "a": true,
+              "h": "Esbite",
+              "n": "esbite",
+              "r": false,
+              "sh": "The post summary in Spanish",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "estitle",
-              "req": false,
-              "short": "Spanish translation of the post's title",
-              "type": "`$STRING`"
+            "estitle": {
+              "a": true,
+              "h": "Estitle",
+              "n": "estitle",
+              "r": false,
+              "sh": "Spanish translation of the post's title",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "state",
-              "req": false,
-              "short": "Associated states for the post",
-              "type": "`$ARRAY`"
+            "state": {
+              "a": true,
+              "h": "State",
+              "n": "state",
+              "r": false,
+              "sh": "Associated states for the post",
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "tags",
-              "req": false,
-              "short": "An array of content tags, such as 'promote'",
-              "type": "`$ARRAY`"
+            "tags": {
+              "a": true,
+              "h": "Tags",
+              "n": "tags",
+              "r": false,
+              "sh": "An array of content tags, such as 'promote'",
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "title",
-              "req": false,
-              "short": "The post's title",
-              "type": "`$STRING`"
+            "title": {
+              "a": true,
+              "h": "Title",
+              "n": "title",
+              "r": false,
+              "sh": "The post's title",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "topics",
-              "req": false,
-              "short": "Associated topics (for articles)",
-              "type": "`$ARRAY`"
+            "topics": {
+              "a": true,
+              "h": "Topics",
+              "n": "topics",
+              "r": false,
+              "sh": "Associated topics (for articles)",
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "url",
-              "req": false,
-              "short": "URL to the HTML version of the post (add .json for post object)",
-              "type": "`$STRING`"
+            "url": {
+              "a": true,
+              "h": "Url",
+              "n": "url",
+              "r": false,
+              "sh": "URL to the HTML version of the post (add .json for post object)",
+              "t": "`$STRING`"
             }
-          ],
+          },
           "name": "index",
           "op": {
             "list": {
@@ -181,29 +257,34 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /api/index.json",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "query": [
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "callback",
-                        "orig": "callback",
-                        "reqd": false,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "query",
+                        "n": "callback",
+                        "or": "callback",
+                        "r": false,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /api/index.json",
-                    "json": "{\"operationId\":\"getContentIndex\",\"parameters\":[{\"description\":\"JSONP callback function name for cross-domain requests\",\"in\":\"query\",\"name\":\"callback\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"example\":[{\"bite\":\"Learn how to apply for health insurance coverage\",\"categories\":[\"article\",\"en\"],\"es-bite\":\"Aprenda cómo solicitar cobertura de seguro médico\",\"es-title\":\"Cómo solicitar cobertura\",\"state\":[],\"tags\":[\"promote\"],\"title\":\"How to apply for coverage\",\"topics\":[\"getting-coverage\"],\"url\":\"/how-to-apply/\"},{\"bite\":\"The amount you pay for your health insurance every month\",\"categories\":[\"glossary\",\"en\"],\"es-bite\":\"La cantidad que paga por su seguro médico cada mes\",\"es-title\":\"Prima\",\"state\":[],\"tags\":[],\"title\":\"Premium\",\"topics\":[],\"url\":\"/glossary/premium/\"}],\"schema\":{\"items\":{\"description\":\"Abridged metadata for a content post in the site-wide index\",\"properties\":{\"bite\":{\"description\":\"A short summary of the post\",\"example\":\"Learn how to apply for health insurance coverage\",\"type\":\"string\"},\"categories\":{\"description\":\"Content types and language code\",\"example\":[\"article\",\"en\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"es-bite\":{\"description\":\"The post summary in Spanish\",\"example\":\"Aprenda cómo solicitar cobertura de seguro médico\",\"type\":\"string\"},\"es-title\":{\"description\":\"Spanish translation of the post's title\",\"example\":\"Cómo solicitar cobertura\",\"type\":\"string\"},\"state\":{\"description\":\"Associated states for the post\",\"example\":[],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"tags\":{\"description\":\"An array of content tags, such as 'promote'\",\"example\":[\"promote\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"title\":{\"description\":\"The post's title\",\"example\":\"How to apply for coverage\",\"type\":\"string\"},\"topics\":{\"description\":\"Associated topics (for articles)\",\"example\":[\"getting-coverage\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"url\":{\"description\":\"URL to the HTML version of the post (add .json for post object)\",\"example\":\"/how-to-apply/\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Successful response with content index\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/api/index.json",
+                  "q": {
+                    "exist": [
+                      "callback"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/api/index.json",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "api"
                     },
@@ -211,12 +292,7 @@
                       "lit": "index.json"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "callback"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -233,85 +309,96 @@
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "author",
-              "req": false,
-              "short": "The author of the content post",
-              "type": "`$STRING`"
+          "fields": {
+            "author": {
+              "a": true,
+              "h": "Author",
+              "n": "author",
+              "r": false,
+              "sh": "The author of the content post",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "categories",
-              "req": false,
-              "short": "Content types and language code",
-              "type": "`$ARRAY`"
+            "categories": {
+              "a": true,
+              "h": "Categories",
+              "n": "categories",
+              "r": false,
+              "sh": "Content types and language code",
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "content",
-              "req": false,
-              "short": "The HTML body content of the post",
-              "type": "`$STRING`"
+            "content": {
+              "a": true,
+              "h": "Content",
+              "n": "content",
+              "r": false,
+              "sh": "The HTML body content of the post",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "date",
-              "req": false,
-              "short": "The publication or last modified date",
-              "type": "`$STRING`"
+            "date": {
+              "a": true,
+              "h": "Date",
+              "n": "date",
+              "r": false,
+              "sh": "The publication or last modified date",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "lang",
-              "req": false,
-              "short": "Language code: 'en' for English, 'es' for Spanish",
-              "type": "`$STRING`"
+            "lang": {
+              "a": true,
+              "h": "Lang",
+              "n": "lang",
+              "r": false,
+              "sh": "Language code: 'en' for English, 'es' for Spanish",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "layout",
-              "req": false,
-              "short": "The layout used to display the content",
-              "type": "`$STRING`"
+            "layout": {
+              "a": true,
+              "h": "Layout",
+              "n": "layout",
+              "r": false,
+              "sh": "The layout used to display the content",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "order",
-              "req": false,
-              "short": "Contextual position of the content",
-              "type": "`$INTEGER`"
+            "order": {
+              "a": true,
+              "h": "Order",
+              "n": "order",
+              "r": false,
+              "sh": "Contextual position of the content",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "tags",
-              "req": false,
-              "short": "An array of content tags, such as 'promote'",
-              "type": "`$ARRAY`"
+            "tags": {
+              "a": true,
+              "h": "Tags",
+              "n": "tags",
+              "r": false,
+              "sh": "An array of content tags, such as 'promote'",
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "title",
-              "req": false,
-              "short": "The title of the content post",
-              "type": "`$STRING`"
+            "title": {
+              "a": true,
+              "h": "Title",
+              "n": "title",
+              "r": false,
+              "sh": "The title of the content post",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "topics",
-              "req": false,
-              "short": "Associated topics (for articles)",
-              "type": "`$ARRAY`"
+            "topics": {
+              "a": true,
+              "h": "Topics",
+              "n": "topics",
+              "r": false,
+              "sh": "Associated topics (for articles)",
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "url",
-              "req": false,
-              "short": "The URL path to the content post",
-              "type": "`$STRING`"
+            "url": {
+              "a": true,
+              "h": "Url",
+              "n": "url",
+              "r": false,
+              "sh": "The URL path to the content post",
+              "t": "`$STRING`"
             }
-          ],
+          },
           "name": "post_title",
           "op": {
             "list": {
@@ -319,51 +406,51 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /{post-title}.json",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "example": "accessibility",
-                        "kind": "param",
-                        "name": "post_title",
-                        "orig": "post_title",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "ex": "accessibility",
+                        "k": "param",
+                        "n": "post_title",
+                        "or": "post_title",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ],
                     "query": [
                       {
-                        "active": true,
-                        "kind": "query",
-                        "name": "callback",
-                        "orig": "callback",
-                        "reqd": false,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "k": "query",
+                        "n": "callback",
+                        "or": "callback",
+                        "r": false,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /{post-title}.json",
-                    "json": "{\"operationId\":\"getContentObject\",\"parameters\":[{\"description\":\"The title/slug of the post to retrieve\",\"example\":\"accessibility\",\"in\":\"path\",\"name\":\"post-title\",\"required\":true,\"schema\":{\"type\":\"string\"}},{\"description\":\"JSONP callback function name for cross-domain requests\",\"in\":\"query\",\"name\":\"callback\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"example\":{\"author\":\"HealthCare.gov\",\"categories\":[\"article\",\"en\"],\"content\":\"<p>Content about accessibility...</p>\",\"date\":\"2023-01-01\",\"lang\":\"en\",\"layout\":\"basic\",\"order\":0,\"tags\":[\"promote\"],\"title\":\"Accessibility\",\"topics\":[\"getting-coverage\"],\"url\":\"/accessibility/\"},\"schema\":{\"description\":\"A complete content post with body content and metadata\",\"properties\":{\"author\":{\"description\":\"The author of the content post\",\"example\":\"HealthCare.gov\",\"type\":\"string\"},\"categories\":{\"description\":\"Content types and language code\",\"example\":[\"article\",\"en\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"content\":{\"description\":\"The HTML body content of the post\",\"example\":\"<p>Content about accessibility...</p>\",\"type\":\"string\"},\"date\":{\"description\":\"The publication or last modified date\",\"example\":\"2023-01-01\",\"type\":\"string\"},\"lang\":{\"description\":\"Language code: 'en' for English, 'es' for Spanish\",\"enum\":[\"en\",\"es\"],\"example\":\"en\",\"type\":\"string\"},\"layout\":{\"description\":\"The layout used to display the content\",\"example\":\"basic\",\"type\":\"string\"},\"order\":{\"description\":\"Contextual position of the content\",\"example\":0,\"type\":\"integer\"},\"tags\":{\"description\":\"An array of content tags, such as 'promote'\",\"example\":[\"promote\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"title\":{\"description\":\"The title of the content post\",\"example\":\"Accessibility\",\"type\":\"string\"},\"topics\":{\"description\":\"Associated topics (for articles)\",\"example\":[\"getting-coverage\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"url\":{\"description\":\"The URL path to the content post\",\"example\":\"/accessibility/\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successful response with content object\"},\"404\":{\"description\":\"Content not found\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
-                  },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/{post-title}.json",
-                  "segments": [
-                    {
-                      "lit": "{post-title}.json"
-                    }
-                  ],
-                  "select": {
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/{post-title}.json",
+                  "q": {
                     "exist": [
                       "callback",
                       "post_title"
                     ]
                   },
-                  "transform": {
+                  "r": {},
+                  "s": [
+                    {
+                      "lit": "{post-title}.json"
+                    }
+                  ],
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -792,19 +879,19 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "content_collection_ref01",
                 "srcdatavar": "content_collection_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "content_type": "content_type01"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {
@@ -824,13 +911,13 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {
@@ -850,15 +937,15 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {
                 "post_title": "post_title01"
               },
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {

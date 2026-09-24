@@ -1,7 +1,7 @@
 // Typed models for the HealthcareGovContent SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,7 +14,6 @@ import (
 
 // ContentCollection is the typed data model for the content_collection entity.
 type ContentCollection struct {
-	Glossary *[]any `json:"glossary,omitempty"`
 }
 
 // ContentCollectionLoadMatch is the typed request payload for ContentCollection.LoadTyped.
@@ -25,15 +24,6 @@ type ContentCollectionLoadMatch struct {
 
 // Index is the typed data model for the index entity.
 type Index struct {
-	Bite *string `json:"bite,omitempty"`
-	Categories *[]any `json:"categories,omitempty"`
-	Esbite *string `json:"esbite,omitempty"`
-	Estitle *string `json:"estitle,omitempty"`
-	State *[]any `json:"state,omitempty"`
-	Tags *[]any `json:"tags,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Topics *[]any `json:"topics,omitempty"`
-	Url *string `json:"url,omitempty"`
 }
 
 // IndexListMatch is the typed request payload for Index.ListTyped.
@@ -43,17 +33,6 @@ type IndexListMatch struct {
 
 // PostTitle is the typed data model for the post_title entity.
 type PostTitle struct {
-	Author *string `json:"author,omitempty"`
-	Categories *[]any `json:"categories,omitempty"`
-	Content *string `json:"content,omitempty"`
-	Date *string `json:"date,omitempty"`
-	Lang *string `json:"lang,omitempty"`
-	Layout *string `json:"layout,omitempty"`
-	Order *int `json:"order,omitempty"`
-	Tags *[]any `json:"tags,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Topics *[]any `json:"topics,omitempty"`
-	Url *string `json:"url,omitempty"`
 }
 
 // PostTitleListMatch is the typed request payload for PostTitle.ListTyped.

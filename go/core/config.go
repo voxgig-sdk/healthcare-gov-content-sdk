@@ -93,6 +93,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "glossary",
+						"title": "Glossary",
 						"type": "`$ARRAY`",
 					},
 				},
@@ -103,26 +104,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": "glossary",
-											"kind": "param",
-											"name": "content_type",
-											"orig": "content_type",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "callback",
-											"orig": "callback",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/{content-type}.json",
@@ -134,19 +115,40 @@ func MakeConfig() map[string]any {
 										"lit": "{content-type}.json",
 									},
 								},
+								"parts": []any{
+									"api",
+									"{content-type}.json",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "content_type",
+											"orig": "content_type",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "glossary",
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "callback",
+											"orig": "callback",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"callback",
 										"content_type",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"api",
-									"{content-type}.json",
 								},
 							},
 						},
@@ -160,48 +162,57 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "bite",
-						"short": "A short summary of the post",
+						"title": "Bite",
 						"type": "`$STRING`",
+						"short": "A short summary of the post",
 					},
 					map[string]any{
 						"name": "categories",
-						"short": "Content types and language code",
+						"title": "Categories",
 						"type": "`$ARRAY`",
+						"short": "Content types and language code",
 					},
 					map[string]any{
 						"name": "esbite",
-						"short": "The post summary in Spanish",
+						"title": "Esbite",
 						"type": "`$STRING`",
+						"short": "The post summary in Spanish",
 					},
 					map[string]any{
 						"name": "estitle",
-						"short": "Spanish translation of the post's title",
+						"title": "Estitle",
 						"type": "`$STRING`",
+						"short": "Spanish translation of the post's title",
 					},
 					map[string]any{
 						"name": "state",
-						"short": "Associated states for the post",
+						"title": "State",
 						"type": "`$ARRAY`",
+						"short": "Associated states for the post",
 					},
 					map[string]any{
 						"name": "tags",
-						"short": "An array of content tags, such as 'promote'",
+						"title": "Tags",
 						"type": "`$ARRAY`",
+						"short": "An array of content tags, such as 'promote'",
 					},
 					map[string]any{
 						"name": "title",
-						"short": "The post's title",
+						"title": "Title",
 						"type": "`$STRING`",
+						"short": "The post's title",
 					},
 					map[string]any{
 						"name": "topics",
-						"short": "Associated topics (for articles)",
+						"title": "Topics",
 						"type": "`$ARRAY`",
+						"short": "Associated topics (for articles)",
 					},
 					map[string]any{
 						"name": "url",
-						"short": "URL to the HTML version of the post (add .json for post object)",
+						"title": "Url",
 						"type": "`$STRING`",
+						"short": "URL to the HTML version of the post (add .json for post object)",
 					},
 				},
 				"name": "index",
@@ -211,16 +222,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "callback",
-											"orig": "callback",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/index.json",
@@ -232,18 +233,29 @@ func MakeConfig() map[string]any {
 										"lit": "index.json",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"callback",
-									},
+								"parts": []any{
+									"api",
+									"index.json",
 								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"api",
-									"index.json",
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "callback",
+											"orig": "callback",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"callback",
+									},
 								},
 							},
 						},
@@ -257,58 +269,69 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "author",
-						"short": "The author of the content post",
+						"title": "Author",
 						"type": "`$STRING`",
+						"short": "The author of the content post",
 					},
 					map[string]any{
 						"name": "categories",
-						"short": "Content types and language code",
+						"title": "Categories",
 						"type": "`$ARRAY`",
+						"short": "Content types and language code",
 					},
 					map[string]any{
 						"name": "content",
-						"short": "The HTML body content of the post",
+						"title": "Content",
 						"type": "`$STRING`",
+						"short": "The HTML body content of the post",
 					},
 					map[string]any{
 						"name": "date",
-						"short": "The publication or last modified date",
+						"title": "Date",
 						"type": "`$STRING`",
+						"short": "The publication or last modified date",
 					},
 					map[string]any{
 						"name": "lang",
-						"short": "Language code: 'en' for English, 'es' for Spanish",
+						"title": "Lang",
 						"type": "`$STRING`",
+						"short": "Language code: 'en' for English, 'es' for Spanish",
 					},
 					map[string]any{
 						"name": "layout",
-						"short": "The layout used to display the content",
+						"title": "Layout",
 						"type": "`$STRING`",
+						"short": "The layout used to display the content",
 					},
 					map[string]any{
 						"name": "order",
-						"short": "Contextual position of the content",
+						"title": "Order",
 						"type": "`$INTEGER`",
+						"short": "Contextual position of the content",
 					},
 					map[string]any{
 						"name": "tags",
-						"short": "An array of content tags, such as 'promote'",
+						"title": "Tags",
 						"type": "`$ARRAY`",
+						"short": "An array of content tags, such as 'promote'",
 					},
 					map[string]any{
 						"name": "title",
-						"short": "The title of the content post",
+						"title": "Title",
 						"type": "`$STRING`",
+						"short": "The title of the content post",
 					},
 					map[string]any{
 						"name": "topics",
-						"short": "Associated topics (for articles)",
+						"title": "Topics",
 						"type": "`$ARRAY`",
+						"short": "Associated topics (for articles)",
 					},
 					map[string]any{
 						"name": "url",
-						"short": "The URL path to the content post",
+						"title": "Url",
 						"type": "`$STRING`",
+						"short": "The URL path to the content post",
 					},
 				},
 				"name": "post_title",
@@ -318,26 +341,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": "accessibility",
-											"kind": "param",
-											"name": "post_title",
-											"orig": "post_title",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "callback",
-											"orig": "callback",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/{post-title}.json",
@@ -346,18 +349,39 @@ func MakeConfig() map[string]any {
 										"lit": "{post-title}.json",
 									},
 								},
+								"parts": []any{
+									"{post-title}.json",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "post_title",
+											"orig": "post_title",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "accessibility",
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "callback",
+											"orig": "callback",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"callback",
 										"post_title",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"{post-title}.json",
 								},
 							},
 						},

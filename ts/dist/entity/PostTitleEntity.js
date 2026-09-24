@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostTitleEntity = void 0;
 const HealthcareGovContentEntityBase_1 = require("../HealthcareGovContentEntityBase");
-// TODO: needs Entity superclass
 class PostTitleEntity extends HealthcareGovContentEntityBase_1.HealthcareGovContentEntityBase {
     constructor(client, entopts) {
         super(client, entopts);

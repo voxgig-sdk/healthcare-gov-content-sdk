@@ -1,0 +1,121 @@
+# Entity: index
+
+main: kit: entity: index: {
+
+  alias: field: {}
+
+  fields: {
+    bite: {
+      h: "Bite"
+      n: "bite"
+      r: false
+      sh: "A short summary of the post"
+      t: "`$STRING`"
+    }
+    categories: {
+      h: "Categories"
+      n: "categories"
+      r: false
+      sh: "Content types and language code"
+      t: "`$ARRAY`"
+    }
+    esbite: {
+      h: "Esbite"
+      n: "esbite"
+      r: false
+      sh: "The post summary in Spanish"
+      t: "`$STRING`"
+    }
+    estitle: {
+      h: "Estitle"
+      n: "estitle"
+      r: false
+      sh: "Spanish translation of the post's title"
+      t: "`$STRING`"
+    }
+    state: {
+      h: "State"
+      n: "state"
+      r: false
+      sh: "Associated states for the post"
+      t: "`$ARRAY`"
+    }
+    tags: {
+      h: "Tags"
+      n: "tags"
+      r: false
+      sh: "An array of content tags, such as 'promote'"
+      t: "`$ARRAY`"
+    }
+    title: {
+      h: "Title"
+      n: "title"
+      r: false
+      sh: "The post's title"
+      t: "`$STRING`"
+    }
+    topics: {
+      h: "Topics"
+      n: "topics"
+      r: false
+      sh: "Associated topics (for articles)"
+      t: "`$ARRAY`"
+    }
+    url: {
+      h: "Url"
+      n: "url"
+      r: false
+      sh: "URL to the HTML version of the post (add .json for post object)"
+      t: "`$STRING`"
+    }
+  }
+
+  name: "index"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /api/index.json"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "callback"
+                or: "callback"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/api/index.json"
+          q: {
+            exist: [
+              "callback"
+            ]
+          }
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "index.json"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

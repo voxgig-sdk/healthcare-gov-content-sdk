@@ -19,7 +19,6 @@ import type {
   IndexListMatch,
 } from '../HealthcareGovContentTypes'
 
-// TODO: needs Entity superclass
 class IndexEntity extends HealthcareGovContentEntityBase<Index> {
 
   constructor(client: HealthcareGovContentSDK, entopts: any) {

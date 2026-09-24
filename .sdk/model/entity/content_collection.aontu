@@ -1,0 +1,75 @@
+# Entity: content_collection
+
+main: kit: entity: content_collection: {
+
+  alias: field: {}
+
+  fields: {
+    glossary: {
+      h: "Glossary"
+      n: "glossary"
+      r: false
+      t: "`$ARRAY`"
+    }
+  }
+
+  name: "content_collection"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /api/{content-type}.json"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "glossary"
+                k: "param"
+                n: "content_type"
+                or: "content_type"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "callback"
+                or: "callback"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/api/{content-type}.json"
+          q: {
+            exist: [
+              "callback"
+              "content_type"
+            ]
+          }
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "{content-type}.json"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

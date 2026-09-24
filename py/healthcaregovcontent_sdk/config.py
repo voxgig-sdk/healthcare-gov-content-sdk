@@ -118,6 +118,7 @@ def make_config():
         "fields": [
           {
             "name": "glossary",
+            "title": "Glossary",
             "type": "`$ARRAY`",
           },
         ],
@@ -128,26 +129,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": "glossary",
-                      "kind": "param",
-                      "name": "content_type",
-                      "orig": "content_type",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                  "query": [
-                    {
-                      "kind": "query",
-                      "name": "callback",
-                      "orig": "callback",
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/{content-type}.json",
@@ -159,20 +140,41 @@ def make_config():
                     "lit": "{content-type}.json",
                   },
                 ],
+                "parts": [
+                  "api",
+                  "{content-type}.json",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "content_type",
+                      "orig": "content_type",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": "glossary",
+                    },
+                  ],
+                  "query": [
+                    {
+                      "name": "callback",
+                      "orig": "callback",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "callback",
                     "content_type",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "api",
-                  "{content-type}.json",
-                ],
               },
             ],
           },
@@ -185,48 +187,57 @@ def make_config():
         "fields": [
           {
             "name": "bite",
-            "short": "A short summary of the post",
+            "title": "Bite",
             "type": "`$STRING`",
+            "short": "A short summary of the post",
           },
           {
             "name": "categories",
-            "short": "Content types and language code",
+            "title": "Categories",
             "type": "`$ARRAY`",
+            "short": "Content types and language code",
           },
           {
             "name": "esbite",
-            "short": "The post summary in Spanish",
+            "title": "Esbite",
             "type": "`$STRING`",
+            "short": "The post summary in Spanish",
           },
           {
             "name": "estitle",
-            "short": "Spanish translation of the post's title",
+            "title": "Estitle",
             "type": "`$STRING`",
+            "short": "Spanish translation of the post's title",
           },
           {
             "name": "state",
-            "short": "Associated states for the post",
+            "title": "State",
             "type": "`$ARRAY`",
+            "short": "Associated states for the post",
           },
           {
             "name": "tags",
-            "short": "An array of content tags, such as 'promote'",
+            "title": "Tags",
             "type": "`$ARRAY`",
+            "short": "An array of content tags, such as 'promote'",
           },
           {
             "name": "title",
-            "short": "The post's title",
+            "title": "Title",
             "type": "`$STRING`",
+            "short": "The post's title",
           },
           {
             "name": "topics",
-            "short": "Associated topics (for articles)",
+            "title": "Topics",
             "type": "`$ARRAY`",
+            "short": "Associated topics (for articles)",
           },
           {
             "name": "url",
-            "short": "URL to the HTML version of the post (add .json for post object)",
+            "title": "Url",
             "type": "`$STRING`",
+            "short": "URL to the HTML version of the post (add .json for post object)",
           },
         ],
         "name": "index",
@@ -236,16 +247,6 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {
-                  "query": [
-                    {
-                      "kind": "query",
-                      "name": "callback",
-                      "orig": "callback",
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/index.json",
@@ -257,19 +258,30 @@ def make_config():
                     "lit": "index.json",
                   },
                 ],
+                "parts": [
+                  "api",
+                  "index.json",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "query": [
+                    {
+                      "name": "callback",
+                      "orig": "callback",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "callback",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "api",
-                  "index.json",
-                ],
               },
             ],
           },
@@ -282,58 +294,69 @@ def make_config():
         "fields": [
           {
             "name": "author",
-            "short": "The author of the content post",
+            "title": "Author",
             "type": "`$STRING`",
+            "short": "The author of the content post",
           },
           {
             "name": "categories",
-            "short": "Content types and language code",
+            "title": "Categories",
             "type": "`$ARRAY`",
+            "short": "Content types and language code",
           },
           {
             "name": "content",
-            "short": "The HTML body content of the post",
+            "title": "Content",
             "type": "`$STRING`",
+            "short": "The HTML body content of the post",
           },
           {
             "name": "date",
-            "short": "The publication or last modified date",
+            "title": "Date",
             "type": "`$STRING`",
+            "short": "The publication or last modified date",
           },
           {
             "name": "lang",
-            "short": "Language code: 'en' for English, 'es' for Spanish",
+            "title": "Lang",
             "type": "`$STRING`",
+            "short": "Language code: 'en' for English, 'es' for Spanish",
           },
           {
             "name": "layout",
-            "short": "The layout used to display the content",
+            "title": "Layout",
             "type": "`$STRING`",
+            "short": "The layout used to display the content",
           },
           {
             "name": "order",
-            "short": "Contextual position of the content",
+            "title": "Order",
             "type": "`$INTEGER`",
+            "short": "Contextual position of the content",
           },
           {
             "name": "tags",
-            "short": "An array of content tags, such as 'promote'",
+            "title": "Tags",
             "type": "`$ARRAY`",
+            "short": "An array of content tags, such as 'promote'",
           },
           {
             "name": "title",
-            "short": "The title of the content post",
+            "title": "Title",
             "type": "`$STRING`",
+            "short": "The title of the content post",
           },
           {
             "name": "topics",
-            "short": "Associated topics (for articles)",
+            "title": "Topics",
             "type": "`$ARRAY`",
+            "short": "Associated topics (for articles)",
           },
           {
             "name": "url",
-            "short": "The URL path to the content post",
+            "title": "Url",
             "type": "`$STRING`",
+            "short": "The URL path to the content post",
           },
         ],
         "name": "post_title",
@@ -343,26 +366,6 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": "accessibility",
-                      "kind": "param",
-                      "name": "post_title",
-                      "orig": "post_title",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                  "query": [
-                    {
-                      "kind": "query",
-                      "name": "callback",
-                      "orig": "callback",
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/{post-title}.json",
@@ -371,19 +374,40 @@ def make_config():
                     "lit": "{post-title}.json",
                   },
                 ],
+                "parts": [
+                  "{post-title}.json",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "post_title",
+                      "orig": "post_title",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": "accessibility",
+                    },
+                  ],
+                  "query": [
+                    {
+                      "name": "callback",
+                      "orig": "callback",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "callback",
                     "post_title",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "{post-title}.json",
-                ],
               },
             ],
           },

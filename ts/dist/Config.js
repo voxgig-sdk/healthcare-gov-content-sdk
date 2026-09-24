@@ -11,19 +11,12 @@ const FEATURE_CLASS = {
     test: TestFeature_1.TestFeature,
     timeout: TimeoutFeature_1.TimeoutFeature,
 };
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS = {};
 exports.FEATURE_PLUGINS = FEATURE_PLUGINS;
 class Config {
     makeFeature(fn) {
         const fc = FEATURE_CLASS[fn];
         const fi = new fc();
-        // TODO: errors etc
         return fi;
     }
     // False for a feature added at runtime via options.extend (station's
@@ -116,6 +109,7 @@ class Config {
             "fields": [
                 {
                     "name": "glossary",
+                    "title": "Glossary",
                     "type": "`$ARRAY`"
                 }
             ],
@@ -126,26 +120,6 @@ class Config {
                     "name": "load",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "example": "glossary",
-                                        "kind": "param",
-                                        "name": "content_type",
-                                        "orig": "content_type",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    }
-                                ],
-                                "query": [
-                                    {
-                                        "kind": "query",
-                                        "name": "callback",
-                                        "orig": "callback",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/api/{content-type}.json",
@@ -157,20 +131,41 @@ class Config {
                                     "lit": "{content-type}.json"
                                 }
                             ],
+                            "parts": [
+                                "api",
+                                "{content-type}.json"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "content_type",
+                                        "orig": "content_type",
+                                        "type": "`$STRING`",
+                                        "kind": "param",
+                                        "reqd": true,
+                                        "example": "glossary"
+                                    }
+                                ],
+                                "query": [
+                                    {
+                                        "name": "callback",
+                                        "orig": "callback",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "callback",
                                     "content_type"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "api",
-                                "{content-type}.json"
-                            ]
+                            }
                         }
                     ]
                 }
@@ -183,48 +178,57 @@ class Config {
             "fields": [
                 {
                     "name": "bite",
-                    "short": "A short summary of the post",
-                    "type": "`$STRING`"
+                    "title": "Bite",
+                    "type": "`$STRING`",
+                    "short": "A short summary of the post"
                 },
                 {
                     "name": "categories",
-                    "short": "Content types and language code",
-                    "type": "`$ARRAY`"
+                    "title": "Categories",
+                    "type": "`$ARRAY`",
+                    "short": "Content types and language code"
                 },
                 {
                     "name": "esbite",
-                    "short": "The post summary in Spanish",
-                    "type": "`$STRING`"
+                    "title": "Esbite",
+                    "type": "`$STRING`",
+                    "short": "The post summary in Spanish"
                 },
                 {
                     "name": "estitle",
-                    "short": "Spanish translation of the post's title",
-                    "type": "`$STRING`"
+                    "title": "Estitle",
+                    "type": "`$STRING`",
+                    "short": "Spanish translation of the post's title"
                 },
                 {
                     "name": "state",
-                    "short": "Associated states for the post",
-                    "type": "`$ARRAY`"
+                    "title": "State",
+                    "type": "`$ARRAY`",
+                    "short": "Associated states for the post"
                 },
                 {
                     "name": "tags",
-                    "short": "An array of content tags, such as 'promote'",
-                    "type": "`$ARRAY`"
+                    "title": "Tags",
+                    "type": "`$ARRAY`",
+                    "short": "An array of content tags, such as 'promote'"
                 },
                 {
                     "name": "title",
-                    "short": "The post's title",
-                    "type": "`$STRING`"
+                    "title": "Title",
+                    "type": "`$STRING`",
+                    "short": "The post's title"
                 },
                 {
                     "name": "topics",
-                    "short": "Associated topics (for articles)",
-                    "type": "`$ARRAY`"
+                    "title": "Topics",
+                    "type": "`$ARRAY`",
+                    "short": "Associated topics (for articles)"
                 },
                 {
                     "name": "url",
-                    "short": "URL to the HTML version of the post (add .json for post object)",
-                    "type": "`$STRING`"
+                    "title": "Url",
+                    "type": "`$STRING`",
+                    "short": "URL to the HTML version of the post (add .json for post object)"
                 }
             ],
             "name": "index",
@@ -234,16 +238,6 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "kind": "query",
-                                        "name": "callback",
-                                        "orig": "callback",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/api/index.json",
@@ -255,19 +249,30 @@ class Config {
                                     "lit": "index.json"
                                 }
                             ],
-                            "select": {
-                                "exist": [
-                                    "callback"
-                                ]
-                            },
+                            "parts": [
+                                "api",
+                                "index.json"
+                            ],
+                            "rename": {},
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
                             },
-                            "parts": [
-                                "api",
-                                "index.json"
-                            ]
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "callback",
+                                        "orig": "callback",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    }
+                                ]
+                            },
+                            "select": {
+                                "exist": [
+                                    "callback"
+                                ]
+                            }
                         }
                     ]
                 }
@@ -280,58 +285,69 @@ class Config {
             "fields": [
                 {
                     "name": "author",
-                    "short": "The author of the content post",
-                    "type": "`$STRING`"
+                    "title": "Author",
+                    "type": "`$STRING`",
+                    "short": "The author of the content post"
                 },
                 {
                     "name": "categories",
-                    "short": "Content types and language code",
-                    "type": "`$ARRAY`"
+                    "title": "Categories",
+                    "type": "`$ARRAY`",
+                    "short": "Content types and language code"
                 },
                 {
                     "name": "content",
-                    "short": "The HTML body content of the post",
-                    "type": "`$STRING`"
+                    "title": "Content",
+                    "type": "`$STRING`",
+                    "short": "The HTML body content of the post"
                 },
                 {
                     "name": "date",
-                    "short": "The publication or last modified date",
-                    "type": "`$STRING`"
+                    "title": "Date",
+                    "type": "`$STRING`",
+                    "short": "The publication or last modified date"
                 },
                 {
                     "name": "lang",
-                    "short": "Language code: 'en' for English, 'es' for Spanish",
-                    "type": "`$STRING`"
+                    "title": "Lang",
+                    "type": "`$STRING`",
+                    "short": "Language code: 'en' for English, 'es' for Spanish"
                 },
                 {
                     "name": "layout",
-                    "short": "The layout used to display the content",
-                    "type": "`$STRING`"
+                    "title": "Layout",
+                    "type": "`$STRING`",
+                    "short": "The layout used to display the content"
                 },
                 {
                     "name": "order",
-                    "short": "Contextual position of the content",
-                    "type": "`$INTEGER`"
+                    "title": "Order",
+                    "type": "`$INTEGER`",
+                    "short": "Contextual position of the content"
                 },
                 {
                     "name": "tags",
-                    "short": "An array of content tags, such as 'promote'",
-                    "type": "`$ARRAY`"
+                    "title": "Tags",
+                    "type": "`$ARRAY`",
+                    "short": "An array of content tags, such as 'promote'"
                 },
                 {
                     "name": "title",
-                    "short": "The title of the content post",
-                    "type": "`$STRING`"
+                    "title": "Title",
+                    "type": "`$STRING`",
+                    "short": "The title of the content post"
                 },
                 {
                     "name": "topics",
-                    "short": "Associated topics (for articles)",
-                    "type": "`$ARRAY`"
+                    "title": "Topics",
+                    "type": "`$ARRAY`",
+                    "short": "Associated topics (for articles)"
                 },
                 {
                     "name": "url",
-                    "short": "The URL path to the content post",
-                    "type": "`$STRING`"
+                    "title": "Url",
+                    "type": "`$STRING`",
+                    "short": "The URL path to the content post"
                 }
             ],
             "name": "post_title",
@@ -341,26 +357,6 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "example": "accessibility",
-                                        "kind": "param",
-                                        "name": "post_title",
-                                        "orig": "post_title",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    }
-                                ],
-                                "query": [
-                                    {
-                                        "kind": "query",
-                                        "name": "callback",
-                                        "orig": "callback",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/{post-title}.json",
@@ -369,19 +365,40 @@ class Config {
                                     "lit": "{post-title}.json"
                                 }
                             ],
+                            "parts": [
+                                "{post-title}.json"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "post_title",
+                                        "orig": "post_title",
+                                        "type": "`$STRING`",
+                                        "kind": "param",
+                                        "reqd": true,
+                                        "example": "accessibility"
+                                    }
+                                ],
+                                "query": [
+                                    {
+                                        "name": "callback",
+                                        "orig": "callback",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "callback",
                                     "post_title"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "{post-title}.json"
-                            ]
+                            }
                         }
                     ]
                 }

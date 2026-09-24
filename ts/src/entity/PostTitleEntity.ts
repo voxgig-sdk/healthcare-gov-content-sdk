@@ -19,7 +19,6 @@ import type {
   PostTitleListMatch,
 } from '../HealthcareGovContentTypes'
 
-// TODO: needs Entity superclass
 class PostTitleEntity extends HealthcareGovContentEntityBase<PostTitle> {
 
   constructor(client: HealthcareGovContentSDK, entopts: any) {

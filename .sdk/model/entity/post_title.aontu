@@ -1,0 +1,143 @@
+# Entity: post_title
+
+main: kit: entity: post_title: {
+
+  alias: field: {}
+
+  fields: {
+    author: {
+      h: "Author"
+      n: "author"
+      r: false
+      sh: "The author of the content post"
+      t: "`$STRING`"
+    }
+    categories: {
+      h: "Categories"
+      n: "categories"
+      r: false
+      sh: "Content types and language code"
+      t: "`$ARRAY`"
+    }
+    content: {
+      h: "Content"
+      n: "content"
+      r: false
+      sh: "The HTML body content of the post"
+      t: "`$STRING`"
+    }
+    date: {
+      h: "Date"
+      n: "date"
+      r: false
+      sh: "The publication or last modified date"
+      t: "`$STRING`"
+    }
+    lang: {
+      h: "Lang"
+      n: "lang"
+      r: false
+      sh: "Language code: 'en' for English, 'es' for Spanish"
+      t: "`$STRING`"
+    }
+    layout: {
+      h: "Layout"
+      n: "layout"
+      r: false
+      sh: "The layout used to display the content"
+      t: "`$STRING`"
+    }
+    order: {
+      h: "Order"
+      n: "order"
+      r: false
+      sh: "Contextual position of the content"
+      t: "`$INTEGER`"
+    }
+    tags: {
+      h: "Tags"
+      n: "tags"
+      r: false
+      sh: "An array of content tags, such as 'promote'"
+      t: "`$ARRAY`"
+    }
+    title: {
+      h: "Title"
+      n: "title"
+      r: false
+      sh: "The title of the content post"
+      t: "`$STRING`"
+    }
+    topics: {
+      h: "Topics"
+      n: "topics"
+      r: false
+      sh: "Associated topics (for articles)"
+      t: "`$ARRAY`"
+    }
+    url: {
+      h: "Url"
+      n: "url"
+      r: false
+      sh: "The URL path to the content post"
+      t: "`$STRING`"
+    }
+  }
+
+  name: "post_title"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /{post-title}.json"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "accessibility"
+                k: "param"
+                n: "post_title"
+                or: "post_title"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "callback"
+                or: "callback"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/{post-title}.json"
+          q: {
+            exist: [
+              "callback"
+              "post_title"
+            ]
+          }
+          s: [
+            {
+              lit: "{post-title}.json"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}
