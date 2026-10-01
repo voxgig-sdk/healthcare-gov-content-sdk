@@ -101,7 +101,7 @@ main: kit: entity: post_title: {
                 ex: "accessibility"
                 k: "param"
                 n: "post_title"
-                or: "post_title"
+                or: "post-title"
                 r: true
                 t: "`$STRING`"
               }

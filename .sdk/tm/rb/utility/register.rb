@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 HealthcareGovContentUtility.registrar = ->(u) {
   u.clean = HealthcareGovContentUtilities::Clean
+  u.clean_add = HealthcareGovContentUtilities::CleanAdd
+  u.clean_explain = HealthcareGovContentUtilities::CleanExplain
   u.done = HealthcareGovContentUtilities::Done
   u.make_error = HealthcareGovContentUtilities::MakeError
   u.feature_add = HealthcareGovContentUtilities::FeatureAdd

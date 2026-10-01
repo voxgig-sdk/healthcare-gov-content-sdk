@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 HealthcareGovContentUtility::setRegistrar(function (HealthcareGovContentUtility $u): void {
     $u->clean = [HealthcareGovContentClean::class, 'call'];
+    $u->clean_add = [HealthcareGovContentClean::class, 'add'];
+    $u->clean_explain = [HealthcareGovContentDone::class, 'clean_explain'];
     $u->done = [HealthcareGovContentDone::class, 'call'];
     $u->make_error = [HealthcareGovContentMakeError::class, 'call'];
     $u->feature_add = [HealthcareGovContentFeatureAdd::class, 'call'];

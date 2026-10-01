@@ -136,7 +136,7 @@ module HealthcareGovContentConfig
                     "params" => [
                       {
                         "name" => "content_type",
-                        "orig" => "content_type",
+                        "orig" => "content-type",
                         "type" => "`$STRING`",
                         "kind" => "param",
                         "reqd" => true,
@@ -369,7 +369,7 @@ module HealthcareGovContentConfig
                     "params" => [
                       {
                         "name" => "post_title",
-                        "orig" => "post_title",
+                        "orig" => "post-title",
                         "type" => "`$STRING`",
                         "kind" => "param",
                         "reqd" => true,
