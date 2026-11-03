@@ -3,5 +3,23 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "A short summary of the post",
+      "Associated states for the post",
+      "Content types and language code",
+      "Language code: &#39;en&#39; for English, &#39;es&#39; for Spanish",
+      "Production server",
+      "Spanish translation of the post&#39;s title",
+      "Successful response with content collection",
+      "Successful response with content index",
+      "Successful response with content object",
+      "The HTML body content of the post",
+      "The HealthCare.gov Content API provides developers with access to educational content and resources related to the Health Insurance Marketplace in JSON format. This allows applications and websites to integrate and display up-to-date information directly from HealthCare.gov, supporting open data and accessibility for all users.",
+      "The author of the content post",
+      "The post summary in Spanish",
+      "The publication or last modified date"
+    ]
+  }
 }

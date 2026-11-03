@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases)), or
+GitHub release tag (`php/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/tags)), or
 from a clone as a Composer path repository:
 
 ```bash
@@ -56,7 +56,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $posttitles = $client->PostTitle()->list();
+    $contentcollection = $client->ContentCollection()->load(["content_type" => "example"]);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -128,10 +128,10 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = HealthcareGovContentSDK::test();
 
-// list() returns entity instances (throws on error);
+// Entity ops return the ENTITY (throws on error);
 // call data_get() for the mock record.
-$posttitle = $client->PostTitle()->list();
-print_r(array_map(fn($item) => $item->data_get(), $posttitle));
+$contentcollection = $client->ContentCollection()->load(["content_type" => "example"]);
+print_r($contentcollection->data_get());
 ```
 
 ### Use a custom fetch function
@@ -220,8 +220,8 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
-| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
+| `load` | `($reqmatch, $ctrl): mixed` | Load a single entity by match criteria, and return it. |
+| `list` | `(?array $reqmatch = null, $ctrl): mixed` | List entities matching the criteria (call with no argument to list all), one per record. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -231,9 +231,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
-ops, a `list` for `list`) and throw on error. Wrap calls in
-`try`/`catch` to handle failures.
+Entity operations return the entity, and `list` an `array` of entities, one
+per record; an entity's `data_get()` reads its record (an `array`). They
+throw on error, so wrap calls in `try`/`catch` to handle failures.
 
 The `direct()` escape hatch never throws — it returns a result `array`
 you branch on via `$result["ok"]`:
@@ -353,7 +353,7 @@ Create an instance: `$index = $client->Index();`
 #### Example: List
 
 ```php
-// list() returns an array of Index records (throws on error).
+// list() returns an array of Index entities, one per record (throws on error).
 $indexs = $client->Index()->list();
 ```
 
@@ -387,8 +387,8 @@ Create an instance: `$post_title = $client->PostTitle();`
 #### Example: List
 
 ```php
-// list() returns an array of PostTitle records (throws on error).
-$post_titles = $client->PostTitle()->list();
+// list() returns an array of PostTitle entities, one per record (throws on error).
+$post_titles = $client->PostTitle()->list(["post_title" => "example"]);
 ```
 
 ## Features
@@ -549,15 +549,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$posttitle = $client->PostTitle();
-$posttitle->list();
+$contentcollection = $client->ContentCollection();
+$contentcollection->load(["content_type" => "example"]);
 
-// $posttitle->data_get() now returns the posttitle data from the last list
-// $posttitle->match_get() returns the last match criteria
+// $contentcollection->data_get() now returns the contentcollection data from the last load
+// $contentcollection->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

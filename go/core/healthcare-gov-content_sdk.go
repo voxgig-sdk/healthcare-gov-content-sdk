@@ -146,6 +146,14 @@ func (sdk *HealthcareGovContentSDK) Prepare(fetchargs map[string]any) (map[strin
 	if method == "" {
 		method = "GET"
 	}
+	method = strings.ToUpper(method)
+
+	allowMethodVal := vs.GetPath(options, []any{"allow", "method"})
+	if !Allowed(allowMethodVal, method) {
+		allowMethod, _ := allowMethodVal.(string)
+		return nil, ctx.MakeError("spec_method_allow",
+			"Method \""+method+"\" not allowed by SDK option allow.method value: \""+allowMethod+"\"")
+	}
 
 	params := ToMapAny(vs.GetProp(fetchargs, "params"))
 	if params == nil {
@@ -205,8 +213,7 @@ func (sdk *HealthcareGovContentSDK) Direct(fetchargs map[string]any) (map[string
 
 // Is this raw-access op permitted by the SDK's allow.op option?
 func (sdk *HealthcareGovContentSDK) opAllowed(op string) bool {
-	allowOp, _ := vs.GetPath(sdk.options, []any{"allow", "op"}).(string)
-	return strings.Contains(allowOp, op)
+	return Allowed(vs.GetPath(sdk.options, []any{"allow", "op"}), op)
 }
 
 func (sdk *HealthcareGovContentSDK) opDenied(op string) map[string]any {
@@ -278,20 +285,34 @@ func (sdk *HealthcareGovContentSDK) rawRequest(fetchargs map[string]any) (map[st
 		noBody := status == 204 || status == 304 || contentLength == "0"
 
 		var jsonData any
+		var bodyErr error
 		if !noBody {
 			if jf := vs.GetProp(fm, "json"); jf != nil {
 				if f, ok := jf.(func() any); ok {
 					jsonData = f()
 				}
 			}
+			if unreadable, _ := vs.GetProp(fm, "unreadable").(bool); unreadable {
+				var failed error
+				if status < 200 || status >= 300 {
+					failed = ctx.MakeError("request_status",
+						fmt.Sprintf("request: %d: %v", status, vs.GetProp(fm, "statusText")))
+				}
+				bodyErr = UnreadableBody(ctx, status, headers, vs.GetProp(fm, "body"),
+					fetchdef["headers"], failed)
+			}
 		}
 
-		return map[string]any{
-			"ok":      status >= 200 && status < 300,
+		out := map[string]any{
+			"ok":      bodyErr == nil && status >= 200 && status < 300,
 			"status":  status,
 			"headers": headers,
 			"data":    jsonData,
-		}, nil
+		}
+		if bodyErr != nil {
+			out["err"] = sdk.cleanErr(ctx, bodyErr)
+		}
+		return out, nil
 	}
 
 	return map[string]any{"ok": false, "err": ctx.MakeError("direct_invalid", "invalid response type")}, nil
@@ -354,7 +375,7 @@ func (sdk *HealthcareGovContentSDK) Graphql(
 // ContentCollection returns a ContentCollection entity bound to this client.
 // Idiomatic usage: client.ContentCollection(nil).List(nil, nil) or
 // client.ContentCollection(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *HealthcareGovContentSDK) ContentCollection(data map[string]any) HealthcareGovContentEntity {
+func (sdk *HealthcareGovContentSDK) ContentCollection(data map[string]any) HealthcareGovContentEntityBase {
 	return NewContentCollectionEntityFunc(sdk, data)
 }
 
@@ -362,7 +383,7 @@ func (sdk *HealthcareGovContentSDK) ContentCollection(data map[string]any) Healt
 // Index returns a Index entity bound to this client.
 // Idiomatic usage: client.Index(nil).List(nil, nil) or
 // client.Index(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *HealthcareGovContentSDK) Index(data map[string]any) HealthcareGovContentEntity {
+func (sdk *HealthcareGovContentSDK) Index(data map[string]any) HealthcareGovContentEntityBase {
 	return NewIndexEntityFunc(sdk, data)
 }
 
@@ -370,7 +391,7 @@ func (sdk *HealthcareGovContentSDK) Index(data map[string]any) HealthcareGovCont
 // PostTitle returns a PostTitle entity bound to this client.
 // Idiomatic usage: client.PostTitle(nil).List(nil, nil) or
 // client.PostTitle(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *HealthcareGovContentSDK) PostTitle(data map[string]any) HealthcareGovContentEntity {
+func (sdk *HealthcareGovContentSDK) PostTitle(data map[string]any) HealthcareGovContentEntityBase {
 	return NewPostTitleEntityFunc(sdk, data)
 }
 

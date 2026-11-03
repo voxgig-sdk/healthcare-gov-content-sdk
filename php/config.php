@@ -93,6 +93,7 @@ class HealthcareGovContentConfig
           ],
           'optspec' => [
             'clearTimer' => '`$FUNCTION`',
+            'now' => '`$FUNCTION`',
             'setTimer' => '`$FUNCTION`',
           ],
           'strict' => false,
@@ -134,12 +135,12 @@ class HealthcareGovContentConfig
                       'lit' => 'api',
                     ],
                     [
-                      'lit' => '{content-type}.json',
+                      'lit' => '{content_type}.json',
                     ],
                   ],
                   'parts' => [
                     'api',
-                    '{content-type}.json',
+                    '{content_type}.json',
                   ],
                   'rename' => [],
                   'transform' => [
@@ -168,9 +169,12 @@ class HealthcareGovContentConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'callback',
                       'content_type',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -274,10 +278,10 @@ class HealthcareGovContentConfig
                       ],
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'callback',
-                    ],
+                  'select' => [],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -368,11 +372,11 @@ class HealthcareGovContentConfig
                   'orig' => '/{post-title}.json',
                   'segments' => [
                     [
-                      'lit' => '{post-title}.json',
+                      'lit' => '{post_title}.json',
                     ],
                   ],
                   'parts' => [
-                    '{post-title}.json',
+                    '{post_title}.json',
                   ],
                   'rename' => [],
                   'transform' => [
@@ -401,9 +405,12 @@ class HealthcareGovContentConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'callback',
                       'post_title',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],

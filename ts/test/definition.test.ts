@@ -25,8 +25,18 @@ const PLAN: any[] = [
       "callback": "v1"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "callback"
+    ],
+    "queryArgs": [
+      {
+        "name": "callback",
+        "wire": "callback"
+      }
     ],
     "auth": null,
     "status": 200,
@@ -61,8 +71,18 @@ const PLAN: any[] = [
       "callback": "v1"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "callback"
+    ],
+    "queryArgs": [
+      {
+        "name": "callback",
+        "wire": "callback"
+      }
     ],
     "auth": null,
     "status": 200,
@@ -119,8 +139,18 @@ const PLAN: any[] = [
       "callback": "v1"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "callback"
+    ],
+    "queryArgs": [
+      {
+        "name": "callback",
+        "wire": "callback"
+      }
     ],
     "auth": null,
     "status": 200,

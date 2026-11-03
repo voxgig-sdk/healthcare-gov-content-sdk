@@ -12,7 +12,7 @@ It exposes the API as capitalised, semantic **Entities** — e.g. `client:Conten
 
 ## Install
 This package is not yet published to LuaRocks. Install it from the
-GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases)),
+GitHub release tag (`lua/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/tags)),
 or add the source directory to your `LUA_PATH`:
 
 ```bash
@@ -35,10 +35,12 @@ local client = sdk.new()
 
 ### 3. Load a contentcollection
 
+`load` returns the entity; `data_get()` reads its record.
+
 ```lua
 local contentcollection, err = client:ContentCollection():load({ content_type = "example_content_type" })
 if err then error(err) end
-print(contentcollection)
+for k, val in pairs(contentcollection:data_get()) do print(k, val) end
 ```
 
 
@@ -48,7 +50,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local posttitles, err = client:PostTitle():list()
+local contentcollection, err = client:ContentCollection():load({ content_type = "example" })
 if err then error(err) end
 ```
 
@@ -106,8 +108,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:PostTitle():list()
--- result is the returned data; err is set on failure
+local result, err = client:ContentCollection():load({ content_type = "example" })
+-- result is the entity; data_get() reads its mock record; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -195,8 +197,8 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria. |
+| `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria, and return it. |
+| `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria, one per record. |
 | `data_get` | `() -> table` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> table` | Get entity match criteria. |
@@ -206,19 +208,19 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(value, err)`. The `value` is the operation's
-data **directly** — there is no wrapper:
+Entity operations return `(value, err)`. The `value` is the entity
+itself — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `load` | the entity record (a `table`) |
-| `list` | an array (`table`) of entity records |
+| `load` | the entity, whose `data_get()` reads its record (a `table`) |
+| `list` | an array (`table`) of entities, one per record |
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local content_collection, err = client:ContentCollection():load()
+    local content_collection, err = client:ContentCollection():load({ content_type = "example" })
     if err then error(err) end
-    -- content_collection is the loaded record
+    -- content_collection is the loaded entity
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -361,7 +363,7 @@ Create an instance: `local post_title = client:PostTitle(nil)`
 #### Example: List
 
 ```lua
-local post_titles, err = client:PostTitle():list()
+local post_titles, err = client:PostTitle():list({ post_title = "example" })
 ```
 
 ## Features
@@ -522,15 +524,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local posttitle = client:PostTitle()
-posttitle:list()
+local contentcollection = client:ContentCollection()
+contentcollection:load({ content_type = "example" })
 
--- posttitle:data_get() now returns the posttitle data from the last list
--- posttitle:match_get() returns the last match criteria
+-- contentcollection:data_get() now returns the contentcollection data from the last load
+-- contentcollection:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

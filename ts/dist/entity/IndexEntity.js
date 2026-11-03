@@ -80,9 +80,12 @@ class IndexEntity extends HealthcareGovContentEntityBase_1.HealthcareGovContentE
         catch (err) {
             // What a hook throws here must not escape the cleaning below.
             try {
-                fres = featureHook(ctx, 'PreUnexpected');
-                if (fres instanceof Promise) {
-                    await fres;
+                // Once per operation: makeError fires it for its own error.
+                if (!ctx.unexpectedFired) {
+                    fres = featureHook(ctx, 'PreUnexpected');
+                    if (fres instanceof Promise) {
+                        await fres;
+                    }
                 }
             }
             catch (hookerr) {
@@ -94,7 +97,7 @@ class IndexEntity extends HealthcareGovContentEntityBase_1.HealthcareGovContentE
             }
             else {
                 // Off-happy-path (throw disabled): typed as any so the method's
-                // Promise<Index[]> return stays clean under strict null checks.
+                // Promise<IndexEntity[]> return stays clean under strict null checks.
                 return undefined;
             }
         }

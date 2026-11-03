@@ -54,6 +54,14 @@ const utility_1 = require("../../utility");
         const ent = testsdk.ContentCollection();
         (0, node_assert_1.default)(null != ent);
     });
+    (0, node_test_1.test)('validate', async (t) => {
+        if (null == __1.config.feature?.validate) {
+            t.skip('feature not present in this SDK: validate');
+            return;
+        }
+        const client = __1.HealthcareGovContentSDK.test(undefined, { feature: { validate: { active: true } } });
+        await node_assert_1.default.rejects(client.ContentCollection().load({ "content_type": 1 }), (err) => 'validate_failed' === err.code);
+    });
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.HEALTHCARE_GOV_CONTENT_TEST_LIVE;
         for (const op of ['load']) {
@@ -62,18 +70,26 @@ const utility_1 = require("../../utility");
         }
         const setup = basicSetup();
         if (setup.live) {
-            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": { "glossary": { "a": true, "h": "Glossary", "n": "glossary", "r": false, "t": "`$ARRAY`", "key$": "glossary", "index$": 0 } }, "name": "content_collection", "op": { "load": { "input": "data", "name": "load", "points": [{ "a": true, "co": { "id": "GET /api/{content-type}.json", "source": "openapi3", "version": 2 }, "g": { "params": [{ "a": true, "ex": "glossary", "k": "param", "n": "content_type", "or": "content-type", "r": true, "t": "`$STRING`", "index$": 0 }], "query": [{ "a": true, "k": "query", "n": "callback", "or": "callback", "r": false, "t": "`$STRING`", "index$": 0 }] }, "k": "http", "m": "GET", "o": "/api/{content-type}.json", "q": { "exist": ["callback", "content_type"] }, "r": {}, "s": [{ "lit": "api" }, { "lit": "{content-type}.json" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "load" } }, "relations": { "ancestors": [] }, "key$": "content_collection", "name__orig": "content_collection", "Name": "ContentCollection", "name_": "content_collection", "name-": "content-collection", "NAME": "CONTENT_COLLECTION", "index$": 0 }, { "active": true, "entity": "content_collection", "key$": "BasicContentCollectionFlow", "kind": "basic", "name": "BasicContentCollectionFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": { "ref": "content_collection_ref01", "srcdatavar": "content_collection_ref01_data", "suffix": "_dt0" }, "m": { "content_type": "content_type01" }, "o": "load", "s": [], "v": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-content_collection_ref01" } }], "index$": 0 }] }, 'ContentCollection', { "GET /api/{content-type}.json": { "protocol": "http", "parameters": [{ "name": "content-type", "in": "path", "required": true, "description": "The type of content to retrieve", "schema": { "type": "string", "enum": ["articles", "blog", "questions", "glossary", "states", "topics"] }, "example": "glossary", "index$": 0 }, { "name": "callback", "in": "query", "required": false, "description": "JSONP callback function name for cross-domain requests", "schema": { "type": "string" }, "index$": 1 }] } });
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": { "glossary": { "a": true, "h": "Glossary", "n": "glossary", "r": false, "t": "`$ARRAY`", "key$": "glossary", "index$": 0 } }, "name": "content_collection", "op": { "load": { "input": "data", "name": "load", "points": [{ "a": true, "co": { "id": "GET /api/{content-type}.json", "source": "openapi3", "version": 2 }, "g": { "params": [{ "a": true, "ex": "glossary", "k": "param", "n": "content_type", "or": "content-type", "r": true, "t": "`$STRING`", "index$": 0 }], "query": [{ "a": true, "k": "query", "n": "callback", "or": "callback", "r": false, "t": "`$STRING`", "index$": 0 }] }, "k": "http", "m": "GET", "o": "/api/{content-type}.json", "q": { "exist": ["content_type"] }, "r": {}, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "api" }, { "lit": "{content_type}.json" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "load" } }, "relations": { "ancestors": [] }, "key$": "content_collection", "name__orig": "content_collection", "Name": "ContentCollection", "name_": "content_collection", "name-": "content-collection", "NAME": "CONTENT_COLLECTION", "index$": 0 }, { "active": true, "entity": "content_collection", "key$": "BasicContentCollectionFlow", "kind": "basic", "name": "BasicContentCollectionFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": { "ref": "content_collection_ref01", "srcdatavar": "content_collection_ref01_data", "suffix": "_dt0" }, "m": { "content_type": "content_type01" }, "o": "load", "s": [], "v": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-content_collection_ref01" } }], "index$": 0 }] }, 'ContentCollection', { "GET /api/{content-type}.json": { "protocol": "http", "parameters": [{ "name": "content-type", "in": "path", "required": true, "description": "The type of content to retrieve", "schema": { "type": "string", "enum": ["articles", "blog", "questions", "glossary", "states", "topics"] }, "example": "glossary", "index$": 0 }, { "name": "callback", "in": "query", "required": false, "description": "JSONP callback function name for cross-domain requests", "schema": { "type": "string" }, "index$": 1 }] } }, { strict: LIVE_STRICT, t });
         }
         const client = setup.client;
         const struct = setup.struct;
         const isempty = struct.isempty;
         const select = struct.select;
         let content_collection_ref01_data = Object.values(setup.data.existing.content_collection)[0];
-        // LOAD: skipped — no entity id field and load requires path params.
-        // Entity-var is declared here so later flow steps still compile.
+        // LOAD
         const content_collection_ref01_ent = client.ContentCollection();
+        const content_collection_ref01_match_dt0 = {};
+        content_collection_ref01_match_dt0['content_type'] = setup.idmap['content_type'] ?? setup.idmap['content_type01'];
+        const content_collection_ref01_data_dt0 = (await content_collection_ref01_ent.load(content_collection_ref01_match_dt0)).data();
+        (0, node_assert_1.default)(null != content_collection_ref01_data_dt0);
     });
 });
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true;
 function basicSetup(extra) {
     // TODO: fix test def options
     const options = {}; // null

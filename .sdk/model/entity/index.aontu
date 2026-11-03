@@ -94,10 +94,9 @@ main: kit: entity: index: {
           }
           m: "GET"
           o: "/api/index.json"
-          q: {
-            exist: [
-              "callback"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

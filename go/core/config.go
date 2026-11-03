@@ -71,6 +71,7 @@ func MakeConfig() map[string]any {
 				},
 				"optspec": map[string]any{
 					"clearTimer": "`$FUNCTION`",
+					"now": "`$FUNCTION`",
 					"setTimer": "`$FUNCTION`",
 				},
 				"strict": false,
@@ -112,12 +113,12 @@ func MakeConfig() map[string]any {
 										"lit": "api",
 									},
 									map[string]any{
-										"lit": "{content-type}.json",
+										"lit": "{content_type}.json",
 									},
 								},
 								"parts": []any{
 									"api",
-									"{content-type}.json",
+									"{content_type}.json",
 								},
 								"rename": map[string]any{},
 								"transform": map[string]any{
@@ -146,9 +147,12 @@ func MakeConfig() map[string]any {
 								},
 								"select": map[string]any{
 									"exist": []any{
-										"callback",
 										"content_type",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -252,10 +256,10 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"callback",
-									},
+								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -346,11 +350,11 @@ func MakeConfig() map[string]any {
 								"orig": "/{post-title}.json",
 								"segments": []any{
 									map[string]any{
-										"lit": "{post-title}.json",
+										"lit": "{post_title}.json",
 									},
 								},
 								"parts": []any{
-									"{post-title}.json",
+									"{post_title}.json",
 								},
 								"rename": map[string]any{},
 								"transform": map[string]any{
@@ -379,9 +383,12 @@ func MakeConfig() map[string]any {
 								},
 								"select": map[string]any{
 									"exist": []any{
-										"callback",
 										"post_title",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},

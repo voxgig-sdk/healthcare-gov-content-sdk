@@ -67,6 +67,7 @@ local function make_config()
         },
         ["optspec"] = {
           ["clearTimer"] = "`$FUNCTION`",
+          ["now"] = "`$FUNCTION`",
           ["setTimer"] = "`$FUNCTION`",
         },
         ["strict"] = false,
@@ -108,12 +109,12 @@ local function make_config()
                     ["lit"] = "api",
                   },
                   {
-                    ["lit"] = "{content-type}.json",
+                    ["lit"] = "{content_type}.json",
                   },
                 },
                 ["parts"] = {
                   "api",
-                  "{content-type}.json",
+                  "{content_type}.json",
                 },
                 ["rename"] = {},
                 ["transform"] = {
@@ -142,9 +143,12 @@ local function make_config()
                 },
                 ["select"] = {
                   ["exist"] = {
-                    "callback",
                     "content_type",
                   },
+                },
+                ["response"] = {
+                  ["kind"] = "json",
+                  ["media"] = "application/json",
                 },
               },
             },
@@ -248,10 +252,10 @@ local function make_config()
                     },
                   },
                 },
-                ["select"] = {
-                  ["exist"] = {
-                    "callback",
-                  },
+                ["select"] = {},
+                ["response"] = {
+                  ["kind"] = "json",
+                  ["media"] = "application/json",
                 },
               },
             },
@@ -342,11 +346,11 @@ local function make_config()
                 ["orig"] = "/{post-title}.json",
                 ["segments"] = {
                   {
-                    ["lit"] = "{post-title}.json",
+                    ["lit"] = "{post_title}.json",
                   },
                 },
                 ["parts"] = {
-                  "{post-title}.json",
+                  "{post_title}.json",
                 },
                 ["rename"] = {},
                 ["transform"] = {
@@ -375,9 +379,12 @@ local function make_config()
                 },
                 ["select"] = {
                   ["exist"] = {
-                    "callback",
                     "post_title",
                   },
+                },
+                ["response"] = {
+                  ["kind"] = "json",
+                  ["media"] = "application/json",
                 },
               },
             },

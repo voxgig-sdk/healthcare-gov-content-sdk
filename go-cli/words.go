@@ -75,7 +75,7 @@ func runOp(client *sdk.HealthcareGovContentSDK, op string, query *eng.Value, ent
 
 // entityFor dispatches on the lowercase entity name. The generator
 // emits one `case "<name>":` per entity defined in the SDK model.
-func entityFor(client *sdk.HealthcareGovContentSDK, name string) (sdk.HealthcareGovContentEntity, error) {
+func entityFor(client *sdk.HealthcareGovContentSDK, name string) (sdk.HealthcareGovContentEntityBase, error) {
 	switch strings.ToLower(name) {
 	case "content_collection":
 		return client.ContentCollection(nil), nil

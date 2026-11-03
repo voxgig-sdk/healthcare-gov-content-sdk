@@ -13,7 +13,12 @@ type Context = core.Context
 type Utility = core.Utility
 type Feature = core.Feature
 type Entity = core.Entity
-type HealthcareGovContentEntity = core.HealthcareGovContentEntity
+type HealthcareGovContentEntityBase = core.HealthcareGovContentEntityBase
+
+// Deprecated: use HealthcareGovContentEntityBase.
+type HealthcareGovContentEntity = core.HealthcareGovContentEntityBase
+
+type StreamItem = core.StreamItem
 type FetcherFunc = core.FetcherFunc
 type Spec = core.Spec
 type Result = core.Result
@@ -41,13 +46,13 @@ func init() {
 	core.NewTimeoutFeatureFunc = func() core.Feature {
 		return feature.NewTimeoutFeature()
 	}
-	core.NewContentCollectionEntityFunc = func(client *core.HealthcareGovContentSDK, entopts map[string]any) core.HealthcareGovContentEntity {
+	core.NewContentCollectionEntityFunc = func(client *core.HealthcareGovContentSDK, entopts map[string]any) core.HealthcareGovContentEntityBase {
 		return entity.NewContentCollectionEntity(client, entopts)
 	}
-	core.NewIndexEntityFunc = func(client *core.HealthcareGovContentSDK, entopts map[string]any) core.HealthcareGovContentEntity {
+	core.NewIndexEntityFunc = func(client *core.HealthcareGovContentSDK, entopts map[string]any) core.HealthcareGovContentEntityBase {
 		return entity.NewIndexEntity(client, entopts)
 	}
-	core.NewPostTitleEntityFunc = func(client *core.HealthcareGovContentSDK, entopts map[string]any) core.HealthcareGovContentEntity {
+	core.NewPostTitleEntityFunc = func(client *core.HealthcareGovContentSDK, entopts map[string]any) core.HealthcareGovContentEntityBase {
 		return entity.NewPostTitleEntity(client, entopts)
 	}
 }

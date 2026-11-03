@@ -120,13 +120,16 @@ main: kit: entity: post_title: {
           o: "/{post-title}.json"
           q: {
             exist: [
-              "callback"
               "post_title"
             ]
           }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
-              lit: "{post-title}.json"
+              lit: "{post_title}.json"
             }
           ]
           t: {

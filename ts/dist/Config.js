@@ -87,6 +87,7 @@ class Config {
             },
             "optspec": {
                 "clearTimer": "`$FUNCTION`",
+                "now": "`$FUNCTION`",
                 "setTimer": "`$FUNCTION`"
             },
             "strict": false,
@@ -128,12 +129,12 @@ class Config {
                                     "lit": "api"
                                 },
                                 {
-                                    "lit": "{content-type}.json"
+                                    "lit": "{content_type}.json"
                                 }
                             ],
                             "parts": [
                                 "api",
-                                "{content-type}.json"
+                                "{content_type}.json"
                             ],
                             "rename": {},
                             "transform": {
@@ -162,9 +163,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "callback",
                                     "content_type"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -268,10 +272,10 @@ class Config {
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "callback"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -362,11 +366,11 @@ class Config {
                             "orig": "/{post-title}.json",
                             "segments": [
                                 {
-                                    "lit": "{post-title}.json"
+                                    "lit": "{post_title}.json"
                                 }
                             ],
                             "parts": [
-                                "{post-title}.json"
+                                "{post_title}.json"
                             ],
                             "rename": {},
                             "transform": {
@@ -395,9 +399,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "callback",
                                     "post_title"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]

@@ -49,16 +49,19 @@ main: kit: entity: content_collection: {
           o: "/api/{content-type}.json"
           q: {
             exist: [
-              "callback"
               "content_type"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
               lit: "api"
             }
             {
-              lit: "{content-type}.json"
+              lit: "{content_type}.json"
             }
           ]
           t: {

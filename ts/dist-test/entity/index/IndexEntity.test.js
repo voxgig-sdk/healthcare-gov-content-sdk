@@ -54,6 +54,53 @@ const utility_1 = require("../../utility");
         const ent = testsdk.Index();
         (0, node_assert_1.default)(null != ent);
     });
+    class FailHook extends __1.BaseFeature {
+        name = 'failhook';
+        version = '0.0.1';
+        active = true;
+        unexpected = 0;
+        init() { }
+        PreSpec() { throw new Error('index hook failed'); }
+        PreUnexpected() { this.unexpected++; }
+    }
+    (0, node_test_1.test)('stream-error', async () => {
+        const offline = { net: { offline: true } };
+        await node_assert_1.default.rejects(async () => {
+            for await (const _item of __1.HealthcareGovContentSDK.test(offline).Index().stream('list')) { }
+        }, /offline/);
+        for await (const _item of __1.HealthcareGovContentSDK.test(offline).Index()
+            .stream('list', undefined, { ctrl: { throw: false } })) { }
+        if (null != __1.config.feature?.rbac) {
+            const denied = __1.HealthcareGovContentSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } });
+            await node_assert_1.default.rejects(async () => {
+                for await (const _item of denied.Index().stream('list')) { }
+            }, (err) => 'rbac_denied' === err.code);
+        }
+    });
+    (0, node_test_1.test)('stream-ctrl', async () => {
+        const explain = {};
+        const ctrl = { explain };
+        for await (const _item of __1.HealthcareGovContentSDK.test().Index().stream('list', undefined, { ctrl })) { }
+        node_assert_1.default.deepStrictEqual(Object.keys(ctrl), ['explain']);
+        (0, node_assert_1.default)(explain === ctrl.explain && 0 < Object.keys(explain).length);
+    });
+    (0, node_test_1.test)('unexpected', async () => {
+        const hook = new FailHook();
+        const client = new __1.HealthcareGovContentSDK({ feature: { test: { active: true } }, extend: [hook] });
+        await node_assert_1.default.rejects(client.Index().list(), /hook failed/);
+        (0, node_assert_1.default)(0 < hook.unexpected);
+        const fired = hook.unexpected;
+        node_assert_1.default.strictEqual(await client.Index().list(undefined, { throw: false }), undefined);
+        (0, node_assert_1.default)(fired < hook.unexpected);
+    });
+    (0, node_test_1.test)('validate', async (t) => {
+        if (null == __1.config.feature?.validate) {
+            t.skip('feature not present in this SDK: validate');
+            return;
+        }
+        const client = __1.HealthcareGovContentSDK.test(undefined, { feature: { validate: { active: true } } });
+        await node_assert_1.default.rejects(client.Index().list({ "callback": 1 }), (err) => 'validate_failed' === err.code);
+    });
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.HEALTHCARE_GOV_CONTENT_TEST_LIVE;
         for (const op of ['list']) {
@@ -62,7 +109,7 @@ const utility_1 = require("../../utility");
         }
         const setup = basicSetup();
         if (setup.live) {
-            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": { "bite": { "a": true, "h": "Bite", "n": "bite", "r": false, "sh": "A short summary of the post", "t": "`$STRING`", "key$": "bite", "index$": 0 }, "categories": { "a": true, "h": "Categories", "n": "categories", "r": false, "sh": "Content types and language code", "t": "`$ARRAY`", "key$": "categories", "index$": 1 }, "esbite": { "a": true, "h": "Esbite", "n": "esbite", "r": false, "sh": "The post summary in Spanish", "t": "`$STRING`", "key$": "esbite", "index$": 2 }, "estitle": { "a": true, "h": "Estitle", "n": "estitle", "r": false, "sh": "Spanish translation of the post's title", "t": "`$STRING`", "key$": "estitle", "index$": 3 }, "state": { "a": true, "h": "State", "n": "state", "r": false, "sh": "Associated states for the post", "t": "`$ARRAY`", "key$": "state", "index$": 4 }, "tags": { "a": true, "h": "Tags", "n": "tags", "r": false, "sh": "An array of content tags, such as 'promote'", "t": "`$ARRAY`", "key$": "tags", "index$": 5 }, "title": { "a": true, "h": "Title", "n": "title", "r": false, "sh": "The post's title", "t": "`$STRING`", "key$": "title", "index$": 6 }, "topics": { "a": true, "h": "Topics", "n": "topics", "r": false, "sh": "Associated topics (for articles)", "t": "`$ARRAY`", "key$": "topics", "index$": 7 }, "url": { "a": true, "h": "Url", "n": "url", "r": false, "sh": "URL to the HTML version of the post (add .json for post object)", "t": "`$STRING`", "key$": "url", "index$": 8 } }, "name": "index", "op": { "list": { "input": "data", "name": "list", "points": [{ "a": true, "co": { "id": "GET /api/index.json", "source": "openapi3", "version": 2 }, "g": { "query": [{ "a": true, "k": "query", "n": "callback", "or": "callback", "r": false, "t": "`$STRING`", "index$": 0 }] }, "k": "http", "m": "GET", "o": "/api/index.json", "q": { "exist": ["callback"] }, "r": {}, "s": [{ "lit": "api" }, { "lit": "index.json" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "list" } }, "relations": { "ancestors": [] }, "key$": "index", "name__orig": "index", "Name": "Index", "name_": "index", "name-": "index", "NAME": "INDEX", "index$": 1 }, { "active": true, "entity": "index", "key$": "BasicIndexFlow", "kind": "basic", "name": "BasicIndexFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": {}, "m": {}, "o": "list", "s": [], "v": [{ "apply": "ItemExists", "def": { "ref": "index_ref01" } }], "index$": 0 }] }, 'Index', { "GET /api/index.json": { "protocol": "http", "parameters": [{ "name": "callback", "in": "query", "required": false, "description": "JSONP callback function name for cross-domain requests", "schema": { "type": "string" }, "index$": 0 }] } });
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": { "bite": { "a": true, "h": "Bite", "n": "bite", "r": false, "sh": "A short summary of the post", "t": "`$STRING`", "key$": "bite", "index$": 0 }, "categories": { "a": true, "h": "Categories", "n": "categories", "r": false, "sh": "Content types and language code", "t": "`$ARRAY`", "key$": "categories", "index$": 1 }, "esbite": { "a": true, "h": "Esbite", "n": "esbite", "r": false, "sh": "The post summary in Spanish", "t": "`$STRING`", "key$": "esbite", "index$": 2 }, "estitle": { "a": true, "h": "Estitle", "n": "estitle", "r": false, "sh": "Spanish translation of the post's title", "t": "`$STRING`", "key$": "estitle", "index$": 3 }, "state": { "a": true, "h": "State", "n": "state", "r": false, "sh": "Associated states for the post", "t": "`$ARRAY`", "key$": "state", "index$": 4 }, "tags": { "a": true, "h": "Tags", "n": "tags", "r": false, "sh": "An array of content tags, such as 'promote'", "t": "`$ARRAY`", "key$": "tags", "index$": 5 }, "title": { "a": true, "h": "Title", "n": "title", "r": false, "sh": "The post's title", "t": "`$STRING`", "key$": "title", "index$": 6 }, "topics": { "a": true, "h": "Topics", "n": "topics", "r": false, "sh": "Associated topics (for articles)", "t": "`$ARRAY`", "key$": "topics", "index$": 7 }, "url": { "a": true, "h": "Url", "n": "url", "r": false, "sh": "URL to the HTML version of the post (add .json for post object)", "t": "`$STRING`", "key$": "url", "index$": 8 } }, "name": "index", "op": { "list": { "input": "data", "name": "list", "points": [{ "a": true, "co": { "id": "GET /api/index.json", "source": "openapi3", "version": 2 }, "g": { "query": [{ "a": true, "k": "query", "n": "callback", "or": "callback", "r": false, "t": "`$STRING`", "index$": 0 }] }, "k": "http", "m": "GET", "o": "/api/index.json", "q": {}, "r": {}, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "api" }, { "lit": "index.json" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "list" } }, "relations": { "ancestors": [] }, "key$": "index", "name__orig": "index", "Name": "Index", "name_": "index", "name-": "index", "NAME": "INDEX", "index$": 1 }, { "active": true, "entity": "index", "key$": "BasicIndexFlow", "kind": "basic", "name": "BasicIndexFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": {}, "m": {}, "o": "list", "s": [], "v": [{ "apply": "ItemExists", "def": { "ref": "index_ref01" } }], "index$": 0 }] }, 'Index', { "GET /api/index.json": { "protocol": "http", "parameters": [{ "name": "callback", "in": "query", "required": false, "description": "JSONP callback function name for cross-domain requests", "schema": { "type": "string" }, "index$": 0 }] } }, { strict: LIVE_STRICT, t });
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -75,6 +122,11 @@ const utility_1 = require("../../utility");
         const index_ref01_list = (await index_ref01_ent.list(index_ref01_match)).map((e) => e.data());
     });
 });
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true;
 function basicSetup(extra) {
     // TODO: fix test def options
     const options = {}; // null

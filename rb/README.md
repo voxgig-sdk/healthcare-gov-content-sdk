@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/releases)), or
+GitHub release tag (`rb/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/healthcare-gov-content-sdk/tags)), or
 from a clone:
 
 ```bash
@@ -45,7 +45,7 @@ client = HealthcareGovContentSDK.new
 begin
   # load returns the ENTITY — call data_get for the ContentCollection record (raises on error).
   contentcollection = client.ContentCollection.load({ "content_type" => "example_content_type" })
-  puts contentcollection
+  puts contentcollection.data_get
 rescue => err
   warn "load failed: #{err}"
 end
@@ -58,9 +58,9 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  posttitles = client.PostTitle.list()
+  contentcollection = client.ContentCollection.load({ "content_type" => "example" })
 rescue => err
-  warn "list failed: #{err}"
+  warn "load failed: #{err}"
 end
 ```
 
@@ -127,9 +127,9 @@ Create a mock client for unit testing — no server required:
 client = HealthcareGovContentSDK.test
 
 # Entity ops return the ENTITY (raises on error);
-# call data_get for the mock record.
-posttitle = client.PostTitle.list()
-puts posttitle
+# data_get reads its mock record.
+contentcollection = client.ContentCollection.load({ "content_type" => "example" })
+puts contentcollection.data_get
 ```
 
 ### Use a custom fetch function
@@ -215,8 +215,8 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria, and return it. Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all), one per record. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -226,9 +226,10 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the result data directly. On failure they
-raise a `HealthcareGovContentError` (a `StandardError` subclass), so wrap
-calls in `begin`/`rescue` where you need to handle errors.
+Entity operations return the entity, and `list` an `Array` of entities, one
+per record; an entity's `data_get` reads its record. On failure they raise a
+`HealthcareGovContentError` (a `StandardError` subclass), so wrap calls in
+`begin`/`rescue` where you need to handle errors.
 
 The `direct` escape hatch is the exception: it never raises and instead
 returns a result `Hash` with these keys:
@@ -347,8 +348,9 @@ Create an instance: `index = client.Index`
 #### Example: List
 
 ```ruby
-# list returns an Array of Index records (raises on error).
+# list returns an Array of Index entities, one per record (raises on error).
 indexs = client.Index.list
+indexs.each { |item| puts item.data_get }
 ```
 
 
@@ -381,8 +383,9 @@ Create an instance: `post_title = client.PostTitle`
 #### Example: List
 
 ```ruby
-# list returns an Array of PostTitle records (raises on error).
-post_titles = client.PostTitle.list
+# list returns an Array of PostTitle entities, one per record (raises on error).
+post_titles = client.PostTitle.list({ "post_title" => "example" })
+post_titles.each { |item| puts item.data_get }
 ```
 
 ## Features
@@ -543,15 +546,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-posttitle = client.PostTitle
-posttitle.list()
+contentcollection = client.ContentCollection
+contentcollection.load({ "content_type" => "example" })
 
-# posttitle.data_get now returns the posttitle data from the last list
-# posttitle.match_get returns the last match criteria
+# contentcollection.data_get now returns the contentcollection data from the last load
+# contentcollection.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration
